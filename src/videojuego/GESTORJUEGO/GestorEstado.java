@@ -3,7 +3,6 @@ package videojuego.GESTORJUEGO;
 import java.awt.Graphics;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
-import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class GestorEstado {
     //organiza mas el código

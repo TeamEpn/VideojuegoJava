@@ -1,4 +1,4 @@
-package videojuego.GESTORJUEGO.estados;
+package videojuego.GESTORJUEGO;
 
 import videojuego.mapas.MapaBosque;
 import java.awt.Color;
@@ -11,7 +11,7 @@ import interfaz.Lienzo;
 import herramientas.CargadorRecursos;
 import videojuego.GESTORJUEGO.EstadoJuego;
 
-public class EstadoAventura implements EstadoJuego {
+public class EstadoAventura implements EstadoJuego{
     //este estado nos muestra al jugador caminando por mapas
     public Mapa[] mapas;
     public Mapa mapa_actual;

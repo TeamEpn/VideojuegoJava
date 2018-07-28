@@ -15,7 +15,7 @@ public class HojaSprites {
     final private int alto_sprites_pixeles;
 
     private final Sprite[] sprites;
-
+    
     public HojaSprites(final String ruta, final int tam_sprites, final boolean hoja_opaca) {
         //asume los sprites como cuadrados, se extraen los sprites desde una imagen
         final BufferedImage imagen;
@@ -63,6 +63,9 @@ public class HojaSprites {
         sprites = new Sprite[ancho_nsprites * alto_nsprites];
         extraerSpritesDesdeImagen(imagen);
     }
+    
+    
+    
 
     private void extraerSpritesDesdeImagen(final BufferedImage imagen) {
         for (int y = 0; y < alto_nsprites; y++) {

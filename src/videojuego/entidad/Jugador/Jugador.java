@@ -10,8 +10,7 @@ import java.awt.image.BufferedImage;
 import videojuego.entidad.Entidad;
 import videojuego.GestorPrincipal;
 import interfaz.Lienzo;
-import java.util.Random;
-import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import videojuego.GESTORJUEGO.EstadoAventura;
 
 public class Jugador extends Entidad {
 
@@ -23,8 +22,10 @@ public class Jugador extends Entidad {
 
     public Jugador(Lienzo lienzo) {
 
-        super("/imagenes/hojasPersonajes/2.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
-
+        /*super("/imagenes/hojasPersonajes/2.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
+                new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});*/
+        super("/imagenes/hojasPersonajes/aventurero.png", 32,64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
+                new int[]{0,1},new int[]{0,0},new int[]{0,3},new int[]{0,2});
         mana_actual = (mana_maximo = 100);
         interfaz = new HUDJugador(this);
         iniciarThreadsPermanentes();
