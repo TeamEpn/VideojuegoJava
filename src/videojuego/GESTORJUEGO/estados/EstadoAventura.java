@@ -10,6 +10,7 @@ import videojuego.mapas.Mapa;
 import interfaz.Lienzo;
 import herramientas.CargadorRecursos;
 import videojuego.GESTORJUEGO.EstadoJuego;
+import videojuego.mapas.MapaCiudad;
 
 public class EstadoAventura implements EstadoJuego {
     //este estado nos muestra al jugador caminando por mapas
@@ -33,7 +34,7 @@ public class EstadoAventura implements EstadoJuego {
     private void iniciaMapasAventura(){
         //aqui se deben ubicar las rutas exactas (dentro de la carpeta recursos) en donde esta la imagen del mapa
         mapas = new Mapa[3];
-        mapas[0] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador);
+        mapas[0] = new MapaCiudad("Bosque","/imagenes/mapaRafa.png",800,600,jugador);
         
         
         mapa_actual = mapas[0];

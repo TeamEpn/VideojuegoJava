@@ -82,6 +82,8 @@ public abstract class Mapa {
             }
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.EDIFICIO) == 0){
                 g.setColor(Color.blue);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0){
+                g.setColor(Color.magenta);
             }
         
             g.drawRect(r.getRectangle()[0].x, r.getRectangle()[0].y, r.getRectangle()[0].width, r.getRectangle()[0].height);

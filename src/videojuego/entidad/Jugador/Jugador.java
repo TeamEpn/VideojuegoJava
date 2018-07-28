@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import videojuego.entidad.Entidad;
 import videojuego.GestorPrincipal;
 import interfaz.Lienzo;
-import java.util.Random;
+import javax.swing.ImageIcon;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class Jugador extends Entidad {
@@ -20,14 +20,17 @@ public class Jugador extends Entidad {
 
     private HUDJugador interfaz;
     public EstadoAventura estado_aventura;
+    private Pistola pistola;
 
     public Jugador(Lienzo lienzo) {
 
-        super("/imagenes/hojasPersonajes/2.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
+        super("/imagenes/hojasPersonajes/rafa.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
 
         mana_actual = (mana_maximo = 100);
         interfaz = new HUDJugador(this);
         iniciarThreadsPermanentes();
+        pistola = new Pistola(new Balas(3));
+
     }
 
     public int getMana_maximo() {
@@ -36,6 +39,14 @@ public class Jugador extends Entidad {
 
     public int getMana_actual() {
         return mana_actual;
+    }
+
+    public Pistola getPistola() {
+        return pistola;
+    }
+
+    public void setPistola(Pistola pistola) {
+        this.pistola = pistola;
     }
 
     private void iniciarThreadsPermanentes() {
@@ -61,42 +72,36 @@ public class Jugador extends Entidad {
     }
 
     public void mover(Lienzo lienzo) {
-        
+
         Object[] col_dir = null;
         Objeto col = null;
         String direccion = "none";
-        
-        
-        if(mapa.objetos!=null){
+
+        if (mapa.objetos != null) {
             for (int i = 0; i < mapa.objetos.size(); i++) {
                 col_dir = this.verificarColision(mapa.objetos.get(i));
-                if(col_dir[1] != ""){
+                if (col_dir[1] != "") {
                     break;
                 }
             }
         }
-        
-        if(estado_aventura.enemigos!=null && col_dir[1] == ""){
+
+        if (estado_aventura.enemigos != null && col_dir[1] == "") {
             for (int i = 0; i < estado_aventura.enemigos.length; i++) {
                 col_dir = this.verificarColision(estado_aventura.enemigos[i].objeto_ente);
-                
-                if(col_dir[1] != ""){
+
+                if (col_dir[1] != "") {
                     break;
                 }
             }
         }
-            
-        
-        if(col_dir != null){
-            col = (Objeto)col_dir[0];
+
+        if (col_dir != null) {
+            col = (Objeto) col_dir[0];
             direccion = col_dir[1].toString();
         }
-        
-        
-        
-        
+
         //System.out.print(col_dir[1].toString());
-        
         if (lienzo.getTeclado().arriba) {
             if (!(direccion.compareToIgnoreCase("entorno_arriba") == 0)) {
                 sprite_actual = espalda0;
@@ -129,6 +134,12 @@ public class Jugador extends Entidad {
                     this.quitarVida(2);
                 }
             }
+            if (col.getTag().compareToIgnoreCase("absorcion_mana") == 0) {
+
+                if (this.getMana_actual() >= 2) {
+                    this.quitarMana(2);
+                }
+            }
             /*if (col.getTag().compareToIgnoreCase("teleport") == 0) {
                 Random random = new Random(); 
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
@@ -147,10 +158,43 @@ public class Jugador extends Entidad {
                 mana_actual -= 100;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
-
             }
 
         }
+
+        if (lienzo.getTeclado().recargar_arma) {
+            pistola = new Pistola(new Balas(3));
+            interfaz = new HUDJugador(this);
+        }
+
+        if (lienzo.getTeclado().disparar_arma) {
+            pistola.balas.cantidad--;
+
+            if (pistola.balas.getCantidad() >= 0) {
+
+                if (sprite_actual == frente0) {
+                    ImageIcon img = new ImageIcon(getClass().getResource("/imagenes/hojasObjetos/balaAbajo.png"));
+                    new Thread(new HiloDisparoArma(img, lienzo.getGraphics(), this, interfaz, "abajo")).start();
+                }
+
+                if (sprite_actual == espalda0) {
+                    ImageIcon img = new ImageIcon(getClass().getResource("/imagenes/hojasObjetos/balaArriba.png"));
+                    new Thread(new HiloDisparoArma(img, lienzo.getGraphics(), this, interfaz, "arriba")).start();
+                }
+
+                if (sprite_actual == lado_derecho0) {
+                    ImageIcon img = new ImageIcon(getClass().getResource("/imagenes/hojasObjetos/balaDerecha.png"));
+                    new Thread(new HiloDisparoArma(img, lienzo.getGraphics(), this, interfaz, "derecha")).start();
+                }
+
+                if (sprite_actual == lado_izquierdo0) {
+                    ImageIcon img = new ImageIcon(getClass().getResource("/imagenes/hojasObjetos/balaIzquierda.png"));
+                    new Thread(new HiloDisparoArma(img, lienzo.getGraphics(), this, interfaz, "izquierda")).start();
+                }
+
+            }
+        }
+
     }
 
     public void nuevoEstado(Jugador estado) {
@@ -183,6 +227,14 @@ public class Jugador extends Entidad {
             this.vida_actual -= cantidad;
         } else {
             this.vida_actual = 0;
+        }
+    }
+    
+        public void quitarMana(int cantidad) {
+        if (this.mana_actual >= cantidad) {
+            this.mana_actual -= cantidad;
+        } else {
+            this.mana_actual = 0;
         }
     }
 

@@ -16,7 +16,7 @@ public class GestorPrincipal {
     
     private final Jugador jugador;
         
-    private GestorPrincipal(){
+    public GestorPrincipal(){
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO,ALTO);
         

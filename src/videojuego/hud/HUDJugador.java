@@ -4,6 +4,9 @@ package videojuego.hud;
 import videojuego.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import videojuego.GestorPrincipal;
 
 public class HUDJugador {
@@ -16,6 +19,7 @@ public class HUDJugador {
     
     public void dibujar(Graphics g){
         int interfaz_alto = GestorPrincipal.ALTO - 70;
+        
 
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0, interfaz_alto, GestorPrincipal.ANCHO, 70);
@@ -36,6 +40,15 @@ public class HUDJugador {
         g.setColor(Color.blue);
         g.fillRect(50, interfaz_alto + 33, jugador.getMana_actual(), 9);
         
+        //BALAS
+        g.setColor(Color.white);
+        g.drawString("BALAS: ", 200, interfaz_alto + 20);
+        ImageIcon img = new ImageIcon(getClass().getResource("/imagenes/hojasObjetos/bala.png"));
+        int espaciadoX = 0;
+        for (int i = 0; i < jugador.getPistola().getBalas().getCantidad(); i++) {
+            g.drawImage(img.getImage(), 250 + espaciadoX, interfaz_alto + 10, null);
+            espaciadoX = espaciadoX + 60;
+        }
     }
     
     

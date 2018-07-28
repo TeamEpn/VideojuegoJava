@@ -14,6 +14,8 @@ public class Teclado implements KeyListener{
     public boolean correr;
     
     public boolean poder_tiempo;
+    public boolean disparar_arma;
+    public boolean recargar_arma;
     
     public void actualizar(){
         //actualiza si se presiono la tecla o no, con true y false
@@ -26,6 +28,8 @@ public class Teclado implements KeyListener{
         
         
         poder_tiempo = teclas[KeyEvent.VK_R];
+        disparar_arma = teclas[KeyEvent.VK_E];
+        recargar_arma = teclas[KeyEvent.VK_R];
     }
     
     @Override

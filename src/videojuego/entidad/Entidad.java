@@ -60,10 +60,10 @@ public abstract class Entidad {
         posx_inicial = (int) x;
         posy_inicial = (int) y;
 
-        frente0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(0, 0).obtenerImagen();
-        espalda0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(1, 0).obtenerImagen();
-        lado_derecho0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(2, 0).obtenerImagen();
-        lado_izquierdo0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(3, 0).obtenerImagen();
+        frente0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(0, 0).obtenerImagen();
+        espalda0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(1, 0).obtenerImagen();
+        lado_derecho0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(2, 0).obtenerImagen();
+        lado_izquierdo0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(3, 0).obtenerImagen();
 
         sprite_actual = frente0;
 
