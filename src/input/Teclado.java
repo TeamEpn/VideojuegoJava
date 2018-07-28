@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Teclado implements KeyListener{
     
     private final static int N_TECLAS = 256;
-    private final boolean[] teclas = new boolean[N_TECLAS];
+    public static boolean[] teclas = new boolean[N_TECLAS];
     
     public boolean arriba,abajo,izquierda,derecha;
     
@@ -39,12 +39,16 @@ public class Teclado implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        teclas[ke.getKeyCode()] = true; 
+        if(ke.getKeyCode() != KeyEvent.VK_E)
+            teclas[ke.getKeyCode()] = true; 
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        teclas[ke.getKeyCode()] = false;
+        if(ke.getKeyCode() != KeyEvent.VK_E)
+            teclas[ke.getKeyCode()] = false;
+        else
+            teclas[ke.getKeyCode()] = true; 
     }
     
 }

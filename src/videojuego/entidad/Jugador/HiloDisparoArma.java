@@ -36,15 +36,18 @@ public class HiloDisparoArma implements Runnable {
 
     @Override
     public void run() {
-
+        final int delay = 2;
+        final int inicioX = j.getX(), inicioY = j.getY();
+        
+        
         for (int i = 0; i < 600; i++) {
 
             interfaz = new HUDJugador(j);
-            
+
             if (direccion.equals("abajo")) {
                 try {
-                    g.drawImage(img.getImage(), CENTROX, CENTROY + i, null);
-                    Thread.sleep(5);
+                    g.drawImage(img.getImage(), CENTROX - j.getX() + inicioX , CENTROY + i - j.getY() + inicioY, null);
+                    Thread.sleep(delay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -52,8 +55,8 @@ public class HiloDisparoArma implements Runnable {
 
             if (direccion.equals("arriba")) {
                 try {
-                    g.drawImage(img.getImage(), CENTROX, CENTROY - i, null);
-                    Thread.sleep(5);
+                    g.drawImage(img.getImage(), CENTROX - j.getX() + inicioX, CENTROY - i - j.getY() + inicioY, null);
+                    Thread.sleep(delay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -61,8 +64,8 @@ public class HiloDisparoArma implements Runnable {
 
             if (direccion.equals("derecha")) {
                 try {
-                    g.drawImage(img.getImage(), CENTROX + i, CENTROY, null);
-                    Thread.sleep(5);
+                    g.drawImage(img.getImage(), CENTROX + i - j.getX() + inicioX, CENTROY - j.getY() + inicioY, null);
+                    Thread.sleep(delay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -70,8 +73,8 @@ public class HiloDisparoArma implements Runnable {
 
             if (direccion.equals("izquierda")) {
                 try {
-                    g.drawImage(img.getImage(), CENTROX - i, CENTROY, null);
-                    Thread.sleep(5);
+                    g.drawImage(img.getImage(), CENTROX - i - j.getX() + inicioX, CENTROY - j.getY() + inicioY, null);
+                    Thread.sleep(delay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
                 }
