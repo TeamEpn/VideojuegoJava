@@ -1,9 +1,10 @@
 package videojuego.GESTORJUEGO;
 
+import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import videojuego.GESTORJUEGO.estados.EstadoTicTacToe;
 import java.awt.Graphics;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
-import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class GestorEstado {
     //organiza mas el código
@@ -12,8 +13,8 @@ public class GestorEstado {
     //aventura: RPG y combate libre, combate por turnos, menu
     
     
-    private EstadoJuego[] estados;
-    private EstadoJuego estado_actual;
+    private static EstadoJuego[] estados;
+    private static EstadoJuego estado_actual;
     
     public GestorEstado(final Jugador jugador){
         iniciarEstados(jugador);
@@ -21,8 +22,9 @@ public class GestorEstado {
     }
 
     private void iniciarEstados(final Jugador jugador) {
-        estados = new EstadoJuego[1];
+        estados = new EstadoJuego[2];
         estados[0] = new EstadoAventura(jugador);
+        estados[1] = new EstadoTicTacToe(jugador);
         
     }
     
@@ -34,11 +36,11 @@ public class GestorEstado {
         estado_actual.dibujar(g);
     }
     
-    public void cambiarEstado(final int nuevo_estado){
+    public static void cambiarEstado(final int nuevo_estado){
         estado_actual = estados[nuevo_estado];
     }
     
-    public EstadoJuego obtenerEstadoActual(){
+    public static EstadoJuego obtenerEstadoActual(){
         return estado_actual;
     }
 }

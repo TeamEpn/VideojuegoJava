@@ -48,7 +48,7 @@ public abstract class Entidad {
         alto_ente = 0;
     }
 
-    public Entidad(String ruta_imagen, int lado, int centrox, int centroy, String tag) {
+    public Entidad(String ruta_imagen, int lado, int centrox, int centroy, String tag,int[] frente,int[] espalda,int[] lado_izquierdo,int[] lado_derecho) {
 
         ancho_ente = lado / 2;
         alto_ente = lado / 2;
@@ -60,10 +60,39 @@ public abstract class Entidad {
         posx_inicial = (int) x;
         posy_inicial = (int) y;
 
-        frente0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(0, 0).obtenerImagen();
-        espalda0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(1, 0).obtenerImagen();
-        lado_derecho0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(2, 0).obtenerImagen();
-        lado_izquierdo0 = new HojaSprites(ruta_imagen, lado, true).obtenerSprite(3, 0).obtenerImagen();
+
+        frente0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(frente[0], frente[1]).obtenerImagen();
+        espalda0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(espalda[0], espalda[1]).obtenerImagen();
+        lado_derecho0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(lado_derecho[0], lado_derecho[1]).obtenerImagen();
+        lado_izquierdo0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(lado_izquierdo[0], lado_izquierdo[1]).obtenerImagen();
+
+        sprite_actual = frente0;
+
+        generarCollides(centrox,centroy,tag);
+
+        this.vida_maxima = 100;
+        vida_actual = vida_maxima;
+        esta_vivo = true;
+
+    }
+    
+    public Entidad(String ruta_imagen, int ancho,int alto, int centrox, int centroy, String tag,int[] frente,int[] espalda,int[] lado_izquierdo,int[] lado_derecho) {
+
+        ancho_ente = ancho/2;
+        alto_ente = alto/2;
+
+        if (tag.compareToIgnoreCase(Objeto.Tag.JUGADOR) != 0) {
+            this.x = centrox - GestorPrincipal.CENTROX;
+            this.y = centroy - GestorPrincipal.CENTROY;
+        }
+        posx_inicial = (int) x;
+        posy_inicial = (int) y;
+
+        frente0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(frente[0], frente[1]).obtenerImagen();
+        espalda0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(espalda[0], espalda[1]).obtenerImagen();
+        lado_derecho0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(lado_derecho[0], lado_derecho[1]).obtenerImagen();
+        lado_izquierdo0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(lado_izquierdo[0], lado_izquierdo[1]).obtenerImagen();
+
 
         sprite_actual = frente0;
 
@@ -77,9 +106,9 @@ public abstract class Entidad {
     
     
     protected void generarCollides(int centrox,int centroy,String tag){
-        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + ancho_ente + sep, ancho_ente - sep, 1);
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
         Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
-        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + ancho_ente * 2, ancho_ente - sep, 1);
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2, ancho_ente - sep, 1);
         Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
 
         this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,

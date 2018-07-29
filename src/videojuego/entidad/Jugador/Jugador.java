@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class Jugador extends Entidad {
@@ -28,7 +29,12 @@ public class Jugador extends Entidad {
 
     public Jugador(Lienzo lienzo) {
 
+        /*
         super("/imagenes/hojasPersonajes/rafa.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
+        super("/imagenes/hojasPersonajes/2.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
+                new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});*/
+        super("/imagenes/hojasPersonajes/aventurero.png", 32,64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
+                new int[]{0,1},new int[]{0,0},new int[]{0,3},new int[]{0,2});
 
         mana_actual = (mana_maximo = 100);
         interfaz = new HUDJugador(this);
@@ -143,12 +149,19 @@ public class Jugador extends Entidad {
                 if (this.getMana_actual() >= 2) {
                     this.quitarMana(2);
                 }
+                GestorEstado.cambiarEstado(0);
+                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1];
+                this.setMapa(this.estado_aventura.mapa_actual);
             }
             /*if (col.getTag().compareToIgnoreCase("teleport") == 0) {
                 Random random = new Random(); 
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
                 this.setMapa(this.estado_aventura.mapa_actual);
             }*/
+
+            if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
+                GestorEstado.cambiarEstado(1);
+            }
         }
 
     }

@@ -14,8 +14,10 @@ public class Enemigo extends Entidad {
 
     public Enemigo(Jugador jugador) {
         //el centrox para ubicarlo en la esquina superior izquierda
-        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO);
 
+        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100, GestorPrincipal.CENTROY + 100,Objeto.Tag.ENEMIGO,
+                new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});
+       
         this.jugador = jugador;
         this.setMapa(jugador.getMapa());
 

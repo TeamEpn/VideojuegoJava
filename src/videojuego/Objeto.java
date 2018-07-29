@@ -16,6 +16,7 @@ public class Objeto {
         public static final String NATURALEZA = "naturaleza";
         public static final String TELEPORT = "teleport";
         public static final String ABSORCION_MANA = "absorcion_mana";
+        public static final String TICTACTOE = "tictactoe";
     }
 
     
