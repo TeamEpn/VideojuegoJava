@@ -44,7 +44,7 @@ public class HUDJugador {
         g.setColor(Color.white);
         g.drawRect(250, interfaz_alto + 32, 170, 10);
         g.setColor(Color.green);
-        g.fillRect(50, interfaz_alto + 33, jugador.getExpGanada(), 9);
+        g.fillRect(250, interfaz_alto + 33, jugador.getExpGanada(), 9);
         //BALAS
         g.setColor(Color.white);
         g.drawString("BALAS: ", 200, interfaz_alto + 20);
