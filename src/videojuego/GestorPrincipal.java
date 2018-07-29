@@ -5,6 +5,8 @@ import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Ventana;
 import java.applet.AudioClip;
+import sprites.HojaSprites;
+import sprites.Sprite;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {
@@ -24,6 +26,8 @@ public class GestorPrincipal {
     public static Sonido musica_mapa_rafa = new Sonido("\\recursos\\sonidos\\MegaMan.mp3");
     public static Sonido musica_mapa_carlos = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
     public static Sonido musica_mapa_danny = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
+    
+    
     
     
     

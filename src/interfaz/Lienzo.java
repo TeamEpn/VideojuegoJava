@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import input.Teclado;
+import sprites.HojaSprites;
+import sprites.Sprite;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 
@@ -49,6 +51,7 @@ public class Lienzo extends Canvas {
         ge.dibujar(g);
         //this.getMouse().dibujar(g);
         //***********//
+        
         
         
         //Esto le permite dibujar solo entre actualizaciones de pantalla
