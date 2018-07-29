@@ -17,6 +17,8 @@ public class Teclado implements KeyListener{
     public boolean disparar_arma;
     public boolean recargar_arma;
     
+    public boolean cambiarPersonaje;
+    public boolean poderBola;
     public void actualizar(){
         //actualiza si se presiono la tecla o no, con true y false
         arriba = teclas[KeyEvent.VK_W];
@@ -30,6 +32,9 @@ public class Teclado implements KeyListener{
         poder_tiempo = teclas[KeyEvent.VK_R];
         disparar_arma = teclas[KeyEvent.VK_E];
         recargar_arma = teclas[KeyEvent.VK_R];
+        
+        cambiarPersonaje = teclas[KeyEvent.VK_Q];
+        poderBola = teclas[KeyEvent.VK_1];
     }
     
     @Override
@@ -41,11 +46,13 @@ public class Teclado implements KeyListener{
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() != KeyEvent.VK_E)
             teclas[ke.getKeyCode()] = true; 
+        if(ke.getKeyCode() != KeyEvent.VK_1)
+            teclas[ke.getKeyCode()] = true; 
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        if(ke.getKeyCode() != KeyEvent.VK_E)
+        if(ke.getKeyCode() != KeyEvent.VK_1)
             teclas[ke.getKeyCode()] = false;
         else
             teclas[ke.getKeyCode()] = true; 

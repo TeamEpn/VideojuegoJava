@@ -1,4 +1,3 @@
-
 package videojuego.hud;
 
 import videojuego.entidad.Jugador.Jugador;
@@ -10,16 +9,15 @@ import javax.swing.ImageIcon;
 import videojuego.GestorPrincipal;
 
 public class HUDJugador {
-    
+
     private final Jugador jugador;
 
     public HUDJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-    
-    public void dibujar(Graphics g){
+
+    public void dibujar(Graphics g) {
         int interfaz_alto = GestorPrincipal.ALTO - 70;
-        
 
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0, interfaz_alto, GestorPrincipal.ANCHO, 70);
@@ -36,10 +34,17 @@ public class HUDJugador {
         g.setColor(Color.white);
         g.drawString("MANA: ", 10, interfaz_alto + 40);
         g.setColor(Color.green);
-        g.drawRect(50-1, interfaz_alto + 32, jugador.getMana_maximo()+1, 10);
+        g.drawRect(50 - 1, interfaz_alto + 32, jugador.getMana_maximo() + 1, 10);
         g.setColor(Color.blue);
         g.fillRect(50, interfaz_alto + 33, jugador.getMana_actual(), 9);
-        
+
+        //-EXP
+        g.setColor(Color.white);
+        g.drawString("Exp: ", 200, interfaz_alto + 40);
+        g.setColor(Color.white);
+        g.drawRect(250, interfaz_alto + 32, 170, 10);
+        g.setColor(Color.green);
+        g.fillRect(50, interfaz_alto + 33, jugador.getExpGanada(), 9);
         //BALAS
         g.setColor(Color.white);
         g.drawString("BALAS: ", 200, interfaz_alto + 20);
@@ -50,7 +55,5 @@ public class HUDJugador {
             espaciadoX = espaciadoX + 60;
         }
     }
-    
-    
-    
+
 }

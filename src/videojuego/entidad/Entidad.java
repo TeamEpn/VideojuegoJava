@@ -22,10 +22,10 @@ public abstract class Entidad {
     protected int vida_actual;
 
     //posiciones_sprites
-    protected final BufferedImage frente0;
-    protected final BufferedImage espalda0;
-    protected final BufferedImage lado_derecho0;
-    protected final BufferedImage lado_izquierdo0;
+    protected BufferedImage frente0;
+    protected BufferedImage espalda0;
+    protected BufferedImage lado_derecho0;
+    protected BufferedImage lado_izquierdo0;
     public BufferedImage sprite_actual;
 
     //ancho y alto del collide
