@@ -114,12 +114,15 @@ public class EstadoTicTacToe implements EstadoJuego {
                     GestorEstado.cambiarEstado(0);
                     this.game_over = true;
                 } else if (dificultad == 0) {
-                    this.inicializar();
+                    
                     if (estaEnCuadrado(100, 200, 100 + 80, 200 + 30, mx, my)) {
+                        this.inicializar();
                         this.dificultad = 1;
                     } else if (estaEnCuadrado(100, 230, 100 + 80, 230 + 30, mx, my)) {
+                        this.inicializar();
                         this.dificultad = 2;
                     } else if (estaEnCuadrado(100, 260, 100 + 80, 260 + 30, mx, my)) {
+                        this.inicializar();
                         this.dificultad = 3;
                     }
                     if (dificultad != 0) {
@@ -216,7 +219,8 @@ public class EstadoTicTacToe implements EstadoJuego {
             }
         }
 
-        this.dibujarBoton(g, 100, 100, "Volver");
+        if(game_over)
+            this.dibujarBoton(g, 100, 100, "Volver");
 
         this.dibujarBoton(g, 100, 200, "Facil");
         this.dibujarBoton(g, 100, 230, "Medio");
@@ -225,6 +229,10 @@ public class EstadoTicTacToe implements EstadoJuego {
         if (game_over && Arbol.contarCeros(board) != 9) {
             g.setColor(Color.yellow);
             g.drawString("El ganador es: " + ganador, 300, 100);
+        }
+        else{
+            g.setColor(Color.yellow);
+            g.drawString("ELIJA UN MODO DE JUEGO", 300, 100);
         }
 
     }
