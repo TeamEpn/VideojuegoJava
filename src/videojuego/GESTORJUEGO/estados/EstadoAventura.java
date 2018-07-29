@@ -1,4 +1,4 @@
-package videojuego.GESTORJUEGO;
+package videojuego.GESTORJUEGO.estados;
 
 import videojuego.mapas.MapaBosque;
 import java.awt.Color;

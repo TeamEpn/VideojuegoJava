@@ -1,5 +1,6 @@
 package videojuego;
 
+import input.Mouse;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Ventana;
@@ -15,6 +16,7 @@ public class GestorPrincipal {
     private final GestorEstado ge;
     
     private final Jugador jugador;
+    
         
     private GestorPrincipal(){
         esta_funcionando = true;
@@ -24,6 +26,7 @@ public class GestorPrincipal {
         
         ventana = new Ventana(lienzo);        
         ge = new GestorEstado(jugador);
+        
     }
     
     public static void main(String[] args){
@@ -74,6 +77,7 @@ public class GestorPrincipal {
     
     private void actualizar(){
         lienzo.getTeclado().actualizar(); //actualiza las teclas que pulsamos
+        
         ge.actualizar(lienzo);   
     }
     

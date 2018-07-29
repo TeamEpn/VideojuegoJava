@@ -10,7 +10,8 @@ import java.awt.image.BufferedImage;
 import videojuego.entidad.Entidad;
 import videojuego.GestorPrincipal;
 import interfaz.Lienzo;
-import videojuego.GESTORJUEGO.EstadoAventura;
+import videojuego.GESTORJUEGO.GestorEstado;
+import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class Jugador extends Entidad {
 
@@ -130,11 +131,9 @@ public class Jugador extends Entidad {
                     this.quitarVida(2);
                 }
             }
-            /*if (col.getTag().compareToIgnoreCase("teleport") == 0) {
-                Random random = new Random(); 
-                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
-                this.setMapa(this.estado_aventura.mapa_actual);
-            }*/
+            if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
+                GestorEstado.cambiarEstado(1);
+            }
         }
 
     }

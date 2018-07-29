@@ -1,6 +1,7 @@
 
 package interfaz;
 
+import input.Mouse;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,11 +16,15 @@ public class Lienzo extends Canvas {
     
     private final int ancho,alto;
     private final Teclado teclado;
+    private final Mouse mouse;
 
     public Lienzo(final int ancho,final int alto) {
         this.ancho = ancho;
         this.alto = alto;
         teclado = new Teclado();
+        mouse = new Mouse(this);
+        addMouseListener(mouse);
+        
         setIgnoreRepaint(true);
         setPreferredSize(new Dimension(ancho,alto));
         addKeyListener(teclado);
@@ -42,6 +47,7 @@ public class Lienzo extends Canvas {
         
         //*Aqui se dibuja todo el juego*//
         ge.dibujar(g);
+        //this.getMouse().dibujar(g);
         //***********//
         
         
@@ -62,4 +68,11 @@ public class Lienzo extends Canvas {
     public Teclado getTeclado() {
         return teclado;
     }
+
+    public Mouse getMouse() {
+        return mouse;
+    }
+    
+    
+    
 }
