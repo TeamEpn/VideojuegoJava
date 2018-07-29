@@ -175,6 +175,15 @@ public class Jugador extends Entidad {
                 mana_actual -= 100;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
+                
+                if(GestorPrincipal.musica_mapa_danny.player != null)
+                    GestorPrincipal.musica_mapa_danny.detener();
+                if(GestorPrincipal.musica_mapa_rafa.player == null){
+                    System.out.println("Otra musica");
+                    GestorPrincipal.musica_mapa_rafa.reproducir();
+                }
+                else if(GestorPrincipal.musica_mapa_rafa.player != null)
+                    GestorPrincipal.musica_mapa_rafa.detener();
             }
 
         }

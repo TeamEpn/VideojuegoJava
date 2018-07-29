@@ -5,6 +5,8 @@ import videojuego.GESTORJUEGO.estados.EstadoTicTacToe;
 import java.awt.Graphics;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
+import videojuego.GestorPrincipal;
+import videojuego.Sonido;
 
 public class GestorEstado {
     //organiza mas el código
@@ -18,7 +20,8 @@ public class GestorEstado {
     
     public GestorEstado(final Jugador jugador){
         iniciarEstados(jugador);
-        estado_actual = estados[1];
+        estado_actual = estados[0];
+        GestorPrincipal.musica_mapa_danny.reproducir();
     }
 
     private void iniciarEstados(final Jugador jugador) {

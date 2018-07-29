@@ -4,6 +4,7 @@ import input.Mouse;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Ventana;
+import java.applet.AudioClip;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {
@@ -18,6 +19,14 @@ public class GestorPrincipal {
     private final Jugador jugador;
     
         
+    public static Sonido musica_menu = new Sonido("\\recursos\\sonidos\\LIS.mp3");
+    public static Sonido musica_inicio = new Sonido("\\recursos\\sonidos\\SilentHill.mp3");
+    public static Sonido musica_mapa_rafa = new Sonido("\\recursos\\sonidos\\MegaMan.mp3");
+    public static Sonido musica_mapa_carlos = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
+    public static Sonido musica_mapa_danny = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
+    
+    
+    
     public GestorPrincipal(){
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO,ALTO);
@@ -48,6 +57,8 @@ public class GestorPrincipal {
         
         double tiempoTranscurrido;
         double delta = 0;
+        
+        
         
         while(esta_funcionando){
             final long inicioBucle = System.nanoTime();
