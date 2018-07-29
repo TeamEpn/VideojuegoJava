@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import sprites.Animacion;
 import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.Sonido;
@@ -183,9 +184,13 @@ public class Jugador extends Entidad {
                 System.out.println("PODER ACTIVADO");
                 mana_actual -= 100;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
+                
+                GestorPrincipal.sonido_viaje_tiempo.reproducir();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
-                
-                
+                Animacion.esta_activa = true;
+                Animacion.imagen_actual = Animacion.animacion_tiempo.obtenerSprite(0, 0).obtenerImagen();
+                Animacion.x = GestorPrincipal.CENTROX;
+                Animacion.y = GestorPrincipal.CENTROY;
             }
 
         }
@@ -246,6 +251,10 @@ public class Jugador extends Entidad {
         g.drawImage(sprite_actual, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, null);
 
         g.setColor(Color.red);
+        
+        if(Animacion.esta_activa){
+            g.drawImage(Animacion.imagen_actual, Animacion.x, Animacion.y, null);
+        }
 
         for (int i = 0; i < 4; i++) {
             g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,

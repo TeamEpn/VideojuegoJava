@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import input.Teclado;
+import sprites.Animacion;
 import sprites.HojaSprites;
 import sprites.Sprite;
 import videojuego.GESTORJUEGO.GestorEstado;
@@ -33,6 +34,7 @@ public class Lienzo extends Canvas {
         setFocusable(true);
         requestFocus(); //escribimos directamente en la ventana, apunta a la ventana
     }
+    
         
     public void dibujar(final GestorEstado ge){
         BufferStrategy buffer = getBufferStrategy();
@@ -51,6 +53,7 @@ public class Lienzo extends Canvas {
         ge.dibujar(g);
         //this.getMouse().dibujar(g);
         //***********//
+        
         
         
         

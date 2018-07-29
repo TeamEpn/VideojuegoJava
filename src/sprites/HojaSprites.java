@@ -83,4 +83,22 @@ public class HojaSprites {
         return sprites[x + y * ancho_nsprites];
     }
 
+    public int getAncho_nsprites() {
+        return ancho_nsprites;
+    }
+
+    public int getAlto_nsprites() {
+        return alto_nsprites;
+    }
+
+    public int getAncho_sprites_pixeles() {
+        return ancho_sprites_pixeles;
+    }
+
+    public int getAlto_sprites_pixeles() {
+        return alto_sprites_pixeles;
+    }
+    
+    
+
 }

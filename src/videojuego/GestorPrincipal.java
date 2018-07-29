@@ -27,6 +27,7 @@ public class GestorPrincipal {
     public static Sonido musica_mapa_carlos = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
     public static Sonido musica_mapa_danny = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
     
+    public static Sonido sonido_viaje_tiempo = new Sonido("\\recursos\\sonidos\\EkkoTime.mp3");
     
     
     
