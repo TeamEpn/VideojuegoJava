@@ -34,8 +34,8 @@ public class Jugador extends Entidad {
         super("/imagenes/hojasPersonajes/rafa.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
         super("/imagenes/hojasPersonajes/2.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
                 new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});*/
-        super("/imagenes/hojasPersonajes/aventurero.png", 32,64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
-                new int[]{0,1},new int[]{0,0},new int[]{0,3},new int[]{0,2});
+        super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
+                new int[]{0, 1}, new int[]{0, 0}, new int[]{0, 3}, new int[]{0, 2});
 
         mana_actual = (mana_maximo = 100);
         interfaz = new HUDJugador(this);
@@ -96,7 +96,7 @@ public class Jugador extends Entidad {
                 }
             }
         }
-        if(col_dir != null)
+        if (col_dir != null) {
             if (estado_aventura.enemigos != null && col_dir[1] == "") {
                 for (int i = 0; i < estado_aventura.enemigos.length; i++) {
                     col_dir = this.verificarColision(estado_aventura.enemigos[i].objeto_ente);
@@ -106,6 +106,7 @@ public class Jugador extends Entidad {
                     }
                 }
             }
+        }
 
         if (col_dir != null) {
             col = (Objeto) col_dir[0];
@@ -155,30 +156,32 @@ public class Jugador extends Entidad {
                 this.setMapa(this.estado_aventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_ciudad") == 0) {
-                
+
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[0];
                 this.estado_aventura.mapa_actual.musica();
                 this.setMapa(this.estado_aventura.mapa_actual);
             }
-
             if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
-                
+
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1];
                 this.estado_aventura.mapa_actual.musica();
+                this.setMapa(this.estado_aventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("agregar_vida") == 0) {
-
                 if (this.getVida_actual() < this.vida_maxima) {
                     this.agregarVida(20);
+                } else {
+                    this.vida_actual = vida_maxima;
                 }
             }
-            
+
+            /*
             if (col.getTag().compareToIgnoreCase("teleport") == 0) {
                 Random random = new Random(); 
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
                 this.setMapa(this.estado_aventura.mapa_actual);
             }
-
+             */
             if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
                 GestorEstado.cambiarEstado(1);
                 Sonido.cambioMusica(GestorPrincipal.musica_menu);
@@ -196,8 +199,7 @@ public class Jugador extends Entidad {
                 mana_actual -= 100;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
-                
-                
+
             }
 
         }
@@ -208,37 +210,31 @@ public class Jugador extends Entidad {
         }
 
         if (lienzo.getTeclado().disparar_arma) {
-            
+
             pistola.cantidad_balas--;
             Teclado.teclas[KeyEvent.VK_E] = false;
-            
+
             if (pistola.cantidad_balas >= 0) {
                 try {
                     Thread.sleep(20);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 final int inicioX = this.getX(), inicioY = this.getY();
                 if (sprite_actual == frente0) {
                     pistola.bala = new Bala(Bala.bala_abajo, "abajo", inicioX, inicioY);
                     //System.out.println(bal);
-                    new Thread(new HiloDisparoArma(pistola.bala ,this, "abajo")).start();
-                }
-
-                else if (sprite_actual == espalda0) {
-                    pistola.bala  = new Bala(Bala.bala_arriba, "arriba", inicioX, inicioY);
-                    new Thread(new HiloDisparoArma(pistola.bala ,this, "arriba")).start();
-                }
-
-                else if (sprite_actual == lado_derecho0) {
-                    pistola.bala  = new Bala(Bala.bala_derecha, "derecha", inicioX, inicioY);
-                    new Thread(new HiloDisparoArma(pistola.bala ,this, "derecha")).start();
-                }
-
-                else if (sprite_actual == lado_izquierdo0) {
-                    pistola.bala  = new Bala(Bala.bala_izquierda, "izquierda", inicioX, inicioY);
-                    new Thread(new HiloDisparoArma(pistola.bala ,this, "izquierda")).start();
+                    new Thread(new HiloDisparoArma(pistola.bala, this, "abajo")).start();
+                } else if (sprite_actual == espalda0) {
+                    pistola.bala = new Bala(Bala.bala_arriba, "arriba", inicioX, inicioY);
+                    new Thread(new HiloDisparoArma(pistola.bala, this, "arriba")).start();
+                } else if (sprite_actual == lado_derecho0) {
+                    pistola.bala = new Bala(Bala.bala_derecha, "derecha", inicioX, inicioY);
+                    new Thread(new HiloDisparoArma(pistola.bala, this, "derecha")).start();
+                } else if (sprite_actual == lado_izquierdo0) {
+                    pistola.bala = new Bala(Bala.bala_izquierda, "izquierda", inicioX, inicioY);
+                    new Thread(new HiloDisparoArma(pistola.bala, this, "izquierda")).start();
                 }
 
             }
@@ -260,11 +256,11 @@ public class Jugador extends Entidad {
         g.drawImage(sprite_actual, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, null);
 
         g.setColor(Color.red);
-        
-        if(pistola.cantidad_balas>0)
+
+        if (pistola.cantidad_balas > 0) {
             pistola.dibujar(g, this);
-        
-        
+        }
+
         for (int i = 0; i < 4; i++) {
             g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
                     this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
@@ -282,8 +278,8 @@ public class Jugador extends Entidad {
             this.vida_actual = 0;
         }
     }
-    
-        public void quitarMana(int cantidad) {
+
+    public void quitarMana(int cantidad) {
         if (this.mana_actual >= cantidad) {
             this.mana_actual -= cantidad;
         } else {
@@ -306,7 +302,7 @@ public class Jugador extends Entidad {
             this.mana_actual = 100;
         }
     }
-    
+
     public void agregarVida(int cantidad) {
         if (this.vida_actual + cantidad <= this.vida_maxima) {
             this.vida_actual += cantidad;

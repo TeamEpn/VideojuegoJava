@@ -171,7 +171,7 @@ public abstract class Entidad {
     public abstract void dibujar(Graphics g);
 
     
-    protected Object[] verificarColision(Objeto col) {
+    public Object[] verificarColision(Objeto col) {
         //los lados se reciben en sentido horario
         String direccion = "";
         Objeto obj_colision = null;

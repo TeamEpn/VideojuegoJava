@@ -1,19 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/GESTORJUEGO/GestorEstado.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/Sonido.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/entidad/Jugador/Jugador.java</file>
-=======
-            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/entidad/Jugador/Jugador.java</file>
-            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/entidad/Entidad.java</file>
-            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/mapas/MapaCiudad.java</file>
-            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/Objeto.java</file>
-            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/sprites/HojaSprites.java</file>
->>>>>>> ramarafaavance2
-        </group>
-    </open-files>
-</project-private>
+@@ -1,19 +1,17 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+-        <group>
+-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/GESTORJUEGO/GestorEstado.java</file>
+-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/Sonido.java</file>
+-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/entidad/Jugador/Jugador.java</file>
+	 </group>
+-    </open-files>
+-</project-private>
++<project xmlns="http://www.netbeans.org/ns/project/1">
++    <type>org.netbeans.modules.java.j2seproject</type>
++    <configuration>
++        <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
++            <name>ProyectoFinal</name>
++            <source-roots>
++                <root id="src.lib.dir"/>
++                <root id="src.dir"/>
++                <root id="src.recursos.dir"/>
++            </source-roots>
++            <test-roots>
++                <root id="test.src.dir"/>
++            </test-roots>
++        </data>
++    </configuration>
++</project>
+\ No newline at end of file

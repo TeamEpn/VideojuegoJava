@@ -60,13 +60,17 @@ public abstract class Mapa {
     }
     
     //metodos obligatorios
-    protected abstract void generarObjetosColisionables(final int x,final int y,final int ancho_jugador,final int alto_jugador);
+    protected abstract void generarObjetosColisionables(Graphics g,final int x,final int y,final Jugador jugador);
+
     
     public void dibujar(Graphics g){
         
         g.drawImage(this.getSprite(),desfasex  - jugador.getX(),desfasey  - jugador.getY(), null);
         
-        this.generarObjetosColisionables(jugador.getX(), jugador.getY(), jugador.getAncho_jugador(), jugador.getAlto_jugador());
+        this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
+
+        
+        
         
         
         

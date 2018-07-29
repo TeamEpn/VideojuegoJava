@@ -1,5 +1,6 @@
 package videojuego.mapas;
 
+import java.awt.Graphics;
 import videojuego.entidad.Jugador.Jugador;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class MapaBosque extends Mapa{
     
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override
-    public void generarObjetosColisionables(final int x,final int y,final int ancho_jugador,final int alto_jugador) {
+    public void generarObjetosColisionables(Graphics g, final int x,final int y,final Jugador jugador) {
         
 
         objetos = new ArrayList<>();
