@@ -29,7 +29,7 @@ public class HiloPosicionesTiempo implements Runnable {
                 Thread.sleep(1000);
                 //contador++;
                 cola.insertar(jugador);
-                System.out.println(cola);
+                //System.out.println(cola);
             } catch (InterruptedException ex) {
                 Logger.getLogger(HiloPosicionesTiempo.class.getName()).log(Level.SEVERE, null, ex);
             }

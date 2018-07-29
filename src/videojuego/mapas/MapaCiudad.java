@@ -7,7 +7,9 @@ package videojuego.mapas;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import videojuego.GestorPrincipal;
 import videojuego.Objeto;
+import videojuego.Sonido;
 import videojuego.entidad.Jugador.Jugador;
 
 /**
@@ -51,12 +53,17 @@ public class MapaCiudad extends Mapa{
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 148 + desfasey - y, 37, 79),"Arbol y poste 1 izquierda",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(39 + desfasex - x, 303 + desfasey - y, 23, 77),"Poste 2 izquierda",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(159 + desfasex - x, 395 + desfasey - y, 22, 75),"Poste 3 izquierda",Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(252 + desfasex - x, 349 + desfasey - y, 27, 63),"Estatua izquierda",Objeto.Tag.ABSORCION_MANA));
+        objetos.add(new Objeto(new Rectangle(252 + desfasex - x, 349 + desfasey - y, 27, 63),"Estatua izquierda",Objeto.Tag.TELEPORT_BOSQUE));
         objetos.add(new Objeto(new Rectangle(352 + desfasex - x, 395 + desfasey - y, 21, 75),"Poste 4 izquierda",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(472 + desfasex - x, 304 + desfasey - y, 21, 75),"Poste 5 derecha",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(616 + desfasex - x, 304 + desfasey - y, 21, 75),"Poste 6 derecha",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(759 + desfasex - x, 304 + desfasey - y, 21, 75),"Poste 7 derecha",Objeto.Tag.NATURALEZA));
         
            
+    }
+
+    @Override
+    public void musica() {
+        Sonido.cambioMusica(GestorPrincipal.musica_mapa_rafa);    
     }
 }

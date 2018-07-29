@@ -21,7 +21,6 @@ public class GestorEstado {
     public GestorEstado(final Jugador jugador){
         iniciarEstados(jugador);
         estado_actual = estados[0];
-        GestorPrincipal.musica_mapa_danny.reproducir();
     }
 
     private void iniciarEstados(final Jugador jugador) {
@@ -42,6 +41,7 @@ public class GestorEstado {
     public static void cambiarEstado(final int nuevo_estado){
         
         estado_actual = estados[nuevo_estado];
+        
     }
     
     public static EstadoJuego obtenerEstadoActual(){

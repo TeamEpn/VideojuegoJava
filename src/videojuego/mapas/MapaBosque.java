@@ -3,7 +3,9 @@ package videojuego.mapas;
 import videojuego.entidad.Jugador.Jugador;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import videojuego.GestorPrincipal;
 import videojuego.Objeto;
+import videojuego.Sonido;
 
 public class MapaBosque extends Mapa{
     
@@ -50,9 +52,14 @@ public class MapaBosque extends Mapa{
                 
         //Edificios
         objetos.add(new Objeto(new Rectangle(230 + desfasex - x, 125 + desfasey - y, 116, 113),"TiendaCampaña1",Objeto.Tag.EDIFICIO));
-        objetos.add(new Objeto(new Rectangle(271 + desfasex - x, 231 + desfasey - y, 31, 15),"teleport1",Objeto.Tag.TELEPORT));
+        objetos.add(new Objeto(new Rectangle(271 + desfasex - x, 231 + desfasey - y, 31, 15),"teleport1",Objeto.Tag.TELEPORT_CIUDAD));
         
            
+    }
+
+    @Override
+    public void musica() {
+        Sonido.cambioMusica(GestorPrincipal.musica_inicio);
     }
 
 }

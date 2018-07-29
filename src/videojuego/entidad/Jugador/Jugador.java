@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import videojuego.Sonido;
 
 public class Jugador extends Entidad {
 
@@ -153,14 +154,22 @@ public class Jugador extends Entidad {
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1];
                 this.setMapa(this.estado_aventura.mapa_actual);
             }
-            /*if (col.getTag().compareToIgnoreCase("teleport") == 0) {
-                Random random = new Random(); 
-                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
+            if (col.getTag().compareToIgnoreCase("teleport_ciudad") == 0) {
+                
+                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[0];
+                this.estado_aventura.mapa_actual.musica();
                 this.setMapa(this.estado_aventura.mapa_actual);
-            }*/
+            }
+            if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
+                
+                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1];
+                this.estado_aventura.mapa_actual.musica();
+                this.setMapa(this.estado_aventura.mapa_actual);
+            }
 
             if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
                 GestorEstado.cambiarEstado(1);
+                Sonido.cambioMusica(GestorPrincipal.musica_menu);
             }
         }
 
@@ -176,14 +185,7 @@ public class Jugador extends Entidad {
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
                 
-                if(GestorPrincipal.musica_mapa_danny.player != null)
-                    GestorPrincipal.musica_mapa_danny.detener();
-                if(GestorPrincipal.musica_mapa_rafa.player == null){
-                    System.out.println("Otra musica");
-                    GestorPrincipal.musica_mapa_rafa.reproducir();
-                }
-                else if(GestorPrincipal.musica_mapa_rafa.player != null)
-                    GestorPrincipal.musica_mapa_rafa.detener();
+                
             }
 
         }

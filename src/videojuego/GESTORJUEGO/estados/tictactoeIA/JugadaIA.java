@@ -1,8 +1,72 @@
 
 package videojuego.GESTORJUEGO.estados.tictactoeIA;
 
+import java.util.Random;
+
 public class JugadaIA {
 
+    public static int[] jugadaFacil(int[][] board){
+        int[] jugada = new int[2];
+        int[][] espacios = Arbol.obtenerEspaciosDisponibles(board);
+        int[] vector = Arbol.desglosarHorizontalmenteMatriz(Arbol.transponerMatriz(espacios));
+        Random random = new Random();
+        int limite = random.nextInt(Arbol.obtenerPosicionesDisponibles(vector));
+        jugada = Arbol.usarJugadaElegidaEnEspacioDisponible(board, limite);
+        
+        return jugada;
+    }
+    
+    public static int[] jugadaMedia(int[][] board){
+        int row, col;
+        int[] jug = new int[2]; //es la variable que retorna
+
+        //recibimos la matriz actual del juego
+        int[][] matriz_inicial = board;
+        //conversion de la matriz en un vector de 9 elementos, para rellenar las posibles jugadas
+        matriz_inicial = Arbol.transponerMatriz(matriz_inicial);
+
+        int[] vector_matriz_inicial = Arbol.desglosarHorizontalmenteMatriz(matriz_inicial);
+        //jugada nos dice si somos la primera(1), la segunda(2) u otra jugada (0)
+        int jugada = Arbol.obtenerNumeroJugada(vector_matriz_inicial);
+
+        //Es una estrategia complementaria (con jugadas notables).A los arboles de desición con pesos
+        int[] fila_col = Arbol.contraJugadas(board);
+        
+        if (fila_col[0] >= 0 && fila_col[1] >= 0) {
+            System.out.println("CONTRAJUGADA");
+            row = fila_col[0];
+            col = fila_col[1];
+            jug[0] = row;
+            jug[1] = col;
+            return jug;
+        }
+        
+        switch (jugada) {
+        //creamos los siguientes estados, a partir de la matriz actual}
+            
+            case 1:
+                System.out.println("PRIMERA JUGADA");
+                jug = Arbol.primeraJugada();
+                return jug;
+            case 2:
+                System.out.println("SEGUNDA JUGADA");
+                jug = Arbol.segundaJugada(board);
+                return jug;
+            default:
+                break;
+        }
+        
+        int[][] espacios = Arbol.obtenerEspaciosDisponibles(board);
+        int[] vector = Arbol.desglosarHorizontalmenteMatriz(Arbol.transponerMatriz(espacios));
+        Random random = new Random();
+        int limite = random.nextInt(Arbol.obtenerPosicionesDisponibles(vector));
+        jug = Arbol.usarJugadaElegidaEnEspacioDisponible(board, limite);
+        
+        return jug;
+    }
+    
+    
+    
     public static int[] jugadaIA(int[][] board) {
 
         int row, col;
@@ -21,7 +85,7 @@ public class JugadaIA {
         //Es una estrategia complementaria (con jugadas notables).A los arboles de desición con pesos
         int[] fila_col = Arbol.contraJugadas(board);
         
-        if (fila_col[0] > 0 && fila_col[1] > 0) {
+        if (fila_col[0] >= 0 && fila_col[1] >= 0) {
             System.out.println("CONTRAJUGADA");
             row = fila_col[0];
             col = fila_col[1];

@@ -87,6 +87,18 @@ public class Arbol {
         return arreglo;
     }
 
+    public static int obtenerPosicionesDisponibles(int[] vector){
+        
+        int contador_unos = 0;
+        for(int i=0;i<vector.length;i++){
+            if(vector[i] == 1){
+                contador_unos++;
+            }
+        }
+        return contador_unos;
+        
+    }
+    
     public int[] copiarVector(int[] vector_copia){
         int[] vector = new int[9];
         for(int i=0;i<9;i++){
@@ -213,7 +225,7 @@ public class Arbol {
     }
 
     public static int[] contraJugadas(int[][] matriz) {
-        int fila = 0, columna = 0;
+        int fila = -1, columna = -1;
         int[][] matriz1 = {{2, 0, 0}, {0, 1, 0}, {0, 0, 2}};
         int[][] matriz2 = {{1, 2, 1}, {0, 0, 0}, {0, 2, 0}};
         int[][] matriz3 = {{1, 2, 1}, {2, 0, 0}, {0, 0, 0}};

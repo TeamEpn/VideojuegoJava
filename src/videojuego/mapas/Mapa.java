@@ -74,8 +74,11 @@ public abstract class Mapa {
             if(r.getTag().compareToIgnoreCase(Objeto.Tag.NATURALEZA) == 0){
                 g.setColor(Color.green);
             }
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT) == 0){
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_BOSQUE) == 0){
                 g.setColor(Color.yellow);
+            }
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CIUDAD) == 0){
+                g.setColor(Color.magenta);
             }
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
                 g.setColor(Color.red);
@@ -90,4 +93,7 @@ public abstract class Mapa {
           
         }
     }
+    
+    public abstract void musica();
+    
 }

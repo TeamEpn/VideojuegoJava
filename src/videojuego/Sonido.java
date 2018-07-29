@@ -27,10 +27,13 @@ public class Sonido implements Runnable {
     public Player player;
     BufferedInputStream bis;
     String ruta;
+    
+    public static Sonido actual;
 
     public Sonido(String ruta) {
         this.ruta = ruta;
         inicializar();
+        actual = null;
 
     }
 
@@ -44,6 +47,24 @@ public class Sonido implements Runnable {
         }
         new Thread(this).start();
 
+    }
+
+    public static void cambioMusica(Sonido sonido_nuevo) {
+        
+        if(actual == null){
+            sonido_nuevo.reproducir();
+            actual = sonido_nuevo;
+            return;
+        }
+        
+        
+        if (actual.player != null) {
+            actual.detener();
+        }
+        if (sonido_nuevo.player == null) {
+            sonido_nuevo.reproducir();
+            actual = sonido_nuevo;
+        } 
     }
 
     public void detener() {

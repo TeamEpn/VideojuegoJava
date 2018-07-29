@@ -10,6 +10,9 @@ import videojuego.mapas.Mapa;
 import interfaz.Lienzo;
 import herramientas.CargadorRecursos;
 import videojuego.GESTORJUEGO.EstadoJuego;
+import videojuego.GESTORJUEGO.GestorEstado;
+import videojuego.GestorPrincipal;
+import videojuego.Sonido;
 import videojuego.mapas.MapaCiudad;
 
 public class EstadoAventura implements EstadoJuego{
@@ -39,6 +42,9 @@ public class EstadoAventura implements EstadoJuego{
         
         
         mapa_actual = mapas[1];
+        mapa_actual.musica();
+        
+        
     }
     private void dibujarTexto(Graphics g){
         g.setColor(Color.yellow);
