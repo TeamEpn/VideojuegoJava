@@ -43,7 +43,9 @@ public class MapaBosque extends Mapa{
         objetos.add(new Objeto(new Rectangle(766 + desfasex - x,100  + desfasey - y,24 ,28 ),"Tronco2",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(224 + desfasex - x,245  + desfasey - y, 14, 59),"Valla1",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(302 + desfasex - x,235  + desfasey - y,50 ,40 ),"Valla2",Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(273 + desfasex - x,301  + desfasey - y,27 ,27 ),"Fogata1",Objeto.Tag.TICTACTOE));
+        objetos.add(new Objeto(new Rectangle(273 + desfasex - x,301  + desfasey - y,27 ,27 ),"Fogata1",Objeto.Tag.ABSORCION_MANA));
+        
+        objetos.add(new Objeto(new Rectangle(163 + desfasex - x,197  + desfasey - y,32 ,28 ),"TresEnRaya",Objeto.Tag.TICTACTOE));
         
                 
         //Edificios

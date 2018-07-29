@@ -8,61 +8,113 @@ package videojuego.GESTORJUEGO.estados;
 import interfaz.Lienzo;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import videojuego.GESTORJUEGO.EstadoJuego;
 import videojuego.GESTORJUEGO.GestorEstado;
+import videojuego.GESTORJUEGO.estados.tictactoeIA.JugadaIA;
+import videojuego.GESTORJUEGO.estados.tictactoeIA.Arbol;
 import videojuego.entidad.Jugador.Jugador;
 
 public class EstadoTicTacToe implements EstadoJuego {
 
     Jugador jugador;
-    int[][] board = {{1, 0, 0},
-    {0, 1, 2},
-    {2, 0, 2}
-    };
+    boolean game_over;
+    String ganador;
+    int[][] board;
     int x = 250, y = 150, lado = 300;
     int lado_cuadrado = lado / 3;
     int turno = 1;
 
     public EstadoTicTacToe(Jugador jugador) {
         this.jugador = jugador;
+        inicializar();
+        Random random = new Random();
+        turno = random.nextInt(2) + 1;
+        if (turno == 1) {
+            int[] jugada = JugadaIA.jugadaIA(board);
+            this.board[jugada[0]][jugada[1]] = 1;
+            turno = 2;
+        }
+        
     }
 
+    private void inicializar(){
+        board = new int[][]{{0, 0, 0},
+        {0, 0, 0},
+        {0, 0, 0}
+        };
+        this.ganador = "";
+        game_over = false;
+        
+    }
+    
     @Override
     public void actualizar(Lienzo lienzo) {
 
-        if (lienzo.getMouse().isClick_izquierdo()) {
-            try {
-                int mx = lienzo.getMouse().getPosx();
-                int my = lienzo.getMouse().getPosy();
-                int desfase = 10;
-                boolean click_matriz = false;
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        if(estaEnCuadrado(x + (j * lado_cuadrado) + desfase, y + (i * lado_cuadrado) + desfase,
-                                x + (j * lado_cuadrado) + desfase +  lado_cuadrado,y + (i * lado_cuadrado) + desfase +  lado_cuadrado , mx, my))
-                        {
-                            this.board[i][j] = turno;
-                            if(turno == 1) turno = 2; else turno = 1;
-                            click_matriz = true;
-                            break;
-                        }
-                        
-                    }
+        int estado = Arbol.analizarEstado(board);
+        if (Arbol.contarCeros(board) > 0 && estado == 0) {
+            if (turno == 1) {
+                try {
+                    Thread.sleep(100);
+                    int[] jugada = JugadaIA.jugadaIA(board);
+                    this.board[jugada[0]][jugada[1]] = 1;
+                    turno = 2;
+                    System.out.println(jugada[0] + " " + jugada[1]);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(EstadoTicTacToe.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if(!click_matriz){
-                    if(estaEnCuadrado(100,100,100+80,100+30, mx, my))
-                    {
-                        jugador.setX(jugador.getX() - 100);
-                        GestorEstado.cambiarEstado(0);
-                    }
-                }
-                Thread.sleep(250);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(EstadoTicTacToe.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+        } else {
+            game_over = true;
+            switch (estado) {
+                case 1:
+                    ganador = "MAQUINA";
+                    break;
+                case 2:
+                    ganador = "NICKNAME AQUI :V";
+                    break;
+                default:
+                    ganador = "EMPATE";
+                    break;
+            }
+        }
+
+        if (lienzo.getMouse().isClick_izquierdo()) {
+
+            int mx = lienzo.getMouse().getPosx();
+            int my = lienzo.getMouse().getPosy();
+
+            if (game_over) {
+                if (estaEnCuadrado(100, 100, 100 + 80, 100 + 30, mx, my)) {
+                    jugador.setX(jugador.getX() - 100);
+                    this.inicializar();
+                    GestorEstado.cambiarEstado(0);
+                }
+            }else if (turno == 2) {
+                try {
+
+                    int desfase = 10;
+                    boolean click_matriz = false;
+                    for (int i = 0; i < 3; i++) {
+                        for (int j = 0; j < 3; j++) {
+                            if (estaEnCuadrado(x + (j * lado_cuadrado) + desfase, y + (i * lado_cuadrado) + desfase,
+                                    x + (j * lado_cuadrado) + desfase + lado_cuadrado, y + (i * lado_cuadrado) + desfase + lado_cuadrado, mx, my)) {
+                                this.board[i][j] = 2;
+                                turno = 1;
+                                click_matriz = true;
+                                break;
+                            }
+
+                        }
+                    }
+                    Thread.sleep(250);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(EstadoTicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
 
     }
@@ -76,19 +128,19 @@ public class EstadoTicTacToe implements EstadoJuego {
 
         return dentro;
     }
-    
-    public void dibujarBoton(Graphics g,int x,int y, String texto){
-        
+
+    public void dibujarBoton(Graphics g, int x, int y, String texto) {
+
         int ancho = 80, alto = 30;
         g.setColor(Color.darkGray);
         g.fillRect(x, y, ancho, alto);
-        
+
         g.setColor(Color.gray);
-        g.fillRect(x+5, y+5, ancho-10, alto-10);
-        
+        g.fillRect(x + 5, y + 5, ancho - 10, alto - 10);
+
         g.setColor(Color.white);
-        g.drawString(texto, x+ancho/3, y+alto/2);
-        
+        g.drawString(texto, x + ancho / 3, y + alto / 2);
+
     }
 
     @Override
@@ -120,9 +172,13 @@ public class EstadoTicTacToe implements EstadoJuego {
                 }
             }
         }
-        
-        
+
         this.dibujarBoton(g, 100, 100, "Volver");
+
+        if (game_over) {
+            g.setColor(Color.yellow);
+            g.drawString("El ganador es: " + ganador, 300, 500);
+        }
 
     }
 

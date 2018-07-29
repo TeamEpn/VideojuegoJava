@@ -18,7 +18,7 @@ public class GestorEstado {
     
     public GestorEstado(final Jugador jugador){
         iniciarEstados(jugador);
-        estado_actual = estados[0];
+        estado_actual = estados[1];
     }
 
     private void iniciarEstados(final Jugador jugador) {
@@ -37,6 +37,7 @@ public class GestorEstado {
     }
     
     public static void cambiarEstado(final int nuevo_estado){
+        
         estado_actual = estados[nuevo_estado];
     }
     

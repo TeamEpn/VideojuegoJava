@@ -38,7 +38,7 @@ public class EstadoAventura implements EstadoJuego{
         mapas[1] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador);
         
         
-        mapa_actual = mapas[0];
+        mapa_actual = mapas[1];
     }
     private void dibujarTexto(Graphics g){
         g.setColor(Color.yellow);
