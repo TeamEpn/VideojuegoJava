@@ -1,13 +1,13 @@
 
 package videojuego.mapas;
 
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import videojuego.GestorPrincipal;
-import videojuego.Objeto;
+import videojuego.objetos.Objeto;
 import sprites.HojaSprites;
 
 public abstract class Mapa {
@@ -82,7 +82,10 @@ public abstract class Mapa {
                 g.setColor(Color.yellow);
             }
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CIUDAD) == 0){
-                g.setColor(Color.magenta);
+                g.setColor(Color.yellow);
+            }
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CASA) == 0){
+                g.setColor(Color.yellow);
             }
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
                 g.setColor(Color.red);

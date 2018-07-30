@@ -1,12 +1,13 @@
 package videojuego.hud;
 
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import videojuego.GestorPrincipal;
+import videojuego.objetos.armas.Bala;
 
 public class HUDJugador {
     
@@ -50,12 +51,11 @@ public class HUDJugador {
         //BALAS
         g.setColor(Color.white);
         g.drawString("BALAS: ", 200, interfaz_alto + 20);
-        ImageIcon img = new ImageIcon(getClass().getResource("/imagenes/hojasObjetos/bala.png"));
         int espaciadoX = 0;
 
         for (int i = 0; i < jugador.getPistola().cantidad_balas; i++) {
-            g.drawImage(img.getImage(), 250 + espaciadoX, interfaz_alto + 10, null);
-            espaciadoX = espaciadoX + 60;
+            g.drawImage(Bala.bala_arriba, 250 + espaciadoX, interfaz_alto, null);
+            espaciadoX = espaciadoX + 10;
         }
         
         //DINERO

@@ -1,31 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package videojuego.mapas;
 
-
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import videojuego.GestorPrincipal;
-import videojuego.Objeto;
-import videojuego.Sonido;
-import videojuego.entidad.Jugador.Jugador;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import sprites.HojaSprites;
 import videojuego.GestorPrincipal;
-import videojuego.Objeto;
-import videojuego.Sonido;
-import videojuego.entidad.Jugador.Jugador;
-import videojuego.entidad.Jugador.Moneda;
-import videojuego.entidad.Jugador.ObjetoCurativo;
+import videojuego.objetos.Objeto;
+import interfaz.Sonido;
+import videojuego.objetos.entidad.Jugador.Jugador;
+import videojuego.objetos.recolectables.Moneda;
+import videojuego.objetos.recolectables.ObjetoCurativo;
 
 
 public class MapaCiudad extends Mapa {
@@ -81,6 +69,9 @@ public class MapaCiudad extends Mapa {
         //ARBOLES, FLORES Y ESTATUAS
         objetos.add(new Objeto(new Rectangle(152 + desfasex - x, 470 + desfasey - y, 80, 130), "Arbol y muro Izquierda", Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(300 + desfasex - x, 471 + desfasey - y, 81, 129), "Arbol y muro Derecha", Objeto.Tag.NATURALEZA));
+        
+        objetos.add(new Objeto(new Rectangle(234 + desfasex - x, 571 + desfasey - y, 65, 27), "Puerta Zelda", Objeto.Tag.TELEPORT_CASA));
+        
         objetos.add(new Objeto(new Rectangle(661 + desfasex - x, 42 + desfasey - y, 25, 124), "Flores iglesia izquierda", Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(755 + desfasex - x, 42 + desfasey - y, 29, 123), "Flores iglesia derecha", Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 148 + desfasey - y, 37, 79), "Arbol y poste 1 izquierda", Objeto.Tag.NATURALEZA));
@@ -213,7 +204,7 @@ public class MapaCiudad extends Mapa {
 
     @Override
     public void musica() {
-        Sonido.cambioMusica(GestorPrincipal.musica_mapa_rafa);
+        Sonido.cambioMusica(Sonido.musica_mapa_rafa);
 
     }
 }

@@ -3,10 +3,10 @@ package videojuego.GESTORJUEGO;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GESTORJUEGO.estados.EstadoTicTacToe;
 import java.awt.Graphics;
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import videojuego.GestorPrincipal;
-import videojuego.Sonido;
+import interfaz.Sonido;
 
 public class GestorEstado {
     //organiza mas el código

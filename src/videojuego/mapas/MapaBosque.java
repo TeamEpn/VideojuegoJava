@@ -1,26 +1,17 @@
 package videojuego.mapas;
 
-
-import videojuego.entidad.Jugador.Jugador;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import videojuego.Objeto;
 import java.awt.Graphics;
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprites.HojaSprites;
-import videojuego.GestorPrincipal;
-import videojuego.Objeto;
-import videojuego.Sonido;
-import videojuego.entidad.Jugador.Moneda;
-import videojuego.entidad.Jugador.ObjetoCurativo;
-import videojuego.GestorPrincipal;
-import videojuego.Objeto;
-import videojuego.Sonido;
+import videojuego.objetos.recolectables.Moneda;
+import videojuego.objetos.recolectables.ObjetoCurativo;
+import videojuego.objetos.Objeto;
+import interfaz.Sonido;
 
 public class MapaBosque extends Mapa{
     
@@ -221,7 +212,7 @@ public class MapaBosque extends Mapa{
 
     @Override
     public void musica() {
-        Sonido.cambioMusica(GestorPrincipal.musica_inicio);
+        Sonido.cambioMusica(Sonido.musica_inicio);
     }
 
 }

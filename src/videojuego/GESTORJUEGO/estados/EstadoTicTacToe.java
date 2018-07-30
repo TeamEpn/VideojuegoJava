@@ -1,22 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package videojuego.GESTORJUEGO.estados;
 
 import interfaz.Lienzo;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sprites.HojaSprites;
-import videojuego.GESTORJUEGO.EstadoJuego;
-import videojuego.GESTORJUEGO.GestorEstado;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -27,9 +12,8 @@ import videojuego.GESTORJUEGO.EstadoJuego;
 import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.tictactoeIA.JugadaIA;
 import videojuego.GESTORJUEGO.estados.tictactoeIA.Arbol;
-import videojuego.GestorPrincipal;
-import videojuego.Sonido;
-import videojuego.entidad.Jugador.Jugador;
+import interfaz.Sonido;
+import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class EstadoTicTacToe implements EstadoJuego {
 
@@ -70,7 +54,7 @@ public class EstadoTicTacToe implements EstadoJuego {
 
     }
 
-    public void jugadaIA() {
+    private void jugadaIA() {
         if (turno == 1 && dificultad != 0) {
             int[] jugada = new int[2];
             switch (dificultad) {
@@ -123,7 +107,7 @@ public class EstadoTicTacToe implements EstadoJuego {
                 if (estaEnCuadrado(100, 100, 100 + 80, 100 + 30, mx, my)) {
                     jugador.setX(jugador.getX() - 100);
                     this.inicializar();
-                    Sonido.cambioMusica(GestorPrincipal.musica_inicio);
+                    Sonido.cambioMusica(Sonido.musica_inicio);
                     GestorEstado.cambiarEstado(0);
                     this.game_over = true;
                 } else if (dificultad == 0) {

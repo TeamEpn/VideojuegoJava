@@ -1,6 +1,6 @@
 package videojuego;
 
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Ventana;
 import java.applet.AudioClip;
@@ -19,15 +19,6 @@ public class GestorPrincipal {
     private final GestorEstado ge;
     
     private final Jugador jugador;
-    
-  
-    public static Sonido musica_menu = new Sonido("\\recursos\\sonidos\\LIS.mp3");
-    public static Sonido musica_inicio = new Sonido("\\recursos\\sonidos\\SilentHill.mp3");
-    public static Sonido musica_mapa_rafa = new Sonido("\\recursos\\sonidos\\MegaMan.mp3");
-    public static Sonido musica_mapa_carlos = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
-    public static Sonido musica_mapa_danny = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
-    
-    public static Sonido sonido_viaje_tiempo = new Sonido("\\recursos\\sonidos\\EkkoTime.mp3");
     
     public GestorPrincipal(){
         esta_funcionando = true;

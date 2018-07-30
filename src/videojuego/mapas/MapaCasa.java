@@ -1,10 +1,11 @@
 package videojuego.mapas;
 
+import interfaz.Sonido;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import videojuego.Objeto;
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.Objeto;
+import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class MapaCasa extends Mapa{
     
@@ -22,6 +23,10 @@ public class MapaCasa extends Mapa{
         //CASA
         
         objetos.add(new Objeto(new Rectangle(282 + desfasex - x, 46 + desfasey - y, 283, 185),"Casa 1 centro",Objeto.Tag.EDIFICIO));
+        
+        
+        //teleport
+        objetos.add(new Objeto(new Rectangle(760 + desfasex - x, 277 + desfasey - y, 30, 60),"Teleport ciudad",Objeto.Tag.TELEPORT_CIUDAD));
                 
                 
         //Arboles, rocas y acantilados
@@ -48,6 +53,6 @@ public class MapaCasa extends Mapa{
 
     @Override
     public void musica() {
-        
+        Sonido.cambioMusica(Sonido.musica_mapa_carlos);
     }
 }

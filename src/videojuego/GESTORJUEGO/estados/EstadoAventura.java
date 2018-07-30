@@ -3,17 +3,14 @@ package videojuego.GESTORJUEGO.estados;
 import videojuego.mapas.MapaBosque;
 import java.awt.Color;
 import java.awt.Graphics;
-import videojuego.entidad.Jugador.Jugador;
+import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Font;
-import videojuego.entidad.Enemigo.Enemigo;
+import videojuego.objetos.entidad.Enemigo.Enemigo;
 import videojuego.mapas.Mapa;
 import interfaz.Lienzo;
 import herramientas.CargadorRecursos;
 import videojuego.GESTORJUEGO.EstadoJuego;
 import videojuego.mapas.MapaCasa;
-import videojuego.GESTORJUEGO.GestorEstado;
-import videojuego.GestorPrincipal;
-import videojuego.Sonido;
 import videojuego.mapas.MapaCiudad;
 
 public class EstadoAventura implements EstadoJuego{
