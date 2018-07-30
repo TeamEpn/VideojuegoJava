@@ -19,6 +19,7 @@ public class Objeto {
         public static final String ABSORCION_MANA = "absorcion_mana";
         public static final String TICTACTOE = "tictactoe";
         public static final String AGREGAR_VIDA = "agregar_vida";
+        public static final String AGREGAR_DINERO = "gregar_dinero";
 
     }
 

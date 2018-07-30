@@ -27,7 +27,7 @@ public class Teclado implements KeyListener{
         correr = teclas[KeyEvent.VK_SHIFT];
         
         
-        poder_tiempo = teclas[KeyEvent.VK_R];
+        poder_tiempo = teclas[KeyEvent.VK_T];
         disparar_arma = teclas[KeyEvent.VK_E];
         recargar_arma = teclas[KeyEvent.VK_R];
     }

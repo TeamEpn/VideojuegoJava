@@ -49,6 +49,10 @@ public class HUDJugador {
             g.drawImage(img.getImage(), 250 + espaciadoX, interfaz_alto + 10, null);
             espaciadoX = espaciadoX + 60;
         }
+        
+        //DINERO
+        g.drawString("DINERO: ", 200, interfaz_alto + 60);
+        g.drawString(jugador.getDinero()+"", 260, interfaz_alto + 60);
     }
     
     

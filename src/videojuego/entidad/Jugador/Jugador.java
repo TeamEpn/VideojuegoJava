@@ -22,7 +22,7 @@ import videojuego.Sonido;
 public class Jugador extends Entidad {
 
     private final int mana_maximo;
-    private int mana_actual;
+    private int mana_actual, dinero;
 
     private HUDJugador interfaz;
     public EstadoAventura estado_aventura;
@@ -41,6 +41,7 @@ public class Jugador extends Entidad {
         interfaz = new HUDJugador(this);
         iniciarThreadsPermanentes();
         pistola = new Pistola(3);
+        dinero = 0;
 
     }
 
@@ -58,6 +59,10 @@ public class Jugador extends Entidad {
 
     public void setPistola(Pistola pistola) {
         this.pistola = pistola;
+    }
+
+    public int getDinero() {
+        return dinero;
     }
 
     private void iniciarThreadsPermanentes() {
@@ -173,6 +178,9 @@ public class Jugador extends Entidad {
                 } else {
                     this.vida_actual = vida_maxima;
                 }
+            }
+            if (col.getTag().compareToIgnoreCase("agregar_dinero") == 0) {
+                this.agregarDinero(10);
             }
 
             /*
@@ -309,6 +317,9 @@ public class Jugador extends Entidad {
         } else {
             this.vida_actual = 100;
         }
+    }
+    public void agregarDinero(int cantidad) {
+        dinero = dinero + cantidad;
     }
 
 }

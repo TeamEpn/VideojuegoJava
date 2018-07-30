@@ -57,19 +57,16 @@ public class ObjetoCurativo {
 
     public void dibujar(Graphics g, int posX, int posY, int desfasex, int desfasey, Jugador jugador) {
         if (colision == false) {
-            if (mapa.getNombre().equals("Ciudad")) {
-                g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 32, 32, null);
-                rectangulo = new Objeto(new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 32, 32), id, Objeto.Tag.AGREGAR_VIDA);
-                mapa.objetos.add(rectangulo);
-            }
-        } else{
+            g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 32, 32, null);
+            rectangulo = new Objeto(new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 32, 32), id, Objeto.Tag.AGREGAR_VIDA);
+            mapa.objetos.add(rectangulo);
+        } else {
             mapa.objetos.remove(rectangulo);
-            if(contador == 0){
+            if (contador == 0) {
                 jugador.agregarVida(20);
-                contador ++;
+                contador++;
             }
         }
-        
 
     }
 
