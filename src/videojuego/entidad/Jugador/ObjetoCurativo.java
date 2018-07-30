@@ -47,10 +47,10 @@ public class ObjetoCurativo {
         if (tipo.equals("galleta")) {
             imagen = new ImageIcon(hoja.obtenerSprite(0, 1).obtenerImagen());
         }
-        if (tipo.equals("orbe_verde")) {
+        if (tipo.equals("orbe_dorado")) {
             imagen = new ImageIcon(hoja.obtenerSprite(1, 1).obtenerImagen());
         }
-        if (tipo.equals("orbe_dorado")) {
+        if (tipo.equals("orbe_verde")) {
             imagen = new ImageIcon(hoja.obtenerSprite(2, 1).obtenerImagen());
         }
     }
@@ -63,8 +63,14 @@ public class ObjetoCurativo {
         } else {
             mapa.objetos.remove(rectangulo);
             if (contador == 0) {
-                jugador.agregarVida(20);
-                contador++;
+                if (this.tipo.equals("orbe_verde") || this.tipo.equals("orbe_dorado")) {
+                    jugador.regenerarMana(20);
+                    contador++;
+                } else {
+                    jugador.agregarVida(20);
+                    contador++;
+                }
+
             }
         }
 

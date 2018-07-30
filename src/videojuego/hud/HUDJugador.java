@@ -52,7 +52,7 @@ public class HUDJugador {
         
         //DINERO
         g.drawString("DINERO: ", 200, interfaz_alto + 60);
-        g.drawString(jugador.getDinero()+"", 260, interfaz_alto + 60);
+        g.drawString("$"+jugador.getDinero()+"", 260, interfaz_alto + 60);
     }
     
     

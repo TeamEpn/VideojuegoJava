@@ -22,6 +22,8 @@ public class MapaBosque extends Mapa{
     ObjetoCurativo manzana2 = new ObjetoCurativo("manzana_dorada", this, "manzana2");
     ObjetoCurativo zanahoria1 = new ObjetoCurativo("zanahoria", this, "zanahoria1");
     ObjetoCurativo galleta1 = new ObjetoCurativo("galleta", this, "galleta1");
+    ObjetoCurativo orbeVerde1 = new ObjetoCurativo("orbe_verde", this, "orbe_verde1");
+    ObjetoCurativo orbeDorado1 = new ObjetoCurativo("orbe_dorado", this, "orbe_dorado1");
     Moneda moneda1 = new Moneda(this, "moneda1");
     Moneda moneda2 = new Moneda(this, "moneda2");
     Moneda moneda3 = new Moneda(this, "moneda3");
@@ -89,11 +91,15 @@ public class MapaBosque extends Mapa{
         manzana2.dibujar(g, 383, 486, desfasex, desfasey, jugador);
         zanahoria1.dibujar(g, 637, 181, desfasex, desfasey, jugador);
         galleta1.dibujar(g, 715, 480, desfasex, desfasey, jugador);
+        orbeVerde1.dibujar(g, 484, 84, desfasex, desfasey, jugador);
+        orbeDorado1.dibujar(g, 6, 290, desfasex, desfasey, jugador);
 
         comprobarColisionCurativa(manzana1);
         comprobarColisionCurativa(manzana2);
         comprobarColisionCurativa(zanahoria1);
         comprobarColisionCurativa(galleta1);
+        comprobarColisionCurativa(orbeVerde1);
+        comprobarColisionCurativa(orbeDorado1);
         
         //DINERO
         if (moneda1.colision == false) {
