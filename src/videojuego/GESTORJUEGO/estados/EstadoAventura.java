@@ -11,6 +11,9 @@ import interfaz.Lienzo;
 import herramientas.CargadorRecursos;
 import videojuego.GESTORJUEGO.EstadoJuego;
 import videojuego.mapas.MapaCasa;
+import videojuego.GESTORJUEGO.GestorEstado;
+import videojuego.GestorPrincipal;
+import videojuego.Sonido;
 import videojuego.mapas.MapaCiudad;
 
 public class EstadoAventura implements EstadoJuego{
@@ -40,6 +43,9 @@ public class EstadoAventura implements EstadoJuego{
         mapas[2] = new MapaCasa("Zelda","/imagenes/mapaCarlos.png",800,600,jugador);
         
         mapa_actual = mapas[1];
+        
+        mapa_actual = mapas[1];
+        mapa_actual.musica();
     }
     private void dibujarTexto(Graphics g){
         g.setColor(Color.yellow);

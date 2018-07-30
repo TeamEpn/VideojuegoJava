@@ -14,10 +14,14 @@ public class Objeto {
         public static final String ALIADO = "aliado";
         public static final String EDIFICIO = "edificio";
         public static final String NATURALEZA = "naturaleza";
-        public static final String TELEPORT = "teleport";
         public static final String ABSORCION_MANA = "absorcion_mana";
         public static final String TICTACTOE = "tictactoe";
         public static final String SUBIDA_EXP = "subida_exp";
+        public static final String TELEPORT_CIUDAD = "teleport_ciudad";
+        public static final String TELEPORT_BOSQUE = "teleport_bosque";
+        public static final String AGREGAR_VIDA = "agregar_vida";
+        public static final String AGREGAR_DINERO = "gregar_dinero";
+
     }
 
     

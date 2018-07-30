@@ -12,75 +12,48 @@ import javax.swing.ImageIcon;
 import static videojuego.GestorPrincipal.CENTROX;
 import static videojuego.GestorPrincipal.CENTROY;
 import videojuego.hud.HUDJugador;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author RAFAEL
- */
+
 public class HiloDisparoArma implements Runnable {
 
-    ImageIcon img;
-    Graphics g;
+    Bala bala;
     Jugador j;
-    int PosicionX;
-    HUDJugador interfaz;
     String direccion;
-
-    public HiloDisparoArma(ImageIcon img, Graphics g, Jugador j, HUDJugador interfaz, String direccion) {
-        this.img = img;
-        this.g = g;
+    
+    public HiloDisparoArma(Bala bala, Jugador j, String direccion) {
+        this.bala = bala;
         this.j = j;
-        this.interfaz = interfaz;
         this.direccion = direccion;
     }
-
+    
+    
+    
+    
     @Override
     public void run() {
-        final int delay = 2;
+        
         final int inicioX = j.getX(), inicioY = j.getY();
         
-        
-        for (int i = 0; i < 600; i++) {
-
-            interfaz = new HUDJugador(j);
-
-            if (direccion.equals("abajo")) {
-                try {
-                    g.drawImage(img.getImage(), CENTROX - j.getX() + inicioX , CENTROY + i - j.getY() + inicioY, null);
-                    Thread.sleep(delay);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
+        while (true) {
+            
+            try {
+                
+                if (direccion.equals("abajo")) {
+                    bala.posy = bala.posy + 1;
+                } else if (direccion.equals("arriba")) {
+                    bala.posy = bala.posy - 1;
+                } else if (direccion.equals("derecha")) {
+                    bala.posx = bala.posx + 1;
+                } else if (direccion.equals("izquierda")) {
+                    bala.posx = bala.posx - 1;
                 }
+                
+                Thread.sleep(2);
+            } catch (Exception ex) {
+                Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            if (direccion.equals("arriba")) {
-                try {
-                    g.drawImage(img.getImage(), CENTROX - j.getX() + inicioX, CENTROY - i - j.getY() + inicioY, null);
-                    Thread.sleep(delay);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            if (direccion.equals("derecha")) {
-                try {
-                    g.drawImage(img.getImage(), CENTROX + i - j.getX() + inicioX, CENTROY - j.getY() + inicioY, null);
-                    Thread.sleep(delay);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            if (direccion.equals("izquierda")) {
-                try {
-                    g.drawImage(img.getImage(), CENTROX - i - j.getX() + inicioX, CENTROY - j.getY() + inicioY, null);
-                    Thread.sleep(delay);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
         }
     }
-
 }

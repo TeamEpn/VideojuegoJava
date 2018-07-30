@@ -5,6 +5,8 @@ import videojuego.GESTORJUEGO.estados.EstadoTicTacToe;
 import java.awt.Graphics;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
+import videojuego.GestorPrincipal;
+import videojuego.Sonido;
 
 public class GestorEstado {
     //organiza mas el código
@@ -37,7 +39,9 @@ public class GestorEstado {
     }
     
     public static void cambiarEstado(final int nuevo_estado){
+
         estado_actual = estados[nuevo_estado];
+        
     }
     
     public static EstadoJuego obtenerEstadoActual(){

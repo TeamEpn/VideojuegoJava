@@ -60,23 +60,31 @@ public abstract class Mapa {
     }
     
     //metodos obligatorios
-    protected abstract void generarObjetosColisionables(final int x,final int y,final int ancho_jugador,final int alto_jugador);
+
+    protected abstract void generarObjetosColisionables(Graphics g,final int x,final int y,final Jugador jugador);
+
     
     public void dibujar(Graphics g){
         
         g.drawImage(this.getSprite(),desfasex  - jugador.getX(),desfasey  - jugador.getY(), null);
         
-        this.generarObjetosColisionables(jugador.getX(), jugador.getY(), jugador.getAncho_jugador(), jugador.getAlto_jugador());
-        
+
+        this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
+
         
         
         for(Objeto r: objetos){
             if(r.getTag().compareToIgnoreCase(Objeto.Tag.NATURALEZA) == 0){
                 g.setColor(Color.green);
             }
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT) == 0){
+
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_BOSQUE) == 0){
                 g.setColor(Color.yellow);
             }
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CIUDAD) == 0){
+                g.setColor(Color.magenta);
+            }
+
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
                 g.setColor(Color.red);
             }
@@ -90,4 +98,7 @@ public abstract class Mapa {
           
         }
     }
+    
+    
+    public abstract void musica();
 }

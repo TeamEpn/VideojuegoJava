@@ -5,26 +5,20 @@
  */
 package videojuego.entidad.Jugador;
 
-/**
- *
- * @author RAFAEL
- */
+import java.awt.Graphics;
+
 public class Pistola {
     
-    Balas balas;
 
-    public Pistola(Balas balas) {
-        this.balas = balas;
+    public int cantidad_balas;
+    Bala bala;
+    
+    public Pistola(int cantidad_balas) {
+        this.cantidad_balas = cantidad_balas;
     }
 
-    public Balas getBalas() {
-        return balas;
+    void dibujar(Graphics g, Jugador j) {
+        if(bala != null)
+            bala.dibujar(g, j);
     }
-
-    public void setBalas(Balas balas) {
-        this.balas = balas;
-    }
-    
-    
-    
 }

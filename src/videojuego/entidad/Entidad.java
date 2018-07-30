@@ -22,6 +22,7 @@ public abstract class Entidad {
     protected int vida_actual;
 
     //posiciones_sprites
+
     protected BufferedImage frente0;
     protected BufferedImage espalda0;
     protected BufferedImage lado_derecho0;
@@ -171,7 +172,9 @@ public abstract class Entidad {
     public abstract void dibujar(Graphics g);
 
     
-    protected Object[] verificarColision(Objeto col) {
+
+    public Object[] verificarColision(Objeto col) {
+        
         //los lados se reciben en sentido horario
         String direccion = "";
         Objeto obj_colision = null;

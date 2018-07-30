@@ -1,13 +1,14 @@
 package videojuego;
 
-import input.Mouse;
 import videojuego.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Ventana;
+
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {
-    
+    public static int aps=0,fps=0; //actualizaciones por segundo y framses por segundo
+
     private boolean esta_funcionando = false;
     public static final int ANCHO = 800,ALTO = 600,CENTROX = ANCHO/2,CENTROY = ALTO/2;
     
@@ -18,6 +19,14 @@ public class GestorPrincipal {
     private final Jugador jugador;
     
         
+
+    public static Sonido musica_menu = new Sonido("\\recursos\\sonidos\\LIS.mp3");
+    public static Sonido musica_inicio = new Sonido("\\recursos\\sonidos\\SilentHill.mp3");
+    public static Sonido musica_mapa_rafa = new Sonido("\\recursos\\sonidos\\MegaMan.mp3");
+    public static Sonido musica_mapa_carlos = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
+    public static Sonido musica_mapa_danny = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
+    
+    
     public GestorPrincipal(){
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO,ALTO);
@@ -35,7 +44,9 @@ public class GestorPrincipal {
     }
 
     private void iniciarBuclePrincipal() {
+
         int aps=0,fps=0; //actualizaciones por segundo y framses por segundo
+
         
         final int NS_POR_S = 1000000000; //para realizar transformaciones
         final byte APS_OBJETIVO = 60;
@@ -49,6 +60,7 @@ public class GestorPrincipal {
         double tiempoTranscurrido;
         double delta = 0;
         
+
         while(esta_funcionando){
             final long inicioBucle = System.nanoTime();
             tiempoTranscurrido = inicioBucle - referenciaActualización;

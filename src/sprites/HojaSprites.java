@@ -55,8 +55,9 @@ public class HojaSprites {
         ancho_nsprites = ancho_hoja_pixeles / ancho_sprite; // split
         alto_nsprites = alto_hoja_pixeles / alto_sprite; // split
 
-        System.out.println(ancho_hoja_pixeles);
-        System.out.println(alto_hoja_pixeles);
+
+        //System.out.println(ancho_hoja_pixeles);
+        //System.out.println(alto_hoja_pixeles);
         ancho_sprites_pixeles = ancho_sprite;
         alto_sprites_pixeles = alto_sprite;
 
