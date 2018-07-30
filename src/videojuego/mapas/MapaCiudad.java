@@ -8,7 +8,9 @@ package videojuego.mapas;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import videojuego.GestorPrincipal;
 import videojuego.Objeto;
+import videojuego.Sonido;
 import videojuego.entidad.Jugador.Jugador;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -63,7 +65,6 @@ public class MapaCiudad extends Mapa {
         objetos = new ArrayList<>();
 
         //CASAS
-
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 8 + desfasey - y, 38, 125), "Casa 1 Izquierda", Objeto.Tag.EDIFICIO));
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 256 + desfasey - y, 38, 94), "Casa 2 Izquierda", Objeto.Tag.EDIFICIO));
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 441 + desfasey - y, 152, 159), "Casas 3 y 4 Izquierda", Objeto.Tag.EDIFICIO));

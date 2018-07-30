@@ -1,4 +1,3 @@
-
 package herramientas;
 
 import java.awt.Graphics;
@@ -7,7 +6,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,12 +42,10 @@ public class CargadorRecursos {
         Graphics g = imagen_acelerada.getGraphics();
         g.drawImage(imagen, 0, 0, null);
         g.dispose();
-        
+
         return imagen_acelerada;
-        
+
     }
-    
-    
 
     public static BufferedImage cargarImagenCompatibleTranslucida(final String ruta) {
 
@@ -70,12 +66,10 @@ public class CargadorRecursos {
         g.drawImage(imagen, 0, 0, null);
         g.dispose();
 
-        
+
         return imagen_acelerada;
-        
+
     }
-    
-    
 
     public static String leerArchivoTexto(final String ruta) {
 
@@ -109,4 +103,5 @@ public class CargadorRecursos {
 
         return contenido;
     }
+
 }

@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import sprites.Animacion;
 import videojuego.GESTORJUEGO.GestorEstado;
 import sprites.HojaSprites;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
@@ -193,14 +194,22 @@ public class Jugador extends Entidad {
                 this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1];
                 this.setMapa(this.estado_aventura.mapa_actual);
             }
-            /*if (col.getTag().compareToIgnoreCase("teleport") == 0) {
-                Random random = new Random(); 
-                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
+            if (col.getTag().compareToIgnoreCase("teleport_ciudad") == 0) {
+                
+                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[0];
+                this.estado_aventura.mapa_actual.musica();
                 this.setMapa(this.estado_aventura.mapa_actual);
-            }*/
+            }
+            if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
+                
+                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1];
+                this.estado_aventura.mapa_actual.musica();
+                this.setMapa(this.estado_aventura.mapa_actual);
+            }
 
             if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
                 GestorEstado.cambiarEstado(1);
+                Sonido.cambioMusica(GestorPrincipal.musica_menu);
             }
             if (col.getTag().compareToIgnoreCase("subida_exp") == 0) {
                 if (this.getExpGanada() <= 169) {
@@ -230,14 +239,6 @@ public class Jugador extends Entidad {
             if (col.getTag().compareToIgnoreCase("agregar_dinero") == 0) {
                 this.agregarDinero(10);
             }
-
-            /*
-            if (col.getTag().compareToIgnoreCase("teleport") == 0) {
-                Random random = new Random(); 
-                this.estado_aventura.mapa_actual = this.estado_aventura.mapas[1+random.nextInt(2)];
-                this.setMapa(this.estado_aventura.mapa_actual);
-            }
-             */
             if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
                 GestorEstado.cambiarEstado(1);
                 Sonido.cambioMusica(GestorPrincipal.musica_menu);
@@ -255,8 +256,13 @@ public class Jugador extends Entidad {
                 System.out.println("PODER ACTIVADO");
                 mana_actual -= 100;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
+                
+                GestorPrincipal.sonido_viaje_tiempo.reproducir();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
-
+                Animacion.esta_activa = true;
+                Animacion.imagen_actual = Animacion.animacion_tiempo.obtenerSprite(0, 0).obtenerImagen();
+                Animacion.x = GestorPrincipal.CENTROX;
+                Animacion.y = GestorPrincipal.CENTROY;
             }
 
         }
@@ -341,6 +347,10 @@ public class Jugador extends Entidad {
         g.drawImage(sprite_actual, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, null);
 
         g.setColor(Color.red);
+        
+        if(Animacion.esta_activa){
+            g.drawImage(Animacion.imagen_actual, Animacion.x, Animacion.y, null);
+        }
 
 
         if (pistola.cantidad_balas > 0) {

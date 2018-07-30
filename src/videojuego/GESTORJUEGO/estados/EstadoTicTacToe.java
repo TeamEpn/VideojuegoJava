@@ -7,9 +7,13 @@ package videojuego.GESTORJUEGO.estados;
 
 import interfaz.Lienzo;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sprites.HojaSprites;
 import videojuego.GESTORJUEGO.EstadoJuego;
 import videojuego.GESTORJUEGO.GestorEstado;
 import java.awt.Font;
@@ -36,10 +40,10 @@ public class EstadoTicTacToe implements EstadoJuego {
     };
     boolean game_over;
     String ganador;
+
     int x = 250, y = 150, lado = 300;
     int lado_cuadrado = lado / 3;
     int turno = 1;
-
 
     int dificultad;
 
@@ -90,7 +94,6 @@ public class EstadoTicTacToe implements EstadoJuego {
     @Override
     public void actualizar(Lienzo lienzo) {
 
-
         int estado = Arbol.analizarEstado(board);
         if (Arbol.contarCeros(board) > 0 && estado == 0 && dificultad > 0) {
             this.jugadaIA();
@@ -134,12 +137,13 @@ public class EstadoTicTacToe implements EstadoJuego {
                     } else if (estaEnCuadrado(100, 260, 100 + 80, 260 + 30, mx, my)) {
                         this.inicializar();
                         this.dificultad = 3;
+
                     }
                     if (dificultad != 0) {
                         Random random = new Random();
                         this.turno = random.nextInt(2) + 1;                        
                     }
-
+                    
                 }
             } // FIN DE LA VERIFICACION DE BOTONES
             else if (turno == 2) {
@@ -200,7 +204,7 @@ public class EstadoTicTacToe implements EstadoJuego {
         
         g.setColor(Color.black);
         g.fillRect(x, y, lado, lado);
-        
+
         g.setColor(Color.white);
         //barras verticales
         g.drawLine(x + lado / 3, y, x + lado / 3, y + lado);

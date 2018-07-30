@@ -55,7 +55,6 @@ public class HojaSprites {
         ancho_nsprites = ancho_hoja_pixeles / ancho_sprite; // split
         alto_nsprites = alto_hoja_pixeles / alto_sprite; // split
 
-
         //System.out.println(ancho_hoja_pixeles);
         //System.out.println(alto_hoja_pixeles);
         ancho_sprites_pixeles = ancho_sprite;
@@ -83,5 +82,23 @@ public class HojaSprites {
         //'x' representa la fila, 'Y' la columna. De la matriz de sprites REAL
         return sprites[x + y * ancho_nsprites];
     }
+
+    public int getAncho_nsprites() {
+        return ancho_nsprites;
+    }
+
+    public int getAlto_nsprites() {
+        return alto_nsprites;
+    }
+
+    public int getAncho_sprites_pixeles() {
+        return ancho_sprites_pixeles;
+    }
+
+    public int getAlto_sprites_pixeles() {
+        return alto_sprites_pixeles;
+    }
+    
+    
 
 }

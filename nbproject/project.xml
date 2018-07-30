@@ -6,9 +6,13 @@
             <name>ProyectoFinal</name>
             <source-roots>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 <root id="src.lib.dir"/>
 >>>>>>> ramaRafaAvance2
+=======
+                <root id="src.lib.dir"/>
+>>>>>>> ramaDannyAvance2
                 <root id="src.dir"/>
                 <root id="src.recursos.dir"/>
             </source-roots>

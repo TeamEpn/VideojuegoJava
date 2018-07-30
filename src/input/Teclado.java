@@ -29,10 +29,6 @@ public class Teclado implements KeyListener{
         correr = teclas[KeyEvent.VK_SHIFT];
         
 
-        poder_tiempo = teclas[KeyEvent.VK_R];
-        disparar_arma = teclas[KeyEvent.VK_E];
-        recargar_arma = teclas[KeyEvent.VK_R];
-        
         cambiarPersonaje = teclas[KeyEvent.VK_Q];
         poderBola = teclas[KeyEvent.VK_1];
         
@@ -49,9 +45,7 @@ public class Teclado implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if(ke.getKeyCode() != KeyEvent.VK_E)
-            teclas[ke.getKeyCode()] = true; 
-        if(ke.getKeyCode() != KeyEvent.VK_1)
+        if((ke.getKeyCode() != KeyEvent.VK_E) && (ke.getKeyCode() != KeyEvent.VK_1))
             teclas[ke.getKeyCode()] = true;
     }
 

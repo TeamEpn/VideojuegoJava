@@ -18,6 +18,9 @@ import videojuego.Objeto;
 import videojuego.Sonido;
 import videojuego.entidad.Jugador.Moneda;
 import videojuego.entidad.Jugador.ObjetoCurativo;
+import videojuego.GestorPrincipal;
+import videojuego.Objeto;
+import videojuego.Sonido;
 
 public class MapaBosque extends Mapa{
     
@@ -94,7 +97,6 @@ public class MapaBosque extends Mapa{
         //Edificios
         objetos.add(new Objeto(new Rectangle(230 + desfasex - x, 125 + desfasey - y, 116, 113),"TiendaCampaña1",Objeto.Tag.EDIFICIO));
 
-        
         objetos.add(new Objeto(new Rectangle(271 + desfasex - x, 231 + desfasey - y, 31, 15),"teleport1",Objeto.Tag.TELEPORT_CIUDAD));
         
         //OBJETOS CURATIVOS
@@ -111,6 +113,7 @@ public class MapaBosque extends Mapa{
         comprobarColisionCurativa(galleta1);
         comprobarColisionCurativa(orbeVerde1);
         comprobarColisionCurativa(orbeDorado1);
+
         
         //DINERO
         if (moneda1.colision == false) {

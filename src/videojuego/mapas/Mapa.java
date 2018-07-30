@@ -84,7 +84,6 @@ public abstract class Mapa {
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CIUDAD) == 0){
                 g.setColor(Color.magenta);
             }
-
             else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
                 g.setColor(Color.red);
             }
@@ -99,6 +98,6 @@ public abstract class Mapa {
         }
     }
     
-    
+
     public abstract void musica();
 }
