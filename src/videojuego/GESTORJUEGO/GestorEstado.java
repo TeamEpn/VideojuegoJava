@@ -2,11 +2,10 @@ package videojuego.GESTORJUEGO;
 
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GESTORJUEGO.estados.EstadoTicTacToe;
+import videojuego.GESTORJUEGO.estados.EstadoInversion;
 import java.awt.Graphics;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
-import videojuego.GestorPrincipal;
-import interfaz.Sonido;
 
 public class GestorEstado {
     //organiza mas el código
@@ -24,9 +23,10 @@ public class GestorEstado {
     }
 
     private void iniciarEstados(final Jugador jugador) {
-        estados = new EstadoJuego[2];
+        estados = new EstadoJuego[3];
         estados[0] = new EstadoAventura(jugador);
         estados[1] = new EstadoTicTacToe(jugador);
+        estados[2] = new EstadoInversion(jugador);
         
     }
     

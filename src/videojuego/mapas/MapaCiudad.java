@@ -102,7 +102,7 @@ public class MapaCiudad extends Mapa {
         if (moneda1.colision == false) {
             moneda1.dibujar(g, moneda1.getPosX(), moneda1.getPosY(), desfasex, desfasey, jugador);
         } else {
-            jugador.agregarDinero(5);
+            jugador.getCuenta().agregarDinero(5);
             moneda1.setPosX(random.nextInt(ANCHO_SPAWNEO));
             moneda1.setPosY(random.nextInt(ALTO_SPAWNEO));
             moneda1.colision = false;
@@ -115,7 +115,7 @@ public class MapaCiudad extends Mapa {
         if (moneda2.colision == false) {
             moneda2.dibujar(g, moneda2.getPosX(), moneda2.getPosY(), desfasex, desfasey, jugador);
         } else {
-            jugador.agregarDinero(5);
+            jugador.getCuenta().agregarDinero(5);
             moneda2.setPosX(random.nextInt(ANCHO_SPAWNEO));
             moneda2.setPosY(random.nextInt(ALTO_SPAWNEO));
             moneda2.colision = false;
@@ -128,7 +128,7 @@ public class MapaCiudad extends Mapa {
         if (moneda3.colision == false) {
             moneda3.dibujar(g, moneda3.getPosX(), moneda3.getPosY(), desfasex, desfasey, jugador);
         } else {
-            jugador.agregarDinero(5);
+            jugador.getCuenta().agregarDinero(5);
             moneda3.setPosX(random.nextInt(ANCHO_SPAWNEO));
             moneda3.setPosY(random.nextInt(ALTO_SPAWNEO));
             moneda3.colision = false;
@@ -142,7 +142,7 @@ public class MapaCiudad extends Mapa {
         if (moneda4.colision == false) {
             moneda4.dibujar(g, moneda1.getPosX(), moneda4.getPosY(), desfasex, desfasey, jugador);
         } else {
-            jugador.agregarDinero(5);
+            jugador.getCuenta().agregarDinero(5);
             moneda4.setPosX(random.nextInt(ANCHO_SPAWNEO));
             moneda4.setPosY(random.nextInt(ALTO_SPAWNEO));
             moneda4.colision = false;
@@ -155,7 +155,7 @@ public class MapaCiudad extends Mapa {
         if (moneda5.colision == false) {
             moneda5.dibujar(g, moneda5.getPosX(), moneda5.getPosY(), desfasex, desfasey, jugador);
         } else {
-            jugador.agregarDinero(5);
+            jugador.getCuenta().agregarDinero(5);
             moneda5.setPosX(random.nextInt(ANCHO_SPAWNEO));
             moneda5.setPosY(random.nextInt(ALTO_SPAWNEO));
             moneda5.colision = false;

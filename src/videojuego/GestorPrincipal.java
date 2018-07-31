@@ -3,9 +3,6 @@ package videojuego;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Ventana;
-import java.applet.AudioClip;
-import sprites.HojaSprites;
-import sprites.Sprite;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {

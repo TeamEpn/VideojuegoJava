@@ -20,7 +20,7 @@ public class EstadoAventura implements EstadoJuego{
     private final Jugador jugador;
     private final String texto_archivo = CargadorRecursos.leerArchivoTexto("/texto/prueba.txt");
 
-    public Enemigo[] enemigos;
+    public static Enemigo[] enemigos;
     
     public EstadoAventura(Jugador jugador) {
         this.jugador = jugador;
@@ -39,9 +39,7 @@ public class EstadoAventura implements EstadoJuego{
         mapas[1] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador);
         mapas[2] = new MapaCasa("Zelda","/imagenes/mapaCarlos.png",800,600,jugador);
         
-        mapa_actual = mapas[1];
-        
-        mapa_actual = mapas[1];
+        mapa_actual = mapas[2];
         mapa_actual.musica();
     }
     private void dibujarTexto(Graphics g){

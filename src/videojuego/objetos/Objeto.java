@@ -8,8 +8,10 @@ public class Objeto {
     private final Rectangle[] rectangle;
     private final String id, tag;
     
+    
     public class Tag{
         public static final String JUGADOR = "jugador";
+        public static final String ARMA_JUGADOR = "arma_jugador";
         public static final String ENEMIGO = "enemigo";
         public static final String ALIADO = "aliado";
         public static final String EDIFICIO = "edificio";

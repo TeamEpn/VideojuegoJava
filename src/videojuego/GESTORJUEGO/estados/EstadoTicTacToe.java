@@ -1,5 +1,6 @@
 package videojuego.GESTORJUEGO.estados;
 
+import interfaz.Boton;
 import interfaz.Lienzo;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,6 +18,12 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class EstadoTicTacToe implements EstadoJuego {
 
+    
+    Boton boton_volver = new Boton(100,100,"Volver");
+    Boton boton_facil = new Boton(100,200,"Fácil");
+    Boton boton_medio = new Boton(100,230,"Medio");
+    Boton boton_imposible = new Boton(100,260,"Imposible");
+    
     Jugador jugador;
     int[][] board = {{1, 0, 0},
     {0, 1, 2},
@@ -104,7 +111,7 @@ public class EstadoTicTacToe implements EstadoJuego {
             int my = lienzo.getMouse().getPosy();
 
             if (game_over) {
-                if (estaEnCuadrado(100, 100, 100 + 80, 100 + 30, mx, my)) {
+                if (this.boton_volver.esClickeado(mx, my)) {
                     jugador.setX(jugador.getX() - 100);
                     this.inicializar();
                     Sonido.cambioMusica(Sonido.musica_inicio);
@@ -112,13 +119,13 @@ public class EstadoTicTacToe implements EstadoJuego {
                     this.game_over = true;
                 } else if (dificultad == 0) {
                     
-                    if (estaEnCuadrado(100, 200, 100 + 80, 200 + 30, mx, my)) {
+                    if (this.boton_facil.esClickeado(mx, my)) {
                         this.inicializar();
                         this.dificultad = 1;
-                    } else if (estaEnCuadrado(100, 230, 100 + 80, 230 + 30, mx, my)) {
+                    } else if (this.boton_medio.esClickeado(mx, my)) {
                         this.inicializar();
                         this.dificultad = 2;
-                    } else if (estaEnCuadrado(100, 260, 100 + 80, 260 + 30, mx, my)) {
+                    } else if (this.boton_imposible.esClickeado(mx, my)) {
                         this.inicializar();
                         this.dificultad = 3;
 
@@ -136,7 +143,7 @@ public class EstadoTicTacToe implements EstadoJuego {
                     int desfase = 10;
                     for (int i = 0; i < 3; i++) {
                         for (int j = 0; j < 3; j++) {
-                            if (estaEnCuadrado(x + (j * lado_cuadrado) + desfase, y + (i * lado_cuadrado) + desfase,
+                            if (clickEntreCoordenadasX1X2Y1Y2(x + (j * lado_cuadrado) + desfase, y + (i * lado_cuadrado) + desfase,
                                     x + (j * lado_cuadrado) + desfase + lado_cuadrado, y + (i * lado_cuadrado) + desfase + lado_cuadrado, mx, my)) {
                                 this.board[i][j] = 2;
                                 turno = 1;
@@ -153,8 +160,9 @@ public class EstadoTicTacToe implements EstadoJuego {
         }
 
     }
-
-    public boolean estaEnCuadrado(int x1, int y1, int x2, int y2, int mx, int my) {
+    
+    
+     public boolean clickEntreCoordenadasX1X2Y1Y2(int x1,int y1,int x2,int y2,int mx, int my) {
         boolean dentro = false;
 
         if ((x1 < mx && x2 > mx) && (y1 < my && y2 > my)) {
@@ -162,20 +170,6 @@ public class EstadoTicTacToe implements EstadoJuego {
         }
 
         return dentro;
-    }
-
-    public void dibujarBoton(Graphics g, int x, int y, String texto) {
-
-        int ancho = 80, alto = 30;
-        g.setColor(Color.darkGray);
-        g.fillRect(x, y, ancho, alto);
-
-        g.setColor(Color.gray);
-        g.fillRect(x + 5, y + 5, ancho - 10, alto - 10);
-
-        g.setColor(Color.white);
-        g.drawString(texto, x + ancho / 3, y + alto - 12);
-
     }
 
     @Override
@@ -217,11 +211,11 @@ public class EstadoTicTacToe implements EstadoJuego {
         }
 
         if(game_over)
-            this.dibujarBoton(g, 100, 100, "Volver");
+            this.boton_volver.dibujarBoton(g);
 
-        this.dibujarBoton(g, 100, 200, "Facil");
-        this.dibujarBoton(g, 100, 230, "Medio");
-        this.dibujarBoton(g, 100, 260, "Dificil");
+        this.boton_facil.dibujarBoton(g);
+        this.boton_medio.dibujarBoton(g);
+        this.boton_imposible.dibujarBoton(g);
 
         if (game_over && Arbol.contarCeros(board) != 9) {
             g.setColor(Color.yellow);

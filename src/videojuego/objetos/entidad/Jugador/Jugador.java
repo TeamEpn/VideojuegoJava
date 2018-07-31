@@ -23,21 +23,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import videojuego.GESTORJUEGO.estados.inversiones.Cuenta;
 import interfaz.Sonido;
+import java.awt.Rectangle;
+import videojuego.objetos.armas.Espada;
 import videojuego.objetos.entidad.Jugador.Poderes.poderFuego.BolaFuego;
 
 public class Jugador extends Entidad {
 
-    private final int mana_maximo;
-    private int mana_actual, dinero;
+    private int mana_maximo;
+    private int mana_actual;
 
     private HUDJugador interfaz;
     public EstadoAventura estado_aventura;
     private Pistola pistola;
     private BolaFuego bola;
 
-    private int expGanada;
+    private int nivel;
+    private int exp_maxima;
+    private int exp_actual;
 
+    private Cuenta cuenta;
+    Espada espada;
+    
     public Jugador(Lienzo lienzo) {
 /*
         super("/imagenes/hojasPersonajes/rafa.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
@@ -46,14 +54,29 @@ public class Jugador extends Entidad {
         super("/imagenes/hojasPersonajes/aventurero.png", 32,64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
                 new int[]{0,1},new int[]{0,0},new int[]{0,3},new int[]{0,2});
 
-
+        this.espada = new Espada(new Rectangle(GestorPrincipal.CENTROX+5,GestorPrincipal.CENTROY+50,20,20), "Arma-Espada", Objeto.Tag.ARMA_JUGADOR);
         mana_actual = (mana_maximo = 100);
         interfaz = new HUDJugador(this);
         iniciarThreadsPermanentes();
         pistola = new Pistola(10);
-        dinero = 0;
+        nivel = 1;
+        this.exp_maxima = 100;
+        cuenta = new Cuenta(1000);
 
     }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getExp_maxima() {
+        return exp_maxima;
+    }
+
+    public int getExp_actual() {
+        return exp_actual;
+    }
+    
 
     public int getMana_maximo() {
         return mana_maximo;
@@ -62,15 +85,7 @@ public class Jugador extends Entidad {
     public int getMana_actual() {
         return mana_actual;
     }
-
-
-    public int getExpGanada() {
-        return expGanada;
-    }
-
-    public void setExpGanada(int expGanada) {
-        this.expGanada = expGanada;
-    }
+    
     public Pistola getPistola() {
         return pistola;
     }
@@ -80,8 +95,8 @@ public class Jugador extends Entidad {
     }
 
 
-    public int getDinero() {
-        return dinero;
+    public Cuenta getCuenta() {
+        return cuenta;
     }
     private void iniciarThreadsPermanentes() {
         //Hilos para controlar: el poder del tiempo y la regeneracion de vida/mana
@@ -103,6 +118,7 @@ public class Jugador extends Entidad {
     public void actualizar(Lienzo lienzo) {
         this.mover(lienzo);
         this.acciones(lienzo);
+        this.espada.actualizar();
     }
 
 
@@ -208,8 +224,11 @@ public class Jugador extends Entidad {
                 Sonido.cambioMusica(Sonido.musica_menu);
             }
             if (col.getTag().compareToIgnoreCase("subida_exp") == 0) {
-                if (this.getExpGanada() <= 169) {
-                    this.ganarExp(2);
+                try {
+                    this.ganarExperiencia(this.nivel); //para que suba la exp mas rapido conforme avance
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         
@@ -239,7 +258,7 @@ public class Jugador extends Entidad {
                 }
             }
             if (col.getTag().compareToIgnoreCase("agregar_dinero") == 0) {
-                this.agregarDinero(10);
+                this.cuenta.agregarDinero(10);
             }
             if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
                 GestorEstado.cambiarEstado(1);
@@ -247,6 +266,25 @@ public class Jugador extends Entidad {
             }
         }
 
+    }
+    
+    public void ganarExperiencia(int exp){
+        
+        int exp_restante = this.exp_maxima - this.exp_actual;
+        if(exp<=exp_restante){
+            this.exp_actual += exp;
+        }
+        else{
+            this.nivel++;
+            int aumento = nivel*10;
+            this.vida_maxima+=aumento;
+            this.mana_maximo+=aumento;
+            this.exp_maxima+=aumento;
+            
+            this.exp_actual = exp - exp_restante;
+        }
+            
+        
     }
 
     public void acciones(Lienzo lienzo) {
@@ -363,6 +401,9 @@ public class Jugador extends Entidad {
             pistola.dibujar(g, this);
         }
         
+        Rectangle esp = this.espada.getRectangle()[0];
+        g.drawRect(esp.x,esp.y,esp.width,esp.height);
+        
         if(bola.esta_activa){
             bola.dibujar(g);
         }
@@ -397,7 +438,7 @@ public class Jugador extends Entidad {
         if (this.vida_actual + cantidad <= this.vida_maxima) {
             this.vida_actual += cantidad;
         } else {
-            this.vida_actual = 100;
+            this.vida_actual = this.vida_maxima;
         }
     }
 
@@ -405,14 +446,11 @@ public class Jugador extends Entidad {
         if (this.mana_actual + cantidad <= this.mana_maximo) {
             this.mana_actual += cantidad;
         } else {
-            this.mana_actual = 100;
+            this.mana_actual = this.mana_maximo;
         }
     }
 
 
-    public void ganarExp(int cantidad) {
-        this.expGanada += cantidad;
-    }
     public void agregarVida(int cantidad) {
         if (this.vida_actual + cantidad <= this.vida_maxima) {
             this.vida_actual += cantidad;
@@ -420,7 +458,5 @@ public class Jugador extends Entidad {
             this.vida_actual = 100;
         }
     }
-    public void agregarDinero(int cantidad) {
-        dinero = dinero + cantidad;
-    }
+    
 }

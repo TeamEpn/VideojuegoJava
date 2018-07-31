@@ -18,7 +18,7 @@ public abstract class Entidad {
     protected final int velocidad = 2;
 
     protected boolean esta_vivo;
-    protected final int vida_maxima;
+    protected int vida_maxima;
     protected int vida_actual;
 
     //posiciones_sprites

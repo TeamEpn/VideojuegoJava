@@ -15,8 +15,8 @@ public class HiloJugadorRegeneracion implements Runnable {
         while(jugador.estaVivo()){
             try {
                 Thread.sleep(1000);
-                jugador.regenerarVida(5);
-                jugador.regenerarMana(17);
+                jugador.regenerarVida(50);
+                jugador.regenerarMana(50);
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(HiloPosicionesTiempo.class.getName()).log(Level.SEVERE, null, ex);
