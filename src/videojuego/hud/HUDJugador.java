@@ -3,9 +3,6 @@ package videojuego.hud;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.armas.Bala;
 
@@ -27,10 +24,24 @@ public class HUDJugador {
         int porc = 130;
         int vid = (jugador.getVida_actual()*porc)/jugador.getVida_maxima();
         int man = (jugador.getMana_actual()*porc)/jugador.getMana_maximo();
+        int res = (jugador.getResistencia_actual()*porc)/jugador.getResistencia_maxima();
         int exp = (jugador.getExp_actual()*porc)/jugador.getExp_maxima();
         //NIVEL
         g.setColor(Color.white);
         g.drawString("Nivel: " + jugador.getNivel(), 500, interfaz_alto + 20);
+        
+        //CONDICION FISICA
+        
+        if(!jugador.esta_cansado){
+            g.setColor(Color.green);
+            g.drawString("ESTADO: Vitalizado", 500, interfaz_alto + 40);
+        }
+        else{
+            g.setColor(Color.orange);
+            g.drawString("ESTADO: Cansado, se recuperará en " + jugador.getContador_cansado() + " segundos.", 500, interfaz_alto + 40);
+        
+        }
+            
         //-VIDA
        
         g.setColor(Color.MAGENTA);
@@ -43,7 +54,7 @@ public class HUDJugador {
 
         //-MANA
         
-        g.setColor(Color.green);
+        g.setColor(Color.blue);
         g.drawRect(50 - 1, interfaz_alto + 32, porc + 1, 10);
         g.setColor(Color.blue);
         g.fillRect(50, interfaz_alto + 33, man, 9);
@@ -51,8 +62,18 @@ public class HUDJugador {
         g.drawString("MANA: ", 10, interfaz_alto + 40);
         g.drawString(jugador.getMana_actual()+"/"+jugador.getMana_maximo(), 90, interfaz_alto + 40);
 
-        //-EXP
+        //-Resistencia
         
+        g.setColor(Color.CYAN);
+        g.drawRect(50 - 1, interfaz_alto + 52, porc + 1, 10);
+        g.setColor(Color.CYAN);
+        g.fillRect(50, interfaz_alto + 53, res, 9);
+        g.setColor(Color.white);
+        g.drawString("RES: ", 10, interfaz_alto + 60);
+        g.drawString(jugador.getResistencia_actual()+"/"+jugador.getResistencia_maxima(), 90, interfaz_alto + 62);
+
+        
+        //-EXP
         g.setColor(Color.white);
         g.drawRect(250, interfaz_alto + 32, porc, 10);
         g.setColor(Color.green);

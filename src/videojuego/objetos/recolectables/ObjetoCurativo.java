@@ -1,24 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package videojuego.objetos.recolectables;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import sprites.HojaSprites;
 import videojuego.objetos.Objeto;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-/**
- *
- * @author RAFAEL
- */
 public class ObjetoCurativo {
 
     HojaSprites hoja;

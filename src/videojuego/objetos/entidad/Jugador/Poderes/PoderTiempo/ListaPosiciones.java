@@ -69,11 +69,6 @@ public class ListaPosiciones {
             if(len_actual == len_maximo && p.anterior == null) salida+="|"; else salida+=" -> ";
             p = p.anterior;
         }
-        
-        
         return salida;
     }
-    
-    
-    
 }

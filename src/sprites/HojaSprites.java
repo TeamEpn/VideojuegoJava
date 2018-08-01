@@ -64,9 +64,6 @@ public class HojaSprites {
         extraerSpritesDesdeImagen(imagen);
     }
     
-    
-    
-
     private void extraerSpritesDesdeImagen(final BufferedImage imagen) {
         for (int y = 0; y < alto_nsprites; y++) {
             for (int x = 0; x < ancho_nsprites; x++) {
@@ -98,7 +95,4 @@ public class HojaSprites {
     public int getAlto_sprites_pixeles() {
         return alto_sprites_pixeles;
     }
-    
-    
-
 }

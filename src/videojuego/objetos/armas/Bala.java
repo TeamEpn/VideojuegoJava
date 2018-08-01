@@ -1,36 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package videojuego.objetos.armas;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 import sprites.HojaSprites;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-/**
- *
- * @author RAFAEL
- */
 public class Bala {
     
     private final static HojaSprites HOJA_BALA = new HojaSprites("/imagenes/hojasObjetos/hojaBala.png",32,false);
     
-    public static BufferedImage bala_abajo = HOJA_BALA.obtenerSprite(0, 0).obtenerImagen();
-    public static BufferedImage bala_arriba = HOJA_BALA.obtenerSprite(1, 0).obtenerImagen();
-    public static BufferedImage bala_derecha = HOJA_BALA.obtenerSprite(2, 0).obtenerImagen();
-    public static BufferedImage bala_izquierda = HOJA_BALA.obtenerSprite(3, 0).obtenerImagen();
+    public static final BufferedImage bala_abajo = HOJA_BALA.obtenerSprite(0, 0).obtenerImagen();
+    public static final BufferedImage bala_arriba = HOJA_BALA.obtenerSprite(1, 0).obtenerImagen();
+    public static final BufferedImage bala_derecha = HOJA_BALA.obtenerSprite(2, 0).obtenerImagen();
+    public static final BufferedImage bala_izquierda = HOJA_BALA.obtenerSprite(3, 0).obtenerImagen();
     
-    BufferedImage imagen_actual;
+    private final BufferedImage imagen_actual;
     
-    int posx,posy, inicioX, inicioY;
-    String direccion;
+    public int posx,posy;
+    private final int inicioX, inicioY;
+    private final String direccion;
     
-    public Bala(BufferedImage imagen_actual,String direccion,int inicioX,int inicioY) {
+    public Bala(final BufferedImage imagen_actual,final String direccion,final int inicioX,final int inicioY) {
         this.imagen_actual = imagen_actual;
         this.posx = GestorPrincipal.CENTROX;
         this.posy = GestorPrincipal.CENTROY;
@@ -50,7 +41,4 @@ public class Bala {
         if(direccion.equals("derecha"))
             g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
     }
-    
-    
-    
 }

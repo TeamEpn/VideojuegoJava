@@ -9,15 +9,9 @@ public class NodoJugador {
     Jugador jugador;
     NodoJugador anterior;
     NodoJugador siguiente;
-    
-
     public NodoJugador(Jugador jugador) {
         this.jugador = jugador;
         this.anterior = null;
         this.siguiente = null;
-        
     }
-    
-    
-    
 }

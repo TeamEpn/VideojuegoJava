@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import sprites.HojaSprites;
+import videojuego.objetos.entidad.Enemigo.Enemigo;
 
 public abstract class Mapa {
     
@@ -16,7 +17,7 @@ public abstract class Mapa {
     protected final BufferedImage sprite;
     protected final int ancho, alto;
     protected final Jugador jugador;
-    
+    public Enemigo[] enemigos;
     protected final int desfasex,desfasey; //estas indican la posicion inicial del mapa, para no salirnos de tal
     
     public ArrayList<Objeto> objetos;
@@ -25,7 +26,7 @@ public abstract class Mapa {
         this.nombre = nombre;
         this.ancho = ancho;
         this.alto = alto;
-        this.jugador = jugador;               
+        this.jugador = jugador; 
         this.sprite = new HojaSprites(ruta, ancho, alto, true).obtenerSprite(0, 0).obtenerImagen();
         
         desfasex = GestorPrincipal.CENTROX;
@@ -41,6 +42,41 @@ public abstract class Mapa {
         
         this.desfasex = desfasex;
         this.desfasey = desfasey;
+    }
+
+    
+    protected abstract void generarObjetosColisionables(Graphics g,final int x,final int y,final Jugador jugador);
+    public abstract void musica();
+    
+    public void iniciarEnemigos(){
+        enemigos = new Enemigo[1];
+        enemigos[0] = new Enemigo(jugador);
+    }
+    
+    public void dibujar(Graphics g){
+        
+        g.drawImage(this.getSprite(),desfasex  - jugador.getX(),desfasey  - jugador.getY(), null);
+        this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
+        
+        for(Objeto r: objetos){
+            if(r.getTag().compareToIgnoreCase(Objeto.Tag.NATURALEZA) == 0){
+                g.setColor(Color.green);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_BOSQUE) == 0){
+                g.setColor(Color.yellow);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CIUDAD) == 0){
+                g.setColor(Color.yellow);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CASA) == 0){
+                g.setColor(Color.yellow);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
+                g.setColor(Color.red);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.EDIFICIO) == 0){
+                g.setColor(Color.blue);
+            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0){
+                g.setColor(Color.magenta);
+            }
+        
+            g.drawRect(r.getRectangle()[0].x, r.getRectangle()[0].y, r.getRectangle()[0].width, r.getRectangle()[0].height);
+        }
     }
     
     public String getNombre() {
@@ -58,49 +94,4 @@ public abstract class Mapa {
     public int getAlto() {
         return alto;
     }
-    
-    //metodos obligatorios
-
-    protected abstract void generarObjetosColisionables(Graphics g,final int x,final int y,final Jugador jugador);
-
-    
-    public void dibujar(Graphics g){
-        
-        g.drawImage(this.getSprite(),desfasex  - jugador.getX(),desfasey  - jugador.getY(), null);
-        
-
-        this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
-
-        
-        
-        for(Objeto r: objetos){
-            if(r.getTag().compareToIgnoreCase(Objeto.Tag.NATURALEZA) == 0){
-                g.setColor(Color.green);
-            }
-
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_BOSQUE) == 0){
-                g.setColor(Color.yellow);
-            }
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CIUDAD) == 0){
-                g.setColor(Color.yellow);
-            }
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CASA) == 0){
-                g.setColor(Color.yellow);
-            }
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
-                g.setColor(Color.red);
-            }
-            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.EDIFICIO) == 0){
-                g.setColor(Color.blue);
-            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0){
-                g.setColor(Color.magenta);
-            }
-        
-            g.drawRect(r.getRectangle()[0].x, r.getRectangle()[0].y, r.getRectangle()[0].width, r.getRectangle()[0].height);
-          
-        }
-    }
-    
-
-    public abstract void musica();
 }

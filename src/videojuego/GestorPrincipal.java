@@ -8,7 +8,7 @@ import videojuego.GESTORJUEGO.GestorEstado;
 public class GestorPrincipal {
     public static int aps=0,fps=0; //actualizaciones por segundo y framses por segundo
 
-    private boolean esta_funcionando = false;
+    public static boolean esta_funcionando = false;
     public static final int ANCHO = 800,ALTO = 600,CENTROX = ANCHO/2,CENTROY = ALTO/2;
     
     private final Lienzo lienzo;
@@ -20,12 +20,9 @@ public class GestorPrincipal {
     public GestorPrincipal(){
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO,ALTO);
-        
         jugador = new Jugador(lienzo);
-        
         ventana = new Ventana(lienzo);        
         ge = new GestorEstado(jugador);
-        
     }
     
     public static void main(String[] args){
@@ -34,22 +31,14 @@ public class GestorPrincipal {
     }
 
     private void iniciarBuclePrincipal() {
-
         int aps=0,fps=0; //actualizaciones por segundo y framses por segundo
-
-        
         final int NS_POR_S = 1000000000; //para realizar transformaciones
         final byte APS_OBJETIVO = 60;
         final double NS_POR_ACTUALIZACION = NS_POR_S/APS_OBJETIVO;
-        
-        // para la actualización
         long referenciaActualización = System.nanoTime();
-                // referencia para que muestre informacion segundo a segundo
         long referenciaContador = System.nanoTime();
-        
         double tiempoTranscurrido;
         double delta = 0;
-
         while(esta_funcionando){
             final long inicioBucle = System.nanoTime();
             tiempoTranscurrido = inicioBucle - referenciaActualización;
@@ -63,7 +52,6 @@ public class GestorPrincipal {
                 aps++;
                 delta -= 1;
             }
-            
             dibujar(); // aqui se cuentan los frames por segundo
             fps++;
             
@@ -78,12 +66,10 @@ public class GestorPrincipal {
     
     private void actualizar(){
         lienzo.getTeclado().actualizar(); //actualiza las teclas que pulsamos
-        
         ge.actualizar(lienzo);   
     }
     
     private void dibujar(){
         lienzo.dibujar(ge); //el gestor de estado manejara todos los dibujos
     }
-    
 }

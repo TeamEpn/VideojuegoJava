@@ -10,18 +10,13 @@ public class HiloPosicionesTiempo implements Runnable {
     Jugador jugador;
     public static ListaPosiciones cola;
     
+    @Override
     public void run(){
         
-        //int contador = 1;
-        //int limite = 100;
-        
-        
-        while(true){
+        while(jugador.estaVivo()){
             try {
                 Thread.sleep(1000);
-                //contador++;
                 cola.insertar(jugador);
-
                 //System.out.println(cola);
             } catch (InterruptedException ex) {
                 Logger.getLogger(HiloPosicionesTiempo.class.getName()).log(Level.SEVERE, null, ex);
@@ -30,9 +25,7 @@ public class HiloPosicionesTiempo implements Runnable {
         
         
     }
-    /**
-     * @param args the command line arguments
-     */
+    
     public HiloPosicionesTiempo(Jugador jugador,int tiempo){
         this.jugador = jugador;
         cola = new ListaPosiciones(tiempo);

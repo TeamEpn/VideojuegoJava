@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package videojuego.objetos.entidad.Jugador.Poderes.poderFuego;
 
 import java.awt.Graphics;
@@ -10,10 +5,6 @@ import javax.swing.ImageIcon;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-/**
- *
- * @author User
- */
 public class BolaFuego {
     
     public static boolean esta_activa;
@@ -28,13 +19,10 @@ public class BolaFuego {
         this.inicioX = inicioX;
         this.inicioY = inicioY;
         this.j = j;
-        
     }
          
     public void dibujar(Graphics g){
-        
         g.drawImage(img.getImage(), posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
-        
     }
     
     

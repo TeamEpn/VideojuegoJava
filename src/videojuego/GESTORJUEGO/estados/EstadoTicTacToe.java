@@ -114,7 +114,7 @@ public class EstadoTicTacToe implements EstadoJuego {
                 if (this.boton_volver.esClickeado(mx, my)) {
                     jugador.setX(jugador.getX() - 100);
                     this.inicializar();
-                    Sonido.cambioMusica(Sonido.musica_inicio);
+                    Sonido.cambioMusica(Sonido.MUSICA_INICIO);
                     GestorEstado.cambiarEstado(0);
                     this.game_over = true;
                 } else if (dificultad == 0) {

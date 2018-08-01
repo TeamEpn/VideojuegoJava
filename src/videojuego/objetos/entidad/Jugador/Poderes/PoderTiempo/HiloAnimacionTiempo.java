@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package videojuego.objetos.entidad.Jugador.Poderes.PoderTiempo;
 
 import videojuego.objetos.entidad.Jugador.Jugador;
@@ -10,10 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprites.Animacion;
 
-/**
- *
- * @author User
- */
 public class HiloAnimacionTiempo implements Runnable {
 
     Jugador jugador;
@@ -25,13 +16,12 @@ public class HiloAnimacionTiempo implements Runnable {
         
     }
     
+    @Override
     public void run(){
         int transicion = 0;
         int limite = estados.length;
         delay = 130;
         Animacion.mostrarAnimacion(Animacion.animacion_tiempo,delay*2/3);
-        
-        
         
         while(transicion < limite){
             try {
@@ -41,12 +31,5 @@ public class HiloAnimacionTiempo implements Runnable {
                 Logger.getLogger(HiloPosicionesTiempo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
     }
-    /**
-     * @param args the command line arguments
-     */
-    
-    
 }

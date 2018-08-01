@@ -8,7 +8,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprites.HojaSprites;
-import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Sonido;
 import videojuego.objetos.entidad.Jugador.Jugador;
@@ -204,7 +203,7 @@ public class MapaCiudad extends Mapa {
 
     @Override
     public void musica() {
-        Sonido.cambioMusica(Sonido.musica_mapa_rafa);
+        Sonido.cambioMusica(Sonido.MUSICA_MAPA_RAFA);
 
     }
 }

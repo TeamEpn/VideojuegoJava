@@ -1,4 +1,3 @@
-
 package interfaz;
 
 import input.Mouse;
@@ -9,11 +8,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import input.Teclado;
-import sprites.Animacion;
-import sprites.HojaSprites;
-import sprites.Sprite;
 import videojuego.GESTORJUEGO.GestorEstado;
-
 
 public class Lienzo extends Canvas {
     
@@ -51,15 +46,10 @@ public class Lienzo extends Canvas {
         
         //*Aqui se dibuja todo el juego*//
         ge.dibujar(g);
-        //this.getMouse().dibujar(g);
-        //***********//
-        
-        
-        
         
         //Esto le permite dibujar solo entre actualizaciones de pantalla
         Toolkit.getDefaultToolkit().sync(); //lo hace fluido
-        g.dispose(); // destruye la memoria 
+        g.dispose(); // destruye el objeto de la memoria 
         buffer.show();
     }
 
@@ -78,7 +68,4 @@ public class Lienzo extends Canvas {
     public Mouse getMouse() {
         return mouse;
     }
-    
-    
-    
 }

@@ -1,4 +1,3 @@
-
 package interfaz;
 
 import java.awt.BorderLayout;
@@ -16,7 +15,6 @@ public class Ventana extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(lienzo, BorderLayout.CENTER);
         this.pack();
-        //this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 }

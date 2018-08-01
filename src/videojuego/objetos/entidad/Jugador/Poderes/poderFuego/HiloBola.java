@@ -1,6 +1,7 @@
 package videojuego.objetos.entidad.Jugador.Poderes.poderFuego;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import videojuego.GestorPrincipal;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class HiloBola implements Runnable {
@@ -20,8 +21,7 @@ public class HiloBola implements Runnable {
     public void run() {
         try {
             final int delay = 2;
-            final int inicioX = j.getX(), inicioY = j.getY();
-            for (int i=1;i<=600;i++) {
+            for (int i=1;i<=GestorPrincipal.ANCHO;i++) {
                 
                 if (direccion.equals("abajo")) {
                     bola.posy = bola.posy + 1;
@@ -35,7 +35,7 @@ public class HiloBola implements Runnable {
                 
                 Thread.sleep(delay);
             }
-            bola.esta_activa = false;
+            BolaFuego.esta_activa = false;
         } catch (InterruptedException ex) {
             Logger.getLogger(HiloBola.class.getName()).log(Level.SEVERE, null, ex);
         }

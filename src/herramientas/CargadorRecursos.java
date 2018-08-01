@@ -6,7 +6,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,13 +13,6 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class CargadorRecursos {
 
@@ -70,38 +62,4 @@ public class CargadorRecursos {
         return imagen_acelerada;
 
     }
-
-    public static String leerArchivoTexto(final String ruta) {
-
-        String contenido = "";
-
-        //lee y nos devuelve un flujo de bytes, es mejor que texto
-        InputStream entrada_bytes = ClassLoader.class.getResourceAsStream(ruta);
-        BufferedReader lector = new BufferedReader(new InputStreamReader(entrada_bytes));
-
-        String linea;
-        try {
-            while ((linea = lector.readLine()) != null) {
-                contenido += linea;
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (entrada_bytes != null) {
-                    entrada_bytes.close();
-                }
-                if (lector != null) {
-                    lector.close();
-                }
-            } catch (IOException er) {
-                er.printStackTrace();
-            }
-        }
-
-        return contenido;
-    }
-
 }

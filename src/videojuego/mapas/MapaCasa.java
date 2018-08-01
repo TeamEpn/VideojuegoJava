@@ -21,9 +21,7 @@ public class MapaCasa extends Mapa{
         objetos = new ArrayList<>();
 
         //CASA
-        
         objetos.add(new Objeto(new Rectangle(282 + desfasex - x, 46 + desfasey - y, 283, 185),"Casa 1 centro",Objeto.Tag.EDIFICIO));
-        
         
         //teleport
         objetos.add(new Objeto(new Rectangle(760 + desfasex - x, 277 + desfasey - y, 30, 60),"Teleport ciudad",Objeto.Tag.TELEPORT_CIUDAD));
@@ -53,6 +51,6 @@ public class MapaCasa extends Mapa{
 
     @Override
     public void musica() {
-        Sonido.cambioMusica(Sonido.musica_mapa_carlos);
+        Sonido.cambioMusica(Sonido.MUSICA_MAPA_CARLOS);
     }
 }

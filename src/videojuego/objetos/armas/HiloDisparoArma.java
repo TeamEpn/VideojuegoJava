@@ -1,6 +1,7 @@
 package videojuego.objetos.armas;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import videojuego.GestorPrincipal;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class HiloDisparoArma implements Runnable {
@@ -18,12 +19,8 @@ public class HiloDisparoArma implements Runnable {
     @Override
     public void run() {
         
-        final int inicioX = j.getX(), inicioY = j.getY();
-        
-        while (true) {
-            
+        for(int i=1;i<=GestorPrincipal.ANCHO;i++) {
             try {
-                
                 if (direccion.equals("abajo")) {
                     bala.posy = bala.posy + 1;
                 } else if (direccion.equals("arriba")) {
@@ -33,9 +30,8 @@ public class HiloDisparoArma implements Runnable {
                 } else if (direccion.equals("izquierda")) {
                     bala.posx = bala.posx - 1;
                 }
-                
                 Thread.sleep(2);
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
                 Logger.getLogger(HiloDisparoArma.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

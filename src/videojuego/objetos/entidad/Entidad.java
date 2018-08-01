@@ -15,7 +15,8 @@ public abstract class Entidad {
 
     protected int x, y;
     protected int posx_inicial, posy_inicial;
-    protected final int velocidad = 2;
+    protected final int velocidad_original = 2;
+    protected int velocidad = velocidad_original;
 
     protected boolean esta_vivo;
     protected int vida_maxima;
@@ -37,7 +38,7 @@ public abstract class Entidad {
 
     public Entidad(int vida_actual) {
         this.vida_maxima = 100;
-        this.vida_actual = vida_actual;
+        this.vida_actual = vida_maxima;
 
         frente0 = null;
         espalda0 = null;
@@ -142,10 +143,6 @@ public abstract class Entidad {
 
     public int getAlto_jugador() {
         return alto_ente;
-    }
-
-    public Mapa getMapa() {
-        return mapa;
     }
 
     public boolean estaVivo() {
@@ -257,6 +254,30 @@ public abstract class Entidad {
 
     }
     
+    
+    public void agregarVida(int cantidad) {
+        if (this.vida_actual + cantidad <= this.vida_maxima) {
+            this.vida_actual += cantidad;
+        } else {
+            this.vida_actual = 100;
+        }
+    }
+    
+    public void quitarVida(int cantidad) {
+        if (this.vida_actual >= cantidad) {
+            this.vida_actual -= cantidad;
+        } else {
+            this.vida_actual = 0;
+        }
+    }
+    
+    public void regenerarVida(int cantidad) {
+        if (this.vida_actual + cantidad <= this.vida_maxima) {
+            this.vida_actual += cantidad;
+        } else {
+            this.vida_actual = this.vida_maxima;
+        }
+    }
     
     
 

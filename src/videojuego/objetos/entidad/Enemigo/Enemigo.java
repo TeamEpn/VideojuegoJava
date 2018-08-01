@@ -7,19 +7,20 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
+import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class Enemigo extends Entidad {
 
     Jugador jugador;
 
-    public Enemigo(Jugador jugador) {
+    public Enemigo(final Jugador jugador) {
         //el centrox para ubicarlo en la esquina superior izquierda
 
         super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100, GestorPrincipal.CENTROY + 100,Objeto.Tag.ENEMIGO,
                 new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});
        
         this.jugador = jugador;
-        this.setMapa(jugador.getMapa());
+        this.setMapa(EstadoAventura.mapa_actual);
 
     }
 
@@ -98,12 +99,13 @@ public class Enemigo extends Entidad {
                     this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
 
         }
-
-        /*for(int i=0;i<4;i++){
-         g.drawRect(this.objeto_ente.getRectangle()[i].x+(this.x-this.posx_inicial-jugador.getX()), this.objeto_ente.getRectangle()[i].y+(this.y-this.posy_inicial-jugador.getY()),
-         this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
         
-         }*/
+        int porc = 40;
+        int vid = (this.vida_actual*porc)/this.vida_maxima;
+        
+        g.setColor(Color.green);
+        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY()-20, vid, 7);
+
     }
 
 }

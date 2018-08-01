@@ -36,7 +36,7 @@ public class MapaBosque extends Mapa{
     
     public MapaBosque(final String nombre,final String ruta,final int ancho,final int alto,final Jugador jugador) {
         super(nombre,ruta,ancho,alto,jugador);
-        
+                
         moneda1.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda1.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda2.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda2.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda3.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda3.setPosY(random.nextInt(ALTO_SPAWNEO));
@@ -48,8 +48,6 @@ public class MapaBosque extends Mapa{
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override
     public void generarObjetosColisionables(Graphics g, final int x,final int y,final Jugador jugador) {
-
-        
 
         objetos = new ArrayList<>();
 
@@ -212,7 +210,7 @@ public class MapaBosque extends Mapa{
 
     @Override
     public void musica() {
-        Sonido.cambioMusica(Sonido.musica_inicio);
+        Sonido.cambioMusica(Sonido.MUSICA_INICIO);
     }
 
 }

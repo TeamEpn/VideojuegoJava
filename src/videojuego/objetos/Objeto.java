@@ -19,6 +19,8 @@ public class Objeto {
         public static final String ABSORCION_MANA = "absorcion_mana";
         public static final String TICTACTOE = "tictactoe";
         public static final String SUBIDA_EXP = "subida_exp";
+        
+        
         public static final String TELEPORT_CIUDAD = "teleport_ciudad";
         public static final String TELEPORT_BOSQUE = "teleport_bosque";
         public static final String TELEPORT_CASA = "teleport_casa";

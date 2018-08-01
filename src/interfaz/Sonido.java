@@ -12,77 +12,26 @@ import javazoom.jl.player.Player;
 
 public class Sonido implements Runnable {
 
-    
-    public static Sonido musica_menu = new Sonido("\\recursos\\sonidos\\LIS.mp3");
-    public static Sonido musica_inicio = new Sonido("\\recursos\\sonidos\\SilentHill.mp3");
-    public static Sonido musica_mapa_rafa = new Sonido("\\recursos\\sonidos\\MegaMan.mp3");
-    public static Sonido musica_mapa_carlos = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
-    public static Sonido musica_mapa_danny = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
-    public static Sonido sonido_viaje_tiempo = new Sonido("\\recursos\\sonidos\\EkkoTime.mp3");
-    
+    public static final Sonido MUSICA_MENU = new Sonido("\\recursos\\sonidos\\LIS.mp3");
+    public static final Sonido MUSICA_INICIO = new Sonido("\\recursos\\sonidos\\SilentHill.mp3");
+    public static final Sonido MUSICA_MAPA_RAFA = new Sonido("\\recursos\\sonidos\\MegaMan.mp3");
+    public static final Sonido MUSICA_MAPA_CARLOS = new Sonido("\\recursos\\sonidos\\Zelda.mp3");
+    public static final Sonido MUSICA_MAPA_DANNY = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
+    public static final Sonido EFECTO_VIAJE_TIEMPO = new Sonido("\\recursos\\sonidos\\EkkoTime.mp3");
     
     public Player player;
-    BufferedInputStream bis;
-    String ruta;
+    private BufferedInputStream bis;
+    private final String ruta;
     
     public static Sonido actual;
 
-    public Sonido(String ruta) {
+    public Sonido(final String ruta) {
         this.ruta = ruta;
         inicializar();
         actual = null;
 
     }
-
-    public void reproducir() {
-
-        try {
-            inicializar();
-            player = new Player(bis);
-        } catch (JavaLayerException ex) {
-            Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        new Thread(this).start();
-
-    }
-
-    public static void cambioMusica(Sonido sonido_nuevo) {
-        
-        if(actual == null){
-            sonido_nuevo.reproducir();
-            actual = sonido_nuevo;
-            return;
-        }
-        
-        
-        if (actual.player != null) {
-            actual.detener();
-        }
-        if (sonido_nuevo.player == null) {
-            sonido_nuevo.reproducir();
-            actual = sonido_nuevo;
-        } 
-    }
-
-    public void detener() {
-
-        player.close();
-        player = null;
-
-    }
-
-    @Override
-    public void run() {
-        try {
-            player.play();
-        }catch(NullPointerException nul){
-            System.out.println("Cambio brusco de musica, Null pointer exception controlado");
-        }        
-        catch (JavaLayerException ex) {
-            Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     private void inicializar() {
         try {
             File file = new File(".");
@@ -99,4 +48,46 @@ public class Sonido implements Runnable {
 
     }
 
+    public void reproducir() {
+        try {
+            inicializar();
+            player = new Player(bis);
+        } catch (JavaLayerException ex) {
+            Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        new Thread(this).start();
+    }
+
+    public void detener() {
+        player.close();
+        player = null;
+    }
+    
+    public static void cambioMusica(Sonido sonido_nuevo) {
+        
+        if(actual == null){
+            sonido_nuevo.reproducir();
+            actual = sonido_nuevo;
+            return;
+        }
+        if (actual.player != null) {
+            actual.detener();
+        }
+        if (sonido_nuevo.player == null) {
+            sonido_nuevo.reproducir();
+            actual = sonido_nuevo;
+        } 
+    }
+
+    @Override
+    public void run() {
+        try {
+            player.play();
+        }catch(NullPointerException nul){
+            System.out.println("Cambio brusco de musica, Null pointer exception controlado");
+        }        
+        catch (JavaLayerException ex) {
+            Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
