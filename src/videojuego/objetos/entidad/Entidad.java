@@ -107,7 +107,7 @@ public abstract class Entidad {
     
     
     protected void generarCollides(int centrox,int centroy,String tag){
-        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente/ 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
         Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
         Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2, ancho_ente - sep, 1);
         Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);

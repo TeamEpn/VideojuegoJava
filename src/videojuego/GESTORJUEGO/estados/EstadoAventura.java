@@ -27,9 +27,10 @@ public class EstadoAventura implements EstadoJuego{
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
         this.jugador.estado_aventura = this;
-        enemigos = new Enemigo[1];
-        enemigos[0] = new Enemigo(jugador);
-    
+        enemigos = new Enemigo[10];
+        for(int i=0; i<10;i++){
+        enemigos[i] = new Enemigo(jugador);
+        }
     }
     
     private void iniciaMapasAventura(){

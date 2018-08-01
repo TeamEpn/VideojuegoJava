@@ -24,8 +24,8 @@ public class Objeto {
         public static final String TELEPORT_CASA = "teleport_casa";
         
         public static final String AGREGAR_VIDA = "agregar_vida";
-        public static final String AGREGAR_DINERO = "gregar_dinero";
-
+        public static final String AGREGAR_DINERO = "agregar_dinero";
+        public static final String BALASO = "balaso";
     }
 
     

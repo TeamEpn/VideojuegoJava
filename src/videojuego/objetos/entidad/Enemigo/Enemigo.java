@@ -11,11 +11,11 @@ import interfaz.Lienzo;
 public class Enemigo extends Entidad {
 
     Jugador jugador;
-
+    int contador=0;
     public Enemigo(Jugador jugador) {
         //el centrox para ubicarlo en la esquina superior izquierda
 
-        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100, GestorPrincipal.CENTROY + 100,Objeto.Tag.ENEMIGO,
+        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100+(int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100,Objeto.Tag.ENEMIGO,
                 new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});
        
         this.jugador = jugador;
@@ -89,16 +89,31 @@ public class Enemigo extends Entidad {
     public void dibujar(Graphics g) {
 
         g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
-
+        g.setColor(Color.red);
+        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY()-5, vida_actual/3, 3);
         g.setColor(Color.orange);
 
-        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), Objeto.Tag.ENEMIGO);
-        for (int i = 0; i < 4; i++) {
-            g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY()-18, Objeto.Tag.ENEMIGO);
+           for (int i = 0; i < 4; i++) {
+               if(i==0||i==2){
+                   if(i==0){
+                   g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
                     this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-
+                   }else{
+                       g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y+18,
+                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+                   }
+           }else{
+                g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y-3,
+                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height+20);
+               }
+               
         }
-
+           
+        
+        if(vida_actual==0){
+            
+        }
         /*for(int i=0;i<4;i++){
          g.drawRect(this.objeto_ente.getRectangle()[i].x+(this.x-this.posx_inicial-jugador.getX()), this.objeto_ente.getRectangle()[i].y+(this.y-this.posy_inicial-jugador.getY()),
          this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);

@@ -34,7 +34,7 @@ public class Moneda {
 
     public void dibujar(Graphics g, int posX, int posY, int desfasex, int desfasey, Jugador jugador) {
         if (colision == false) {
-            rectangulo = new Objeto(new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 18), id, Objeto.Tag.AGREGAR_DINERO);
+            rectangulo = new Objeto(new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 108), id, Objeto.Tag.AGREGAR_DINERO);
             if (comprobarSiContiene(rectangulo.getRectangle()) == false) {
                 g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 18, null);
                 mapa.objetos.add(rectangulo);
