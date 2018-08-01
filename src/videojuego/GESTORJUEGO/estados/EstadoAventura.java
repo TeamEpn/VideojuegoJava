@@ -7,9 +7,12 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 import videojuego.objetos.entidad.Enemigo.Enemigo;
 import videojuego.mapas.Mapa;
 import interfaz.Lienzo;
+import java.awt.Graphics2D;
 import videojuego.GESTORJUEGO.EstadoJuego;
+import videojuego.GestorPrincipal;
 import videojuego.mapas.MapaCasa;
-import videojuego.mapas.MapaCiudad;
+import videojuego.mapas.ciudad.MapaCiudad;
+import videojuego.mapas.ciudad.MapaCiudadCasaINN;
 
 public class EstadoAventura implements EstadoJuego{
     //este estado nos muestra al jugador caminando por mapas
@@ -25,11 +28,13 @@ public class EstadoAventura implements EstadoJuego{
     }
     
     private void iniciaMapasAventura(){
-        mapas = new Mapa[3];
-        mapas[0] = new MapaCiudad("Ciudad","/imagenes/mapaRafa.png",800,600,jugador);
-        mapas[1] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador);
-        mapas[2] = new MapaCasa("Zelda","/imagenes/mapaCarlos.png",800,600,jugador);
-        mapa_actual = mapas[1];
+        mapas = new Mapa[4];
+        mapas[0] = new MapaCiudad("Ciudad","/imagenes/mapaRafa.png",800,600,jugador,GestorPrincipal.CENTROX,-48);
+        mapas[1] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador,-290,-100);
+        mapas[2] = new MapaCasa("Zelda","/imagenes/mapaCarlos.png",800,600,jugador,-246,0);
+        mapas[3] = new MapaCiudadCasaINN("Casa Inversiones","/imagenes/inn.jpg",576,704,jugador,410,0);
+        
+        mapa_actual = mapas[0];
         mapa_actual.musica();
     }
     private void dibujarTexto(Graphics g){
@@ -41,17 +46,21 @@ public class EstadoAventura implements EstadoJuego{
     public void actualizar(Lienzo lienzo) {
         jugador.actualizar(lienzo); 
         
-        for(Enemigo enemigo:mapa_actual.enemigos) // para cuando agreguemos mas de un enemigo
-            enemigo.actualizar(lienzo);
+        if(mapa_actual.enemigos != null)
+            for(Enemigo enemigo:mapa_actual.enemigos) // para cuando agreguemos mas de un enemigo
+                enemigo.actualizar(lienzo);
     }
 
     @Override
-    public void dibujar(Graphics g) {
+    public void dibujar(Graphics2D g) {
+        
+       
         mapa_actual.dibujar(g);
         jugador.dibujar(g);
         
-        for(Enemigo enemigo:mapa_actual.enemigos)
-            enemigo.dibujar(g);
+        if(mapa_actual.enemigos != null)
+            for(Enemigo enemigo:mapa_actual.enemigos)
+                enemigo.dibujar(g);
         
         this.dibujarTexto(g);        
     }

@@ -1,5 +1,5 @@
 
-package videojuego.mapas;
+package videojuego.mapas.ciudad;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import sprites.HojaSprites;
 import videojuego.objetos.Objeto;
 import interfaz.Sonido;
+import videojuego.mapas.Mapa;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import videojuego.objetos.recolectables.Moneda;
 import videojuego.objetos.recolectables.ObjetoCurativo;
@@ -44,7 +45,16 @@ public class MapaCiudad extends Mapa {
         moneda4.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda4.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda5.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda5.setPosY(random.nextInt(ALTO_SPAWNEO));
     }
-
+    
+    public MapaCiudad(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador,
+            int desfasex,int desfasey) {
+        super(nombre, ruta, ancho, alto, jugador,desfasex,desfasey);
+        moneda1.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda1.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda2.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda2.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda3.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda3.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda4.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda4.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda5.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda5.setPosY(random.nextInt(ALTO_SPAWNEO));
+    }
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override
     public void generarObjetosColisionables(Graphics g, final int x, final int y, final Jugador jugador) {
@@ -66,22 +76,25 @@ public class MapaCiudad extends Mapa {
         objetos.add(new Objeto(new Rectangle(635 + desfasex - x, 225 + desfasey - y, 124, 128), "Casa 13 Derecha", Objeto.Tag.EDIFICIO));
 
         //ARBOLES, FLORES Y ESTATUAS
-        objetos.add(new Objeto(new Rectangle(152 + desfasex - x, 470 + desfasey - y, 80, 130), "Arbol y muro Izquierda", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(300 + desfasex - x, 471 + desfasey - y, 81, 129), "Arbol y muro Derecha", Objeto.Tag.NATURALEZA));
+        objetos.add(new Objeto(new Rectangle(152 + desfasex - x, 470 + desfasey - y, 80, 130), "Arbol y muro Izquierda", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(300 + desfasex - x, 471 + desfasey - y, 81, 129), "Arbol y muro Derecha", Objeto.Tag.EDIFICIO));
         
         objetos.add(new Objeto(new Rectangle(234 + desfasex - x, 571 + desfasey - y, 65, 27), "Puerta Zelda", Objeto.Tag.TELEPORT_CASA));
         
         objetos.add(new Objeto(new Rectangle(661 + desfasex - x, 42 + desfasey - y, 25, 124), "Flores iglesia izquierda", Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(755 + desfasex - x, 42 + desfasey - y, 29, 123), "Flores iglesia derecha", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 148 + desfasey - y, 37, 79), "Arbol y poste 1 izquierda", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(39 + desfasex - x, 303 + desfasey - y, 23, 77), "Poste 2 izquierda", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(159 + desfasex - x, 395 + desfasey - y, 22, 75), "Poste 3 izquierda", Objeto.Tag.NATURALEZA));
+        objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 148 + desfasey - y, 37, 79), "Arbol y poste 1 izquierda", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(39 + desfasex - x, 303 + desfasey - y, 23, 77), "Poste 2 izquierda", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(159 + desfasex - x, 395 + desfasey - y, 22, 75), "Poste 3 izquierda", Objeto.Tag.EDIFICIO));
         objetos.add(new Objeto(new Rectangle(252 + desfasex - x, 349 + desfasey - y, 27, 63), "Estatua izquierda", Objeto.Tag.TELEPORT_BOSQUE));
-        objetos.add(new Objeto(new Rectangle(352 + desfasex - x, 395 + desfasey - y, 21, 75), "Poste 4 izquierda", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(472 + desfasex - x, 304 + desfasey - y, 21, 75), "Poste 5 derecha", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(616 + desfasex - x, 304 + desfasey - y, 21, 75), "Poste 6 derecha", Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(759 + desfasex - x, 304 + desfasey - y, 21, 75), "Poste 7 derecha", Objeto.Tag.NATURALEZA));
-
+        objetos.add(new Objeto(new Rectangle(352 + desfasex - x, 395 + desfasey - y, 21, 75), "Poste 4 izquierda", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(472 + desfasex - x, 304 + desfasey - y, 21, 75), "Poste 5 derecha", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(616 + desfasex - x, 304 + desfasey - y, 21, 75), "Poste 6 derecha", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(759 + desfasex - x, 304 + desfasey - y, 21, 75), "Poste 7 derecha", Objeto.Tag.EDIFICIO));
+        objetos.add(new Objeto(new Rectangle(183 + desfasex - x, 255 + desfasey - y, 23, 40), "Casa INN", Objeto.Tag.TELEPORT_CASAINN));
+   
+        
+        
         //OBJETOS CURATIVOS
         manzana1.dibujar(g, 250, 306, desfasex, desfasey, jugador);
         manzana2.dibujar(g, 253, 72, desfasex, desfasey, jugador);

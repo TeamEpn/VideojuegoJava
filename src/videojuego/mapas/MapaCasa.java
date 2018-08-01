@@ -12,6 +12,12 @@ public class MapaCasa extends Mapa{
     public MapaCasa(final String nombre,final String ruta,final int ancho,final int alto,final Jugador jugador) {
         super(nombre,ruta,ancho,alto,jugador);
     }
+
+    public MapaCasa(String nombre, String ruta, int ancho, int alto, Jugador jugador, int desfasex, int desfasey) {
+        super(nombre, ruta, ancho, alto, jugador, desfasex, desfasey);
+    }
+    
+    
     
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override

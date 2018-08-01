@@ -6,7 +6,7 @@ import java.util.Random;
 public class JugadaIA {
 
     public static int[] jugadaFacil(int[][] board){
-        int[] jugada = new int[2];
+        int[] jugada;
         int[][] espacios = Arbol.obtenerEspaciosDisponibles(board);
         int[] vector = Arbol.desglosarHorizontalmenteMatriz(Arbol.transponerMatriz(espacios));
         Random random = new Random();
@@ -59,7 +59,7 @@ public class JugadaIA {
         int[][] espacios = Arbol.obtenerEspaciosDisponibles(board);
         int[] vector = Arbol.desglosarHorizontalmenteMatriz(Arbol.transponerMatriz(espacios));
         Random random = new Random();
-        int limite = random.nextInt(Arbol.obtenerPosicionesDisponibles(vector));
+        int limite = random.nextInt(Arbol.obtenerPosicionesDisponibles(vector))+1;
         jug = Arbol.usarJugadaElegidaEnEspacioDisponible(board, limite);
         
         return jug;

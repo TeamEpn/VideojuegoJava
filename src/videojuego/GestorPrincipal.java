@@ -9,7 +9,8 @@ public class GestorPrincipal {
     public static int aps=0,fps=0; //actualizaciones por segundo y framses por segundo
 
     public static boolean esta_funcionando = false;
-    public static final int ANCHO = 800,ALTO = 600,CENTROX = ANCHO/2,CENTROY = ALTO/2;
+    public static float escalado = 1f;
+    public static final int ANCHO = 1250,ALTO = 650,CENTROX = ANCHO/2,CENTROY = ALTO/2;
     
     private final Lienzo lienzo;
     private final Ventana ventana;

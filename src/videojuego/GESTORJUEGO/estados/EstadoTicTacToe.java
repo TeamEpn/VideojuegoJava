@@ -14,6 +14,7 @@ import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.tictactoeIA.JugadaIA;
 import videojuego.GESTORJUEGO.estados.tictactoeIA.Arbol;
 import interfaz.Sonido;
+import java.awt.Graphics2D;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class EstadoTicTacToe implements EstadoJuego {
@@ -22,7 +23,7 @@ public class EstadoTicTacToe implements EstadoJuego {
     Boton boton_volver = new Boton(100,100,"Volver");
     Boton boton_facil = new Boton(100,200,"Fácil");
     Boton boton_medio = new Boton(100,230,"Medio");
-    Boton boton_imposible = new Boton(100,260,"Imposible");
+    Boton boton_imposible = new Boton(100,260,"Difícil");
     
     Jugador jugador;
     int[][] board = {{1, 0, 0},
@@ -173,7 +174,7 @@ public class EstadoTicTacToe implements EstadoJuego {
     }
 
     @Override
-    public void dibujar(Graphics g) {
+    public void dibujar(Graphics2D g) {
 
         g.drawImage(fondo, 0, 0, null);
 

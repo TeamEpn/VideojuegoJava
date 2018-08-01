@@ -6,6 +6,7 @@ import videojuego.GESTORJUEGO.estados.EstadoInversion;
 import java.awt.Graphics;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
+import java.awt.Graphics2D;
 
 public class GestorEstado {
     
@@ -28,7 +29,7 @@ public class GestorEstado {
         estado_actual.actualizar(lienzo);
     }
     
-    public void dibujar(final Graphics g){
+    public void dibujar(final Graphics2D g){
         estado_actual.dibujar(g);
     }
     

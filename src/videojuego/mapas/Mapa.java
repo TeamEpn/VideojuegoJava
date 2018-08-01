@@ -74,8 +74,15 @@ public abstract class Mapa {
             }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0){
                 g.setColor(Color.magenta);
             }
-        
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0){
+                g.setColor(Color.yellow);
+            }
+            else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CASAINN) == 0){
+                g.setColor(Color.yellow);
+            }
             g.drawRect(r.getRectangle()[0].x, r.getRectangle()[0].y, r.getRectangle()[0].width, r.getRectangle()[0].height);
+        
+        
         }
     }
     

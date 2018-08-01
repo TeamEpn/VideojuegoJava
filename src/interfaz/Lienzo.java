@@ -8,7 +8,10 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import input.Teclado;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
 import videojuego.GESTORJUEGO.GestorEstado;
+import videojuego.GestorPrincipal;
 
 public class Lienzo extends Canvas {
     
@@ -39,11 +42,12 @@ public class Lienzo extends Canvas {
             return;
         }
         
-        Graphics g = buffer.getDrawGraphics(); //pintamos dentro de una imagen(en la memoria)
+        Graphics2D g = (Graphics2D)buffer.getDrawGraphics(); //pintamos dentro de una imagen(en la memoria)
         
         g.setColor(Color.black);
         g.fillRect(0, 0, ancho, alto);
-        
+        //g.setStroke(new BasicStroke(3.0f));
+        g.scale(GestorPrincipal.escalado, GestorPrincipal.escalado);
         //*Aqui se dibuja todo el juego*//
         ge.dibujar(g);
         

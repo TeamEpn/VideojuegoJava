@@ -61,7 +61,7 @@ public class Jugador extends Entidad {
         this.damage = 20;
         this.reg_vida = 3;
         this.reg_mana = 2;
-        this.reg_resistencia = 7;
+        this.reg_resistencia = 20;
         this.resistencia_actual = (resistencia_maxima = 300);
         nivel = 1;
         pistola = new Pistola(10);
@@ -155,24 +155,28 @@ public class Jugador extends Entidad {
         if (lienzo.getTeclado().arriba) {
             if (!(direccion.compareToIgnoreCase("entorno_arriba") == 0)) {
                 sprite_actual = espalda0;
+                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY - 10, 32, 25)});
                 y = y - velocidad;
             }
         }
         if (lienzo.getTeclado().abajo) {
             if (!(direccion.compareToIgnoreCase("entorno_abajo") == 0)) {
                 sprite_actual = frente0;
+                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY + 70, 32, 25)});
                 y = y + velocidad;
             }
         }
         if (lienzo.getTeclado().izquierda) {
             if (!(direccion.compareToIgnoreCase("entorno_izquierda") == 0)) {
                 sprite_actual = lado_izquierdo0;
+                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX- 16, GestorPrincipal.CENTROY+10, 25, 32)});
                 x = x - velocidad;
             }
         }
         if (lienzo.getTeclado().derecha) {
             if (!(direccion.compareToIgnoreCase("entorno_derecha") == 0)) {
                 sprite_actual = lado_derecho0;
+                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX+ 30, GestorPrincipal.CENTROY+10, 25, 32)});
                 x = x + velocidad;
             }
         }
@@ -224,9 +228,9 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().poder_tiempo) {
 
-            if (mana_actual >= 100) {
+            if (mana_actual >= mana_maximo) {
                 System.out.println("PODER ACTIVADO");
-                mana_actual -= 100;
+                mana_actual -= mana_maximo;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
 
                 Sonido.EFECTO_VIAJE_TIEMPO.reproducir();
@@ -308,10 +312,35 @@ public class Jugador extends Entidad {
                 Thread.sleep(30);
 
                 Animacion.esta_activa = true;
-                Animacion.imagen_actual = Animacion.animacion_espada.obtenerSprite(0, 0).obtenerImagen();
-                Animacion.x = GestorPrincipal.CENTROX;
-                Animacion.y = GestorPrincipal.CENTROY + 48;
-                Animacion.mostrarAnimacion(Animacion.animacion_espada, 20);
+                
+                if(this.sprite_actual == this.frente0){
+                    Animacion.imagen_actual = Animacion.animacion_espada_frente.obtenerSprite(0, 0).obtenerImagen();
+                    Animacion.x = GestorPrincipal.CENTROX;
+                    Animacion.y = GestorPrincipal.CENTROY + 48;
+                    Animacion.mostrarAnimacion(Animacion.animacion_espada_frente, 10);
+                }
+                else if(this.sprite_actual == this.espalda0){
+                    Animacion.imagen_actual = Animacion.animacion_espada_espalda.obtenerSprite(0, 0).obtenerImagen();
+                    Animacion.x = GestorPrincipal.CENTROX;
+                    Animacion.y = GestorPrincipal.CENTROY - 24;
+                    Animacion.mostrarAnimacion(Animacion.animacion_espada_espalda, 10);
+                }
+                else if(this.sprite_actual == this.lado_derecho0){
+                    Animacion.imagen_actual = Animacion.animacion_espada_derecha.obtenerSprite(0, 0).obtenerImagen();
+                    Animacion.x = GestorPrincipal.CENTROX + 25;
+                    Animacion.y = GestorPrincipal.CENTROY;
+                    Animacion.mostrarAnimacion(Animacion.animacion_espada_derecha, 10);
+                }
+                else if(this.sprite_actual == this.lado_izquierdo0){
+                    Animacion.imagen_actual = Animacion.animacion_espada_izquierda.obtenerSprite(0, 0).obtenerImagen();
+                    Animacion.x = GestorPrincipal.CENTROX - 24;
+                    Animacion.y = GestorPrincipal.CENTROY;
+                    Animacion.mostrarAnimacion(Animacion.animacion_espada_izquierda, 10);
+                }
+                
+                
+                
+                
                 this.espada.actualizar();
                 Teclado.teclas[KeyEvent.VK_2] = false;
             } catch (InterruptedException ex) {
@@ -345,6 +374,17 @@ public class Jugador extends Entidad {
             if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
+                EstadoAventura.mapa_actual.musica();
+                this.setMapa(EstadoAventura.mapa_actual);
+            }
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {
+                
+                this.y += 5;
+                GestorEstado.cambiarEstado(2);
+            }
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CASAINN) == 0) {
+
+                EstadoAventura.mapa_actual = EstadoAventura.mapas[3];
                 EstadoAventura.mapa_actual.musica();
                 this.setMapa(EstadoAventura.mapa_actual);
             }
@@ -441,9 +481,9 @@ public class Jugador extends Entidad {
             this.resistencia_maxima += aumento / 2;
             this.exp_maxima += aumento;
             this.exp_actual = exp - exp_restante;
-            this.reg_vida += 5;
-            this.reg_mana += 5;
-            this.reg_resistencia += 10;
+            this.reg_vida += 2;
+            this.reg_mana += 2;
+            this.reg_resistencia += 2;
         }
     }
 

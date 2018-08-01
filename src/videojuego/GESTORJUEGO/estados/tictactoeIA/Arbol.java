@@ -546,7 +546,7 @@ public class Arbol {
 
             if (vector[i] == 1) {
                 contador = contador - 1;
-                if (contador == 0) {
+                if (contador <= 0) {
                     break;
                 }
             }

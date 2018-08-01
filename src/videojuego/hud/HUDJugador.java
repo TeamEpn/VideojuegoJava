@@ -3,6 +3,7 @@ package videojuego.hud;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
+import videojuego.GESTORJUEGO.estados.EstadoInversion;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.armas.Bala;
 
@@ -41,6 +42,12 @@ public class HUDJugador {
             g.drawString("ESTADO: Cansado, se recuperará en " + jugador.getContador_cansado() + " segundos.", 500, interfaz_alto + 40);
         
         }
+        
+        g.setColor(Color.LIGHT_GRAY);
+        if(EstadoInversion.esta_invirtiendo || EstadoInversion.puede_recolectar)
+            g.drawString(EstadoInversion.aviso, 500, interfaz_alto + 60);
+        else
+            g.drawString("Ninguna inversión pendiente en el banco", 500, interfaz_alto + 60);
             
         //-VIDA
        

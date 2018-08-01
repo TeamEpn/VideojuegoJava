@@ -20,24 +20,26 @@ public class Cuenta {
             System.out.println("Dias invalidos");
             return;
         }
+        
         if (monto <= saldo) {
+            final String porc;
             final double interes;
             switch(dias){
                 case 1:
-                    interes = 1.1; break;
+                    interes = 1.1; porc = "10%"; break;
+                    
                 case 3:
-                    interes = 1.2; break;
+                    interes = 1.2; porc = "20%"; break;
                 case 7:
-                    interes = 1.3; break;
+                    interes = 1.3; porc = "30%"; break;
                 case 30:
-                    interes = 1.5; break;
+                    interes = 1.5; porc = "50%"; break;
                 default:
-                    interes = 0;
+                    interes = 0; porc = "0%";
             }
         
         
             saldo -= monto;
-            System.out.println("Saldo al inicio: " + saldo);
             Runnable hilo = new Runnable() {
 
                 @Override
@@ -45,14 +47,14 @@ public class Cuenta {
                     try {
 
                         for (int dia = dias; dia >= 1; dia--) {
-                            EstadoInversion.aviso = "Dias restantes: " + dia;
+                            EstadoInversion.aviso = "Inversion de " + monto + " en progreso, dias restantes: " + dia;
                             Thread.sleep(1000);
                         }
                         double interes_monto = monto * interes;
-                        EstadoInversion.aviso = "Nuevo monto(30%): " + interes_monto;
-                        Thread.sleep(3000);
-                        saldo += interes_monto;
-                        EstadoInversion.aviso = "Saldo al fin: " + saldo;
+                        EstadoInversion.aviso = "Dinero en el banco por retirar: " + interes_monto + ", Beneficio del: " + porc;
+                        EstadoInversion.setInteres(interes_monto);
+                        EstadoInversion.puede_recolectar = true;
+                        EstadoInversion.esta_invirtiendo = false;
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Cuenta.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -8,7 +8,10 @@ public class Animacion {
 
     public static boolean esta_activa = false;
     public static HojaSprites animacion_tiempo = new HojaSprites("/animaciones/animacion_tiempo.png", 32, 64, false);
-    public static HojaSprites animacion_espada = new HojaSprites("/animaciones/animacion_espada.png", 32, 48, false);
+    public static HojaSprites animacion_espada_frente = new HojaSprites("/animaciones/animacion_espada_frente.png", 32, 48, false);
+    public static HojaSprites animacion_espada_espalda = new HojaSprites("/animaciones/animacion_espada_espalda.png", 32, 48, false);
+    public static HojaSprites animacion_espada_derecha = new HojaSprites("/animaciones/animacion_espada_derecha.png", 32, 48, false);
+    public static HojaSprites animacion_espada_izquierda = new HojaSprites("/animaciones/animacion_espada_izquierda.png", 32, 48, false);
 
     public static BufferedImage imagen_actual;
     public static int x, y;

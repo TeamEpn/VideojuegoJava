@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 public class Objeto {
     
-    private final Rectangle[] rectangle;
+    private Rectangle[] rectangle;
     private final String id, tag;
     
     
@@ -19,11 +19,12 @@ public class Objeto {
         public static final String ABSORCION_MANA = "absorcion_mana";
         public static final String TICTACTOE = "tictactoe";
         public static final String SUBIDA_EXP = "subida_exp";
-        
+        public static final String INVERSION = "inversion";
         
         public static final String TELEPORT_CIUDAD = "teleport_ciudad";
         public static final String TELEPORT_BOSQUE = "teleport_bosque";
         public static final String TELEPORT_CASA = "teleport_casa";
+        public static final String TELEPORT_CASAINN = "teleport_casa_INN";
         
         public static final String AGREGAR_VIDA = "agregar_vida";
         public static final String AGREGAR_DINERO = "gregar_dinero";
@@ -60,5 +61,11 @@ public class Objeto {
     public Rectangle[] getRectangle() {
         return rectangle;
     }
+
+    public void setRectangle(Rectangle[] rectangle) {
+        this.rectangle = rectangle;
+    }
+    
+    
 
 }

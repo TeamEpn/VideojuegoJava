@@ -1,5 +1,6 @@
 package videojuego.mapas;
 
+import videojuego.mapas.ciudad.MapaCiudad;
 import java.awt.Graphics;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Rectangle;
@@ -36,14 +37,25 @@ public class MapaBosque extends Mapa{
     
     public MapaBosque(final String nombre,final String ruta,final int ancho,final int alto,final Jugador jugador) {
         super(nombre,ruta,ancho,alto,jugador);
-                
         moneda1.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda1.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda2.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda2.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda3.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda3.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda4.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda4.setPosY(random.nextInt(ALTO_SPAWNEO));
         moneda5.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda5.setPosY(random.nextInt(ALTO_SPAWNEO));
+        
 
     }
+
+    public MapaBosque(String nombre, String ruta, int ancho, int alto, Jugador jugador, int desfasex, int desfasey) {
+        super(nombre, ruta, ancho, alto, jugador, desfasex, desfasey);
+        moneda1.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda1.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda2.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda2.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda3.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda3.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda4.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda4.setPosY(random.nextInt(ALTO_SPAWNEO));
+        moneda5.setPosX(random.nextInt(ANCHO_SPAWNEO));moneda5.setPosY(random.nextInt(ALTO_SPAWNEO));
+    }
+    
+    
     
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override
@@ -86,7 +98,7 @@ public class MapaBosque extends Mapa{
         //Edificios
         objetos.add(new Objeto(new Rectangle(230 + desfasex - x, 125 + desfasey - y, 116, 113),"TiendaCampaña1",Objeto.Tag.EDIFICIO));
 
-        objetos.add(new Objeto(new Rectangle(271 + desfasex - x, 231 + desfasey - y, 31, 15),"teleport1",Objeto.Tag.TELEPORT_CIUDAD));
+        objetos.add(new Objeto(new Rectangle(740 + desfasex - x, 458 + desfasey - y, 40, 50),"teleport1",Objeto.Tag.TELEPORT_CIUDAD));
         
         //OBJETOS CURATIVOS
         manzana1.dibujar(g, 52, 520, desfasex, desfasey, jugador);
