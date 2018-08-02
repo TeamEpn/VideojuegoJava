@@ -32,7 +32,8 @@ public class Logueo extends javax.swing.JFrame {
         diccionario.agregarDatos("Rafa17/123456789");
         diccionario.crearArchivo();
         acceso = false;
-        this.setSize(500, 400);
+        this.setSize(600, 400);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
