@@ -30,6 +30,7 @@ public class EstadoAventura implements EstadoJuego{
         enemigos = new Enemigo[10];
         for(int i=0; i<10;i++){
         enemigos[i] = new Enemigo(jugador);
+        enemigos[i].id = "Zombie " + (i+1);
         }
     }
     

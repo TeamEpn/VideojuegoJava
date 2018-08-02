@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 public class Objeto {
     
-    private final Rectangle[] rectangle;
+    private Rectangle[] rectangle;
     private final String id, tag;
     
     
@@ -58,5 +58,11 @@ public class Objeto {
     public Rectangle[] getRectangle() {
         return rectangle;
     }
+
+    public void setRectangle(Rectangle[] rectangle) {
+        this.rectangle = rectangle;
+    }
+    
+    
 
 }

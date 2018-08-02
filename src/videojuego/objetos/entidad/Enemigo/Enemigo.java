@@ -10,6 +10,7 @@ import interfaz.Lienzo;
 
 public class Enemigo extends Entidad {
 
+    public String id;
     Jugador jugador;
     int contador=0;
     public Enemigo(Jugador jugador) {
