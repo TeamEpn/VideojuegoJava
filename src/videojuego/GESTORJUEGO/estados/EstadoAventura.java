@@ -13,7 +13,8 @@ import videojuego.GESTORJUEGO.EstadoJuego;
 import videojuego.mapas.MapaCasa;
 import videojuego.mapas.MapaCiudad;
 
-public class EstadoAventura implements EstadoJuego{
+public class EstadoAventura implements EstadoJuego {
+
     //este estado nos muestra al jugador caminando por mapas
     public Mapa[] mapas;
     public Mapa mapa_actual;
@@ -21,43 +22,46 @@ public class EstadoAventura implements EstadoJuego{
     private final String texto_archivo = CargadorRecursos.leerArchivoTexto("/texto/prueba.txt");
 
     public static Enemigo[] enemigos;
-    
+
     public EstadoAventura(Jugador jugador) {
         this.jugador = jugador;
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
         this.jugador.estado_aventura = this;
         enemigos = new Enemigo[10];
-        for(int i=0; i<10;i++){
-        enemigos[i] = new Enemigo(jugador);
-        enemigos[i].id = "Zombie " + (i+1);
+        for (int i = 0; i < 10; i++) {
+            enemigos[i] = new Enemigo(jugador);
+            enemigos[i].id = "Zombie " + (i + 1);
         }
     }
-    
-    private void iniciaMapasAventura(){
+
+    private void iniciaMapasAventura() {
         //aqui se deben ubicar las rutas exactas (dentro de la carpeta recursos) en donde esta la imagen del mapa
         mapas = new Mapa[3];
-        mapas[0] = new MapaCiudad("Ciudad","/imagenes/mapaRafa.png",800,600,jugador);
-        mapas[1] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador);
-        mapas[2] = new MapaCasa("Zelda","/imagenes/mapaCarlos.png",800,600,jugador);
-        
+        mapas[0] = new MapaCiudad("Ciudad", "/imagenes/mapaRafa.png", 800, 600, jugador);
+        mapas[1] = new MapaBosque("Bosque", "/imagenes/mapa1.png", 800, 600, jugador);
+        mapas[2] = new MapaCasa("Zelda", "/imagenes/mapaCarlos.png", 800, 600, jugador);
+
         mapa_actual = mapas[2];
         mapa_actual.musica();
     }
-    private void dibujarTexto(Graphics g){
+
+    private void dibujarTexto(Graphics g) {
         g.setColor(Color.yellow);
         g.setFont(Font.getFont("BOLD"));
         g.drawString("x: " + jugador.getX() + " y: " + jugador.getY(), 10, 15);
         //Texto de un archivo
         g.drawString(texto_archivo, 10, 30);
     }
-    
+
     @Override
     public void actualizar(Lienzo lienzo) {
-        jugador.actualizar(lienzo); 
-        
-        for(Enemigo enemigo:enemigos) // para cuando agreguemos mas de un enemigo
+        jugador.actualizar(lienzo);
+
+        for (Enemigo enemigo : enemigos) // para cuando agreguemos mas de un enemigo
+        {
             enemigo.actualizar(lienzo);
+        }
     }
 
     @Override
@@ -65,10 +69,10 @@ public class EstadoAventura implements EstadoJuego{
         //AQUI SE DIBUJA LA MAYORIA DEL JUEGO
         mapa_actual.dibujar(g);
         jugador.dibujar(g);
-        
-        for(Enemigo enemigo:enemigos)
-            enemigo.dibujar(g);
-        
-        this.dibujarTexto(g);        
+        for (Enemigo enemigo : enemigos) {
+                    if(enemigo.getVida_actual()!=0)
+                    enemigo.dibujar(g);
+        }
+        this.dibujarTexto(g);
     }
 }

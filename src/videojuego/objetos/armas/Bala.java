@@ -21,7 +21,7 @@ import videojuego.objetos.entidad.Jugador.Jugador;
  *
  * @author RAFAEL
  */
-public class Bala extends Objeto{
+public class Bala extends Objeto {
 
     private final static HojaSprites HOJA_BALA = new HojaSprites("/imagenes/hojasObjetos/hojaBala.png", 32, false);
 
@@ -36,7 +36,7 @@ public class Bala extends Objeto{
     String direccion;
 
     public Bala(BufferedImage imagen_actual, String direccion, int inicioX, int inicioY) {
-        super(new Rectangle(GestorPrincipal.CENTROX,GestorPrincipal.CENTROY,100,100), "bala", Objeto.Tag.BALASO);
+        super(new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, 100, 100), "bala", Objeto.Tag.BALASO);
         this.imagen_actual = imagen_actual;
         this.posx = GestorPrincipal.CENTROX;
         this.posy = GestorPrincipal.CENTROY;
@@ -52,28 +52,67 @@ public class Bala extends Objeto{
             g.setColor(Color.yellow);
             g.drawRect(this.getRectangle()[0].x, this.getRectangle()[0].y,
                     this.getRectangle()[0].width, this.getRectangle()[0].height);
-            this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY,50,50)});
-            
-            
-            for(int i=0;i<EstadoAventura.enemigos.length;i++)
-                if(this.getRectangle()[0].intersects(EstadoAventura.enemigos[i].objeto_ente.getRectangle()[0])){
-                    System.out.println("Golpeó al zombie " +EstadoAventura.enemigos[i].id  + " en el rectángulo de arriba");
+            this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX + 11, posy - j.getY() + inicioY + 2, 12, 25)});
+            for (int i = 0; i < EstadoAventura.enemigos.length; i++) {
+                if (this.getRectangle()[0].intersects(EstadoAventura.enemigos[i].objeto_ente.getRectangle()[0])) {
+                    System.out.println("Golpeó al zombie " + EstadoAventura.enemigos[i].id + " en el rectángulo de abajo");
+                    int vidaActual = EstadoAventura.enemigos[i].getVida_actual();
+                    if (vidaActual > 0) {
+                        EstadoAventura.enemigos[i].setVida_actual(vidaActual - 50);
+                    }
                 }
-            
-            g.setColor(Color.red);
-            //g.drawRect(posx - j.getX() + inicioX + 11, posy - j.getY() + inicioY + 3, 10, 25);
-        }
-        if (direccion.equals("abajo")) {
-            g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
-            //g.drawRect(posx - j.getX() + inicioX + 11, posy - j.getY() + inicioY + 3, 10, 25);
-        }
-        if (direccion.equals("izquierda")) {
-            g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
-            //g.drawRect(posx - j.getX() + inicioX + 3, posy - j.getY() + inicioY + 11, 25, 10);
-        }
-        if (direccion.equals("derecha")) {
-            g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
-            //g.drawRect(posx - j.getX() + inicioX + 3, posy - j.getY() + inicioY + 11, 25, 10);
+            }
+            if (direccion.equals("abajo")) {
+                g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
+                g.setColor(Color.yellow);
+                g.drawRect(this.getRectangle()[0].x, this.getRectangle()[0].y,
+                        this.getRectangle()[0].width, this.getRectangle()[0].height);
+                this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX + 10, posy - j.getY() + inicioY + 2, 12, 25)});
+
+                for (int i = 0; i < EstadoAventura.enemigos.length; i++) {
+                    if (this.getRectangle()[0].intersects(EstadoAventura.enemigos[i].objeto_ente.getRectangle()[0])) {
+                        System.out.println("Golpeó al zombie " + EstadoAventura.enemigos[i].id + " en el rectángulo de arriba");
+                        int vidaActual = EstadoAventura.enemigos[i].getVida_actual();
+                        if (vidaActual > 0) {
+                            EstadoAventura.enemigos[i].setVida_actual(vidaActual - 50);
+                        }
+                    }
+                }
+                if (direccion.equals("izquierda")) {
+                    g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
+                    g.setColor(Color.yellow);
+                    g.drawRect(this.getRectangle()[0].x, this.getRectangle()[0].y,
+                            this.getRectangle()[0].width, this.getRectangle()[0].height);
+                    this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX + 2, posy - j.getY() + inicioY + 10, 25, 12)});
+
+                    for (int i = 0; i < EstadoAventura.enemigos.length; i++) {
+                        if (this.getRectangle()[0].intersects(EstadoAventura.enemigos[i].objeto_ente.getRectangle()[0])) {
+                            System.out.println("Golpeó al zombie " + EstadoAventura.enemigos[i].id + " en el rectángulo de derecha");
+                            int vidaActual = EstadoAventura.enemigos[i].getVida_actual();
+                            if (vidaActual > 0) {
+                                EstadoAventura.enemigos[i].setVida_actual(vidaActual - 50);
+                            }
+                        }
+                    }
+                }
+                if (direccion.equals("derecha")) {
+                    g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
+                    g.setColor(Color.yellow);
+                    g.drawRect(this.getRectangle()[0].x, this.getRectangle()[0].y,
+                            this.getRectangle()[0].width, this.getRectangle()[0].height);
+                    this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX + 2, posy - j.getY() + inicioY + 11, 25, 12)});
+
+                    for (int i = 0; i < EstadoAventura.enemigos.length; i++) {
+                        if (this.getRectangle()[0].intersects(EstadoAventura.enemigos[i].objeto_ente.getRectangle()[0])) {
+                            System.out.println("Golpeó al zombie " + EstadoAventura.enemigos[i].id + " en el rectángulo de izquierda");
+                            int vidaActual = EstadoAventura.enemigos[i].getVida_actual();
+                            if (vidaActual > 0) {
+                                EstadoAventura.enemigos[i].setVida_actual(vidaActual - 50);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -7,18 +7,21 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
+import java.awt.Rectangle;
+import sprites.HojaSprites;
 
 public class Enemigo extends Entidad {
 
     public String id;
     Jugador jugador;
-    int contador=0;
+    int contador = 0;
+
     public Enemigo(Jugador jugador) {
         //el centrox para ubicarlo en la esquina superior izquierda
 
-        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100+(int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100,Objeto.Tag.ENEMIGO,
-                new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});
-       
+        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
+                new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
+
         this.jugador = jugador;
         this.setMapa(jugador.getMapa());
 
@@ -83,7 +86,16 @@ public class Enemigo extends Entidad {
                 this.x--;
             }
         }
+    }
 
+    protected void generarCollides(int centrox, int centroy, String tag) {
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, (centroy + alto_ente) - 16, ancho_ente - sep, 1);
+        Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep, 1, (alto_ente - sep * 2));
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2, ancho_ente - sep, 1);
+        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
+
+        this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,
+            collide_abajo, collide_izquierda}, this.nombre, tag);
     }
 
     @Override
@@ -91,31 +103,16 @@ public class Enemigo extends Entidad {
 
         g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
         g.setColor(Color.red);
-        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY()-5, vida_actual/3, 3);
+        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
         g.setColor(Color.orange);
 
-        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY()-18, Objeto.Tag.ENEMIGO);
-           for (int i = 0; i < 4; i++) {
-               if(i==0||i==2){
-                   if(i==0){
-                   g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), Objeto.Tag.ENEMIGO);
+        for (int i = 0; i < 4; i++) {
+            g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
                     this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-                   }else{
-                       g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y+18,
-                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-                   }
-           }else{
-                g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y-3,
-                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height+20);
-               }
-               
         }
-           
-        
-        if(vida_actual==0){
-            
-        }
-        /*for(int i=0;i<4;i++){
+
+            /*for(int i=0;i<4;i++){
          g.drawRect(this.objeto_ente.getRectangle()[i].x+(this.x-this.posx_inicial-jugador.getX()), this.objeto_ente.getRectangle()[i].y+(this.y-this.posy_inicial-jugador.getY()),
          this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
         

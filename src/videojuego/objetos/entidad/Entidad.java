@@ -22,7 +22,6 @@ public abstract class Entidad {
     protected int vida_actual;
 
     //posiciones_sprites
-
     protected BufferedImage frente0;
     protected BufferedImage espalda0;
     protected BufferedImage lado_derecho0;
@@ -49,7 +48,7 @@ public abstract class Entidad {
         alto_ente = 0;
     }
 
-    public Entidad(String ruta_imagen, int lado, int centrox, int centroy, String tag,int[] frente,int[] espalda,int[] lado_izquierdo,int[] lado_derecho) {
+    public Entidad(String ruta_imagen, int lado, int centrox, int centroy, String tag, int[] frente, int[] espalda, int[] lado_izquierdo, int[] lado_derecho) {
 
         ancho_ente = lado / 2;
         alto_ente = lado / 2;
@@ -61,7 +60,6 @@ public abstract class Entidad {
         posx_inicial = (int) x;
         posy_inicial = (int) y;
 
-
         frente0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(frente[0], frente[1]).obtenerImagen();
         espalda0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(espalda[0], espalda[1]).obtenerImagen();
         lado_derecho0 = new HojaSprites(ruta_imagen, lado, false).obtenerSprite(lado_derecho[0], lado_derecho[1]).obtenerImagen();
@@ -69,18 +67,18 @@ public abstract class Entidad {
 
         sprite_actual = frente0;
 
-        generarCollides(centrox,centroy,tag);
+        generarCollides(centrox, centroy, tag);
 
         this.vida_maxima = 100;
         vida_actual = vida_maxima;
         esta_vivo = true;
 
     }
-    
-    public Entidad(String ruta_imagen, int ancho,int alto, int centrox, int centroy, String tag,int[] frente,int[] espalda,int[] lado_izquierdo,int[] lado_derecho) {
 
-        ancho_ente = ancho/2;
-        alto_ente = alto/2;
+    public Entidad(String ruta_imagen, int ancho, int alto, int centrox, int centroy, String tag, int[] frente, int[] espalda, int[] lado_izquierdo, int[] lado_derecho) {
+
+        ancho_ente = ancho / 2;
+        alto_ente = alto / 2;
 
         if (tag.compareToIgnoreCase(Objeto.Tag.JUGADOR) != 0) {
             this.x = centrox - GestorPrincipal.CENTROX;
@@ -89,25 +87,23 @@ public abstract class Entidad {
         posx_inicial = (int) x;
         posy_inicial = (int) y;
 
-        frente0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(frente[0], frente[1]).obtenerImagen();
-        espalda0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(espalda[0], espalda[1]).obtenerImagen();
-        lado_derecho0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(lado_derecho[0], lado_derecho[1]).obtenerImagen();
-        lado_izquierdo0 = new HojaSprites(ruta_imagen, ancho,alto, false).obtenerSprite(lado_izquierdo[0], lado_izquierdo[1]).obtenerImagen();
-
+        frente0 = new HojaSprites(ruta_imagen, ancho, alto, false).obtenerSprite(frente[0], frente[1]).obtenerImagen();
+        espalda0 = new HojaSprites(ruta_imagen, ancho, alto, false).obtenerSprite(espalda[0], espalda[1]).obtenerImagen();
+        lado_derecho0 = new HojaSprites(ruta_imagen, ancho, alto, false).obtenerSprite(lado_derecho[0], lado_derecho[1]).obtenerImagen();
+        lado_izquierdo0 = new HojaSprites(ruta_imagen, ancho, alto, false).obtenerSprite(lado_izquierdo[0], lado_izquierdo[1]).obtenerImagen();
 
         sprite_actual = frente0;
 
-        generarCollides(centrox,centroy,tag);
+        generarCollides(centrox, centroy, tag);
 
         this.vida_maxima = 100;
         vida_actual = vida_maxima;
         esta_vivo = true;
 
     }
-    
-    
-    protected void generarCollides(int centrox,int centroy,String tag){
-        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente/ 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
+
+    protected void generarCollides(int centrox, int centroy, String tag) {
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
         Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
         Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2, ancho_ente - sep, 1);
         Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
@@ -134,6 +130,10 @@ public abstract class Entidad {
 
     public int getVida_actual() {
         return vida_actual;
+    }
+
+    public void setVida_actual(int vida_actual) {
+        this.vida_actual = vida_actual;
     }
 
     public int getAncho_jugador() {
@@ -163,29 +163,24 @@ public abstract class Entidad {
     public void setMapa(Mapa mapa) {
         this.mapa = mapa;
     }
-    
-    
 
     public abstract void mover(Lienzo lienzo);
+
     public abstract void actualizar(Lienzo lienzo);
 
     public abstract void dibujar(Graphics g);
 
-    
-
     public Object[] verificarColision(Objeto col) {
-        
+
         //los lados se reciben en sentido horario
         String direccion = "";
         Objeto obj_colision = null;
         Rectangle[] lados_ente = objeto_ente.getRectangle();
         Rectangle[] lados_col = col.getRectangle();
 
-        
         if (col.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0) {
-            
+
             //System.out.println(lados_ente[0].x + " con " + lados_col[0].x + " tag: " + col.getId());
-            
             if (lados_ente[0].intersects(lados_col[2])) {
                 //"arriba";
                 obj_colision = col;
@@ -194,7 +189,7 @@ public abstract class Entidad {
                 //"derecha";
                 obj_colision = col;
                 direccion = "enemigo_derecha";
-                
+
             } else if (lados_ente[2].intersects(lados_col[0])) {
                 //"abajo";
                 obj_colision = col;
@@ -204,11 +199,8 @@ public abstract class Entidad {
                 obj_colision = col;
                 direccion = "enemigo_izquierda";
             }
-            
-            
-            
-        }
-        else if(col.getTag().compareToIgnoreCase(Objeto.Tag.JUGADOR) == 0){
+
+        } else if (col.getTag().compareToIgnoreCase(Objeto.Tag.JUGADOR) == 0) {
             if (lados_ente[0].intersects(lados_col[2])) {
                 //"arriba";
                 obj_colision = col;
@@ -217,7 +209,7 @@ public abstract class Entidad {
                 //"derecha";
                 obj_colision = col;
                 direccion = "jugador_derecha";
-                
+
             } else if (lados_ente[2].intersects(lados_col[0])) {
                 //"abajo";
                 obj_colision = col;
@@ -227,11 +219,9 @@ public abstract class Entidad {
                 obj_colision = col;
                 direccion = "jugador_izquierda";
             }
-        }
-        else{
-            
+        } else {
+
             //System.out.println(lados_ente[0].x + " con " + lados_col[0].x + " tag: " + col.getId());
-            
             if (lados_ente[0].intersects(lados_col[0])) {
                 //"arriba";
                 obj_colision = col;
@@ -249,15 +239,11 @@ public abstract class Entidad {
                 obj_colision = col;
                 direccion = "entorno_izquierda";
             }
-            
-            
+
         }
 
-        return new Object[]{obj_colision,direccion};
+        return new Object[]{obj_colision, direccion};
 
     }
-    
-    
-    
 
 }
