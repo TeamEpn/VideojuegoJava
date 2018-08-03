@@ -31,7 +31,6 @@ public class BolaFuego {
 
     public void dibujar(Graphics g) {
         rectangulo = new Objeto(new Rectangle(posx - j.getX() + inicioX + 15, posy - j.getY() + inicioY + 15, 5, 5), "Bola", Objeto.Tag.ARMA_JUGADOR);
-        j.regenerarMana(100);//borrar esto, es para testear
         if (comprobarSiInterseca(rectangulo.getRectangle())) {
             colisiona = true;
         }

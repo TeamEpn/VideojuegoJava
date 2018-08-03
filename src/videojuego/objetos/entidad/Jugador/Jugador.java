@@ -367,15 +367,17 @@ public class Jugador extends Entidad {
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_ciudad") == 0) {
-
+                
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
                 EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {
@@ -387,6 +389,7 @@ public class Jugador extends Entidad {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[3];
                 EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
 
@@ -407,18 +410,21 @@ public class Jugador extends Entidad {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
                 EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_casa") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[2];
                 EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("agregar_vida") == 0) {
