@@ -14,7 +14,7 @@ public class GestorPrincipal {
 
     public static boolean esta_funcionando = false;
     public static float escalado = 1f;
-    public static final int ANCHO = 1250, ALTO = 650, CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
+    public static final int ANCHO = 850, ALTO = 650, CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
 
     private final Lienzo lienzo;
     private final Ventana ventana;
@@ -26,7 +26,6 @@ public class GestorPrincipal {
     public GestorPrincipal() {
         logueo = new Logueo();
         while (logueo.isAcceso() == false) {
-            System.out.println("");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

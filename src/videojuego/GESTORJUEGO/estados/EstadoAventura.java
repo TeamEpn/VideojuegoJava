@@ -24,7 +24,7 @@ public class EstadoAventura implements EstadoJuego{
         this.jugador = jugador;
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
-        EstadoAventura.mapa_actual.iniciarEnemigos();
+        EstadoAventura.mapa_actual.iniciarEnemigos(3);
     }
     
     private void iniciaMapasAventura(){

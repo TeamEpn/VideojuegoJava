@@ -11,14 +11,17 @@ import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public class Enemigo extends Entidad {
 
+    public String id;
     Jugador jugador;
 
-    public Enemigo(final Jugador jugador) {
-        //el centrox para ubicarlo en la esquina superior izquierda
+    int contador = 0;
 
-        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100, GestorPrincipal.CENTROY + 100,Objeto.Tag.ENEMIGO,
-                new int[]{0,0},new int[]{1,0},new int[]{2,0},new int[]{3,0});
-       
+    public Enemigo(Jugador jugador) {
+
+        //el centrox para ubicarlo en la esquina superior izquierda
+        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
+                new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
+
         this.jugador = jugador;
         this.setMapa(EstadoAventura.mapa_actual);
 
@@ -89,22 +92,33 @@ public class Enemigo extends Entidad {
     @Override
     public void dibujar(Graphics g) {
 
-        g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
+        if (vida_actual != 0) {
+            g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
+            g.setColor(Color.red);
+            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
+            g.setColor(Color.orange);
 
-        g.setColor(Color.orange);
+            this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
+            for (int i = 0; i < 4; i++) {
+                if (i == 0 || i == 2) {
+                    if (i == 0) {
+                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+                        this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+                    } else {
+                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y + 18,
+                                this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+                    }
+                } else {
+                    g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y - 3,
+                            this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height + 20);
+                }
 
-        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), Objeto.Tag.ENEMIGO);
-        for (int i = 0; i < 4; i++) {
-            g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
-                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+            }
+
+            int porc = 40;
+            int vid = (this.vida_actual * porc) / this.vida_maxima;
 
         }
-        
-        int porc = 40;
-        int vid = (this.vida_actual*porc)/this.vida_maxima;
-        
-        g.setColor(Color.green);
-        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY()-20, vid, 7);
 
     }
 
