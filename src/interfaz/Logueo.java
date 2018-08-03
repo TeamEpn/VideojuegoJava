@@ -71,6 +71,7 @@ public class Logueo extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
 
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtNombre.setText("Rafa17");
         jPanel2.add(txtNombre);
 
         jPanel1.add(jPanel2);
@@ -82,6 +83,7 @@ public class Logueo extends javax.swing.JFrame {
         jPanel3.add(jLabel2);
 
         txtContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtContraseña.setText("123456789");
         jPanel3.add(txtContraseña);
 
         jPanel1.add(jPanel3);

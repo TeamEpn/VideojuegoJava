@@ -25,6 +25,7 @@ import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GESTORJUEGO.estados.inversiones.Cuenta;
 import interfaz.Sonido;
 import java.awt.Rectangle;
+import videojuego.mapas.Mapa;
 import videojuego.objetos.armas.Espada;
 import videojuego.objetos.entidad.Jugador.Poderes.poderFuego.BolaFuego;
 
@@ -243,7 +244,7 @@ public class Jugador extends Entidad {
 
         }
 
-        if (lienzo.getTeclado().poderBola ) {
+        if (lienzo.getTeclado().poderBola) {
             Teclado.teclas[KeyEvent.VK_1] = false;
 
             if (mana_actual >= 50 && this.resistencia_actual >=10 && !this.esta_cansado) {
@@ -253,7 +254,7 @@ public class Jugador extends Entidad {
                     this.quitarResistencia(10);
                     Thread.sleep(100);
                     bola = new BolaFuego(this, this.x, this.y);
-
+                    Sonido.BOLA_DE_FUEGO.reproducir();
                     if (sprite_actual == frente0) {
                         new Thread(new HiloBola(this, "abajo", bola)).start();
                     } else if (sprite_actual == espalda0) {
@@ -550,7 +551,9 @@ public class Jugador extends Entidad {
     public int getDamage() {
         return damage;
     }
-    
-    
+
+    public Mapa getMapa() {
+        return mapa;
+    }
 
 }
