@@ -48,9 +48,12 @@ public abstract class Mapa {
     protected abstract void generarObjetosColisionables(Graphics g,final int x,final int y,final Jugador jugador);
     public abstract void musica();
     
-    public void iniciarEnemigos(){
-        enemigos = new Enemigo[1];
-        enemigos[0] = new Enemigo(jugador);
+    public void iniciarEnemigos(int cantidad){
+        enemigos = new Enemigo[cantidad];
+        for (int i = 0; i < cantidad; i++) {
+            enemigos[i] = new Enemigo(jugador);
+            enemigos[i].id = "Zombie" + (i+1);
+        }
     }
     
     public void dibujar(Graphics g){
