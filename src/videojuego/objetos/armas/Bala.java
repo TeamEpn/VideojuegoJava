@@ -11,10 +11,7 @@ import videojuego.mapas.Mapa;
 import videojuego.objetos.Objeto;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-/**
- *
- * @author RAFAEL
- */
+
 public class Bala extends Objeto {
 
     private final static HojaSprites HOJA_BALA = new HojaSprites("/imagenes/hojasObjetos/hojaBala.png", 32, false);
@@ -76,12 +73,14 @@ public class Bala extends Objeto {
 
                 g.setColor(Color.red);
                 //g.drawRect(posx - j.getX() + inicioX + 11, posy - j.getY() + inicioY + 3, 10, 25);
+
             }
             if (direccion.equals("izquierda")) {
                 g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
                 g.setColor(Color.yellow);
                 g.drawRect(this.getRectangle()[0].x, this.getRectangle()[0].y,
                         this.getRectangle()[0].width, this.getRectangle()[0].height);
+                
                 this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY, 30, 20)});
 
                 for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.length; i++) {
@@ -91,12 +90,14 @@ public class Bala extends Objeto {
                     }
                 }
                 //g.drawRect(posx - j.getX() + inicioX + 3, posy - j.getY() + inicioY + 11, 25, 10);
+
             }
             if (direccion.equals("derecha")) {
                 g.drawImage(this.imagen_actual, posx - j.getX() + inicioX, posy - j.getY() + inicioY, null);
                 g.setColor(Color.yellow);
                 g.drawRect(this.getRectangle()[0].x, this.getRectangle()[0].y,
                         this.getRectangle()[0].width, this.getRectangle()[0].height);
+                
                 this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY, 30, 20)});
 
                 for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.length; i++) {
@@ -106,6 +107,7 @@ public class Bala extends Objeto {
                     }
                 }
                 //g.drawRect(posx - j.getX() + inicioX + 3, posy - j.getY() + inicioY + 11, 25, 10);
+
             }
         }
 

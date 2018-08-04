@@ -1,5 +1,6 @@
 package videojuego.GESTORJUEGO.estados;
 
+import herramientas.CargadorRecursos;
 import videojuego.mapas.MapaBosque;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,11 +22,13 @@ public class EstadoAventura implements EstadoJuego {
     public static Mapa mapa_actual;
     private final Jugador jugador;
 
+    public static Enemigo[] enemigos;
+
     public EstadoAventura(Jugador jugador) {
         this.jugador = jugador;
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
-        EstadoAventura.mapa_actual.iniciarEnemigos(3);
+        EstadoAventura.mapa_actual.iniciarEnemigos(5);
     }
 
     private void iniciaMapasAventura() {
@@ -37,6 +40,7 @@ public class EstadoAventura implements EstadoJuego {
 
         mapa_actual = mapas[0];
         mapa_actual.musica();
+        this.jugador.estado_aventura = this;
     }
 
     private void dibujarTexto(Graphics g) {
@@ -54,9 +58,9 @@ public class EstadoAventura implements EstadoJuego {
                 enemigo.actualizar(lienzo);
             }
         }
+
     }
 
-    @Override
     public void dibujar(Graphics2D g) {
 
         mapa_actual.dibujar(g);
@@ -64,6 +68,7 @@ public class EstadoAventura implements EstadoJuego {
 
         if (mapa_actual.enemigos != null) {
             for (Enemigo enemigo : mapa_actual.enemigos) {
+
                 enemigo.dibujar(g);
             }
         }

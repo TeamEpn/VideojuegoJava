@@ -135,8 +135,8 @@ public class Enemigo extends Entidad {
                 int vid = (this.vida_actual * porc) / this.vida_maxima;
 
             } else if (ZOMBIES_MUERTOS < 10) {
-                this.x = new Random().nextInt(EstadoAventura.mapa_actual.getAncho());
-                this.y = new Random().nextInt(EstadoAventura.mapa_actual.getAlto());
+                this.x = new Random().nextInt(EstadoAventura.mapa_actual.getAncho()-100);
+                this.y = new Random().nextInt(EstadoAventura.mapa_actual.getAlto()-100);
                 this.vida_actual = this.vida_maxima;
                 ZOMBIES_MUERTOS++;
             } else {
@@ -174,19 +174,19 @@ public class Enemigo extends Entidad {
             ZOMBIES_MUERTOS = 0;
             EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
             EstadoAventura.mapa_actual.musica();
-            EstadoAventura.mapa_actual.iniciarEnemigos(3);
+            EstadoAventura.mapa_actual.iniciarEnemigos(5);
             jugador.setMapa(EstadoAventura.mapa_actual);
         } else if (EstadoAventura.mapa_actual.getNombre().equals("Bosque")) {
             ZOMBIES_MUERTOS = 0;
             EstadoAventura.mapa_actual = EstadoAventura.mapas[2];
             EstadoAventura.mapa_actual.musica();
-            EstadoAventura.mapa_actual.iniciarEnemigos(3);
+            EstadoAventura.mapa_actual.iniciarEnemigos(5);
             jugador.setMapa(EstadoAventura.mapa_actual);
         } else if (EstadoAventura.mapa_actual.getNombre().equals("Zelda")) {
             ZOMBIES_MUERTOS = 0;
             EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
             EstadoAventura.mapa_actual.musica();
-            EstadoAventura.mapa_actual.iniciarEnemigos(3);
+            EstadoAventura.mapa_actual.iniciarEnemigos(5);
             jugador.setMapa(EstadoAventura.mapa_actual);
         }
     }

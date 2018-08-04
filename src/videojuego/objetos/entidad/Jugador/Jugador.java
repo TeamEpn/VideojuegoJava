@@ -48,6 +48,7 @@ public class Jugador extends Entidad {
     private Pistola pistola;
     private Espada espada;
     private BolaFuego bola;
+    public EstadoAventura estado_aventura;
 
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
@@ -369,14 +370,14 @@ public class Jugador extends Entidad {
                 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {
@@ -408,21 +409,21 @@ public class Jugador extends Entidad {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("teleport_casa") == 0) {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[2];
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase("agregar_vida") == 0) {

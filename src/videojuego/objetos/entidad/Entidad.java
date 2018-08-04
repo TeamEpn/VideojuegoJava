@@ -143,6 +143,10 @@ public abstract class Entidad {
         return vida_actual;
     }
 
+    public void setVida_actual(int vida_actual) {
+        this.vida_actual = vida_actual;
+    }
+
     public int getAncho_jugador() {
         return ancho_ente;
     }
@@ -222,8 +226,10 @@ public abstract class Entidad {
                 obj_colision = col;
                 direccion = "jugador_izquierda";
             }
+
         } else //System.out.println(lados_ente[0].x + " con " + lados_col[0].x + " tag: " + col.getId());
         {
+
             if (lados_ente[0].intersects(lados_col[0])) {
                 //"arriba";
                 obj_colision = col;
@@ -241,6 +247,7 @@ public abstract class Entidad {
                 obj_colision = col;
                 direccion = "entorno_izquierda";
             }
+
         }
 
         return new Object[]{obj_colision, direccion};
