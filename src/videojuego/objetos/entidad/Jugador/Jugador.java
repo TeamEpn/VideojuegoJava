@@ -123,7 +123,6 @@ public class Jugador extends Entidad {
 
     @Override
     public void mover(Lienzo lienzo) {
-
         Object[] col_dir = null;
         Objeto col = null;
         String direccion = "none";
@@ -389,7 +388,6 @@ public class Jugador extends Entidad {
 
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[3];
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
             }
 
