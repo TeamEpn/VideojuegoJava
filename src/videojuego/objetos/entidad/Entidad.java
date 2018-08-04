@@ -7,6 +7,7 @@ import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
 import java.util.ArrayList;
+import java.util.Random;
 import videojuego.mapas.Mapa;
 import sprites.HojaSprites;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
@@ -37,6 +38,7 @@ public abstract class Entidad {
     public final int ancho_ente, alto_ente, sep = 3; // separacion entre lineas
     public Objeto objeto_ente;
 
+    protected Random random = new Random();
     protected Mapa mapa;
 
     public Entidad(int vida_actual) {
@@ -59,8 +61,8 @@ public abstract class Entidad {
         alto_ente = lado / 2;
 
         if (tag.compareToIgnoreCase(Objeto.Tag.JUGADOR) != 0) {
-            this.x = centrox - GestorPrincipal.CENTROX;
-            this.y = centroy - GestorPrincipal.CENTROY;
+            this.x = centrox + this.random.nextInt(GestorPrincipal.ANCHO) - GestorPrincipal.CENTROX;
+            this.y = centroy + this.random.nextInt(GestorPrincipal.ALTO) - GestorPrincipal.CENTROY;
         }
         posx_inicial = (int) x;
         posy_inicial = (int) y;

@@ -21,13 +21,14 @@ public class Enemigo extends Entidad {
     public boolean esBoss = false;
 
     public Enemigo(Jugador jugador, String id) {
-
+        
         //el centrox para ubicarlo en la esquina superior izquierda
-        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
+        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.ENEMIGO,
                 new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
 
         this.jugador = jugador;
         this.setMapa(EstadoAventura.mapa_actual);
+        this.nombre = "ZOMBIE";
         this.id = id;
     }
 

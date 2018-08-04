@@ -337,13 +337,13 @@ public class Jugador extends Entidad {
                     Thread.sleep(100);
                     bola = new BolaFuego(this, this.x, this.y);
                     Sonido.BOLA_DE_FUEGO.reproducir();
-                    if (sprite_actual == frente0) {
+                    if (this.vista[2] == 1) {
                         new Thread(new HiloBola(this, "abajo", bola)).start();
-                    } else if (sprite_actual == espalda0) {
+                    } else if (this.vista[0] == 1) {
                         new Thread(new HiloBola(this, "arriba", bola)).start();
-                    } else if (sprite_actual == lado_derecho0) {
+                    } else if (this.vista[1] == 1) {
                         new Thread(new HiloBola(this, "derecha", bola)).start();
-                    } else if (sprite_actual == lado_izquierdo0) {
+                    } else if (this.vista[3] == 1) {
                         new Thread(new HiloBola(this, "izquierda", bola)).start();
                     }
                     BolaFuego.esta_activa = true;
@@ -371,17 +371,17 @@ public class Jugador extends Entidad {
                     Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 final int inicioX = this.getX(), inicioY = this.getY();
-                if (sprite_actual == frente0) {
+                if (this.vista[2] == 1) {
                     pistola.bala = new Bala(Bala.bala_abajo, "abajo", inicioX, inicioY);
                     //System.out.println(bal);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "abajo")).start();
-                } else if (sprite_actual == espalda0) {
+                } else if (this.vista[0] == 1) {
                     pistola.bala = new Bala(Bala.bala_arriba, "arriba", inicioX, inicioY);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "arriba")).start();
-                } else if (sprite_actual == lado_derecho0) {
+                } else if (this.vista[1] == 1) {
                     pistola.bala = new Bala(Bala.bala_derecha, "derecha", inicioX, inicioY);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "derecha")).start();
-                } else if (sprite_actual == lado_izquierdo0) {
+                } else if (this.vista[3] == 1) {
                     pistola.bala = new Bala(Bala.bala_izquierda, "izquierda", inicioX, inicioY);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "izquierda")).start();
                 }
