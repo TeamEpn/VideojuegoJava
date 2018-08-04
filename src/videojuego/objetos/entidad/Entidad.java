@@ -105,7 +105,7 @@ public abstract class Entidad {
         esta_vivo = true;
 
     }
-
+    
     protected void generarCollides(int centrox, int centroy, String tag) {
 
         int aumento = 1;

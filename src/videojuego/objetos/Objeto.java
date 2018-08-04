@@ -11,6 +11,7 @@ public class Objeto {
     
     public class Tag{
         public static final String JUGADOR = "jugador";
+        public static final String NPC = "npc";
         public static final String ARMA_JUGADOR = "arma_jugador";
         public static final String ENEMIGO = "enemigo";
         public static final String ALIADO = "aliado";

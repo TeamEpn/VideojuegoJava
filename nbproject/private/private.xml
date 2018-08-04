@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+
         <file>
             <url>src/videojuego/objetos/entidad/Jugador/Jugador.java</url>
-            <bookmark id="2">
+            <bookmark id="1">
                 <name/>
-                <line>371</line>
+
+                <line>380</line>
+
                 <key/>
             </bookmark>
         </file>
