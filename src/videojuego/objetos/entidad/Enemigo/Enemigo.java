@@ -8,6 +8,7 @@ import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
 import java.util.ArrayList;
+import java.util.Random;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.objetos.Colision;
 
@@ -17,6 +18,8 @@ public class Enemigo extends Entidad {
     Jugador jugador;
 
     int contador = 0;
+    public static int ZOMBIES_MUERTOS = 0;
+    public boolean esBoss = false;
 
     public Enemigo(Jugador jugador, String id) {
 
@@ -27,6 +30,18 @@ public class Enemigo extends Entidad {
         this.jugador = jugador;
         this.setMapa(EstadoAventura.mapa_actual);
         this.id = id;
+    }
+
+    public Enemigo(Jugador jugador, String id, boolean boss) {
+
+        //el centrox para ubicarlo en la esquina superior izquierda
+        super("/imagenes/hojasEnemigos/Boss.png", 50, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
+                new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
+
+        this.jugador = jugador;
+        this.id = id;
+        this.setMapa(EstadoAventura.mapa_actual);
+        esBoss = boss;
     }
 
     @Override
@@ -84,18 +99,60 @@ public class Enemigo extends Entidad {
     @Override
     public void dibujar(Graphics g) {
 
-        g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
-        g.setColor(Color.red);
-        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
-        g.setColor(Color.orange);
+        if (!this.esBoss) {
 
-        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
+            g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
+            g.setColor(Color.red);
+            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
+            g.setColor(Color.orange);
 
-        for (int i = 0; i < 4; i++) {
-            g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
-                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+            g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
+            g.setColor(Color.red);
+            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
+            g.setColor(Color.orange);
+
+            this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
+
+            for (int i = 0; i < 4; i++) {
+
+                g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+                        this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+
+            }
+        } else {
+
+            g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
+            g.setColor(Color.red);
+            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
+            g.setColor(Color.orange);
+
+            this.vida_maxima = 900;
+            this.generarCollidesBoss(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
+
+            for (int i = 0; i < 4; i++) {
+                if (i == 0 || i == 2) {
+                    if (i == 0) {
+                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+                                this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+                    } else {
+                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y + 18,
+                                this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+                    }
+                } else {
+                    g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y - 3,
+                            this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height + 20);
+                }
+
+            }
+
+            this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
+
+            for (int i = 0; i < 4; i++) {
+                g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+                        this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
+
+            }
+
         }
-
     }
-
 }

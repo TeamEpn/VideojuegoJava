@@ -14,54 +14,66 @@ import videojuego.mapas.MapaCasa;
 import videojuego.mapas.ciudad.MapaCiudad;
 import videojuego.mapas.ciudad.MapaCiudadCasaINN;
 
-public class EstadoAventura implements EstadoJuego{
+public class EstadoAventura implements EstadoJuego {
+
     //este estado nos muestra al jugador caminando por mapas
     public static Mapa[] mapas;
     public static Mapa mapa_actual;
     private final Jugador jugador;
-    
+
+    public static Enemigo[] enemigos;
+
     public EstadoAventura(Jugador jugador) {
         this.jugador = jugador;
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
-        EstadoAventura.mapa_actual.iniciarEnemigos(3);
+        EstadoAventura.mapa_actual.iniciarEnemigos(5);
     }
-    
-    private void iniciaMapasAventura(){
+
+    private void iniciaMapasAventura() {
         mapas = new Mapa[4];
-        mapas[0] = new MapaCiudad("Ciudad","/imagenes/mapaRafa.png",800,600,jugador,GestorPrincipal.CENTROX,-48);
-        mapas[1] = new MapaBosque("Bosque","/imagenes/mapa1.png",800,600,jugador,-290,-100);
-        mapas[2] = new MapaCasa("Zelda","/imagenes/mapaCarlos.png",800,600,jugador,-246,0);
-        mapas[3] = new MapaCiudadCasaINN("Casa Inversiones","/imagenes/inn.jpg",576,704,jugador,410,0);
-        
-        mapa_actual = mapas[0];
+        mapas[0] = new MapaCiudad("Ciudad", "/imagenes/mapaRafa.png", 800, 600, jugador, GestorPrincipal.CENTROX, -48);
+        mapas[1] = new MapaBosque("Bosque", "/imagenes/mapa1.png", 800, 600, jugador, -290, -100);
+        mapas[2] = new MapaCasa("Zelda", "/imagenes/mapaCarlos.png", 800, 600, jugador, -246, 0);
+        mapas[3] = new MapaCiudadCasaINN("Casa Inversiones", "/imagenes/inn.jpg", 576, 704, jugador, 410, 0);
+
+        mapa_actual = mapas[1];
         mapa_actual.musica();
+        this.jugador.estado_aventura = this;
     }
-    private void dibujarTexto(Graphics g){
+
+    private void dibujarTexto(Graphics g) {
         g.setColor(Color.yellow);
         g.drawString("x: " + jugador.getX() + " y: " + jugador.getY(), 10, 15);
     }
-    
-    @Override
-    public void actualizar(Lienzo lienzo) {
-        jugador.actualizar(lienzo); 
-        
-        if(mapa_actual.enemigos != null)
-            for(Enemigo enemigo:mapa_actual.enemigos) // para cuando agreguemos mas de un enemigo
-                enemigo.actualizar(lienzo);
-    }
 
     @Override
-    public void dibujar(Graphics2D g) {
+    public void actualizar(Lienzo lienzo) {
+        jugador.actualizar(lienzo);
+
+        if (mapa_actual.enemigos != null) {
+            for (Enemigo enemigo : mapa_actual.enemigos) // para cuando agreguemos mas de un enemigo
+            {
+                enemigo.actualizar(lienzo);
+            }
+        }
         
-       
+        mapa_actual.actualizar();
+
+    }
+
+    public void dibujar(Graphics2D g) {
+
         mapa_actual.dibujar(g);
         jugador.dibujar(g);
-        
-        if(mapa_actual.enemigos != null)
-            for(Enemigo enemigo:mapa_actual.enemigos)
+
+        if (mapa_actual.enemigos != null) {
+            for (Enemigo enemigo : mapa_actual.enemigos) {
+
                 enemigo.dibujar(g);
-        
-        this.dibujarTexto(g);        
+            }
+        }
+
+        this.dibujarTexto(g);
     }
 }

@@ -52,6 +52,7 @@ public class Jugador extends Entidad {
     private Pistola pistola;
     private Espada espada;
     private BolaFuego bola;
+    public EstadoAventura estado_aventura;
 
     public static int mapa_contador = 0;
     
@@ -370,6 +371,7 @@ public class Jugador extends Entidad {
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT) == 0) {
 
+
                 if(this.mapa == EstadoAventura.mapas[0]){
                     if(col.getId().compareToIgnoreCase("Casa INN") == 0){
                         EstadoAventura.mapa_actual = EstadoAventura.mapas[3];
@@ -396,7 +398,7 @@ public class Jugador extends Entidad {
                 }
                 
                 EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
                 
                 mapa_contador++;
@@ -412,6 +414,7 @@ public class Jugador extends Entidad {
                 GestorEstado.cambiarEstado(2);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TICTACTOE) == 0) {
+
                 GestorEstado.cambiarEstado(1);
                 Sonido.cambioMusica(Sonido.MUSICA_MENU);
             }
@@ -426,6 +429,7 @@ public class Jugador extends Entidad {
             if(col.getTag().compareToIgnoreCase(Objeto.Tag.MONEDA) == 0) {
                 this.cuenta.agregarDinero(100);
                 this.mapa.monedas.remove((Moneda)col);
+
             }
             if(col.getTag().compareToIgnoreCase(Objeto.Tag.COMIDA) == 0) {
                 this.regenerarVida(20);

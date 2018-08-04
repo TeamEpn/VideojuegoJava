@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import videojuego.mapas.Mapa;
 import sprites.HojaSprites;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import static videojuego.objetos.entidad.Enemigo.Enemigo.ZOMBIES_MUERTOS;
 
 public abstract class Entidad {
 
@@ -106,7 +107,7 @@ public abstract class Entidad {
     }
 
     protected void generarCollides(int centrox, int centroy, String tag) {
-        
+
         int aumento = 1;
         if(tag.compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0)
             aumento = (alto_ente/2)*3;
@@ -114,6 +115,17 @@ public abstract class Entidad {
         Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente + aumento - sep * 2);
         Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento, ancho_ente - sep, 1);
         Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente + aumento - sep * 2);
+
+
+        this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,
+            collide_abajo, collide_izquierda}, this.nombre, tag);
+    }
+    
+    protected void generarCollidesBoss(int centrox, int centroy, String tag) {
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente - 20 + sep, centroy + alto_ente - 7, ancho_ente - sep + 8, 1);
+        Rectangle collide_derecha = new Rectangle(centrox + 38, centroy + alto_ente + sep - 5, 1, alto_ente - sep * 2 + 8);
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep - 4, centroy + alto_ente * 2 , ancho_ente - sep + 5, 1);
+        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente - 16, centroy + alto_ente + sep - 4, 1, alto_ente - sep * 2 + 8);
 
         this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,
             collide_abajo, collide_izquierda}, this.nombre, tag);
@@ -137,6 +149,10 @@ public abstract class Entidad {
 
     public int getVida_actual() {
         return vida_actual;
+    }
+
+    public void setVida_actual(int vida_actual) {
+        this.vida_actual = vida_actual;
     }
 
     public int getAncho_jugador() {
@@ -169,6 +185,7 @@ public abstract class Entidad {
 
     public abstract void dibujar(Graphics g);
 
+
     public void agregarVida(int cantidad) {
         if (this.vida_actual + cantidad <= this.vida_maxima) {
             this.vida_actual += cantidad;
@@ -182,6 +199,7 @@ public abstract class Entidad {
             this.vida_actual -= cantidad;
         } else {
             this.vida_actual = 0;
+            ZOMBIES_MUERTOS++;
             EstadoAventura.mapa_actual.enemigos.remove(this);
         }
     }

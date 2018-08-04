@@ -24,7 +24,7 @@ public class Objeto {
         public static final String TELEPORT = "teleport";
         
         
-        public static final String BALA = "balaso";
+        public static final String BALA = "bala";
         public static final String COMIDA = "comida";
         public static final String MONEDA = "moneda";
     }

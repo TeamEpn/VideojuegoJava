@@ -1,4 +1,3 @@
-
 package videojuego.mapas;
 
 import videojuego.objetos.entidad.Jugador.Jugador;
@@ -11,15 +10,17 @@ import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import sprites.HojaSprites;
 import videojuego.objetos.entidad.Enemigo.Enemigo;
+import static videojuego.objetos.entidad.Enemigo.Enemigo.ZOMBIES_MUERTOS;
 import videojuego.objetos.recolectables.Moneda;
 import videojuego.objetos.recolectables.Comida;
 
 public abstract class Mapa {
-    
+
     protected final String nombre;
     protected final BufferedImage sprite;
     protected final int ancho, alto;
     protected final Jugador jugador;
+
     public ArrayList<Enemigo> enemigos;
     protected final int desfasex,desfasey; //estas indican la posicion inicial del mapa, para no salirnos de tal
     
@@ -40,7 +41,7 @@ public abstract class Mapa {
         
         this.jugador = jugador; 
         this.sprite = new HojaSprites(ruta, ancho, alto, true).obtenerSprite(0, 0).obtenerImagen();
-        
+
         desfasex = GestorPrincipal.CENTROX;
         desfasey = GestorPrincipal.CENTROY;
         
@@ -50,14 +51,14 @@ public abstract class Mapa {
         iniciarObjetosRecolectables();
         
     }
-    
-    public Mapa(final String nombre,final String ruta,final int ancho,final int alto,final Jugador jugador,int desfasex,int desfasey) {
+
+    public Mapa(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador, int desfasex, int desfasey) {
         this.nombre = nombre;
         this.ancho = ancho;
         this.alto = alto;
-        this.jugador = jugador;               
+        this.jugador = jugador;
         this.sprite = new HojaSprites(ruta, ancho, alto, true).obtenerSprite(0, 0).obtenerImagen();
-        
+
         this.desfasex = desfasex;
         this.desfasey = desfasey;
         
@@ -67,8 +68,7 @@ public abstract class Mapa {
         
         
     }
-    
-       
+
     protected abstract void generarObjetosColisionables(Graphics g,final int x,final int y,final Jugador jugador);
     protected abstract void iniciarObjetosRecolectables();
     public abstract void musica();
@@ -77,13 +77,37 @@ public abstract class Mapa {
         enemigos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             enemigos.add(new Enemigo(jugador,"zombie "+i));
+
         }
     }
+
+    public void iniciarBossFinal() {
+        enemigos.add(new Enemigo(jugador,"Boss1", true));
+    }
     
-    public void dibujar(Graphics g){
+    boolean fase_final = false;
+    int maximo_zombies = 5;
+    
+    public void actualizar(){
         
-        g.drawImage(this.getSprite(),desfasex  - jugador.getX(),desfasey  - jugador.getY(), null);
+        if (ZOMBIES_MUERTOS < maximo_zombies-3 && this.enemigos.size() <=3) { // esto permite generar maximo 10 zombies
+            this.enemigos.add(new Enemigo(jugador, "ZOMBIES_EXTRA: " + ZOMBIES_MUERTOS));
+        } 
+        
+        if(ZOMBIES_MUERTOS == maximo_zombies && !fase_final){
+            fase_final = true;
+            this.iniciarBossFinal();
+        }
+            
+            
+    }
+    
+
+    public void dibujar(Graphics g) {
+
+        g.drawImage(this.getSprite(), desfasex - jugador.getX(), desfasey - jugador.getY(), null);
         this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
+
         
         //dibuja solo rectangulos
         for(Objeto r: objetos){
@@ -91,12 +115,13 @@ public abstract class Mapa {
                 g.setColor(Color.green);
             }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT) == 0){
                 g.setColor(Color.yellow);
-            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0){
+            } else if (r.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0) {
                 g.setColor(Color.red);
-            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.EDIFICIO) == 0){
+            } else if (r.getTag().compareToIgnoreCase(Objeto.Tag.EDIFICIO) == 0) {
                 g.setColor(Color.blue);
-            }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0){
+            } else if (r.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0) {
                 g.setColor(Color.magenta);
+
             }else if(r.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0){
                 g.setColor(Color.yellow);
             }
@@ -114,7 +139,7 @@ public abstract class Mapa {
             }
         
     }
-    
+
     public String getNombre() {
         return nombre;
     }
