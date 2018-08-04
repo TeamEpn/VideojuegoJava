@@ -76,6 +76,7 @@ public class Jugador extends Entidad {
         pistola = new Pistola(10);
         this.espada = new Espada(new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY + 70, 32, 25), "arma_espada", Objeto.Tag.ARMA_JUGADOR,this);
 
+        this.nombre = "JUGADOR";
         iniciarThreadsPermanentes();
     }
 
@@ -479,11 +480,8 @@ public class Jugador extends Entidad {
                 EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
                 
-                mapa_contador++;
-                if(mapa_contador > 3){
-                    mapa_contador = 0;
-                }
-                
+                this.x = -1*this.mapa.iniciox;
+                this.y = -1*this.mapa.inicioy;
                 
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {

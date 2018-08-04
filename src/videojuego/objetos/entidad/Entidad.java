@@ -225,8 +225,11 @@ public abstract class Entidad {
             this.vida_actual -= cantidad;
         } else {
             this.vida_actual = 0;
-            ZOMBIES_MUERTOS++;
-            EstadoAventura.mapa_actual.enemigos.remove(this);
+            if(this.nombre.compareToIgnoreCase("JUGADOR") != 0){
+                ZOMBIES_MUERTOS++;
+                EstadoAventura.mapa_actual.enemigos.remove(this);
+            }
+                
         }
     }
 

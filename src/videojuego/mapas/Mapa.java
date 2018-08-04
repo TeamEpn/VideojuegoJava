@@ -35,6 +35,10 @@ public abstract class Mapa {
     public ArrayList<Moneda> monedas;
     protected final int ANCHO_SPAWNEO;
     protected final int ALTO_SPAWNEO;
+    
+    
+    public int iniciox,inicioy;
+    
     Dialogo dialogo = new Dialogo();
 
     public Mapa(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador) {
@@ -61,9 +65,12 @@ public abstract class Mapa {
         this.jugador = jugador;
         this.sprite = new HojaSprites(ruta, ancho, alto, true).obtenerSprite(0, 0).obtenerImagen();
 
-        this.desfasex = desfasex;
-        this.desfasey = desfasey;
+        this.desfasex = GestorPrincipal.CENTROX;
+        this.desfasey = GestorPrincipal.CENTROY;
 
+        this.iniciox = desfasex-GestorPrincipal.CENTROX;
+        this.inicioy = desfasey-GestorPrincipal.CENTROY;
+        
         ANCHO_SPAWNEO = this.ancho - 100;
         ALTO_SPAWNEO = this.alto - 100;
         iniciarObjetosRecolectables();
