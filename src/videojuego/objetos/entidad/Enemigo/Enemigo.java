@@ -37,7 +37,7 @@ public class Enemigo extends Entidad {
         //el centrox para ubicarlo en la esquina superior izquierda
         super("/imagenes/hojasEnemigos/Boss.png", 50, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
                 new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
-
+        this.nombre = "ZOMBIE JEFE";
         this.jugador = jugador;
         this.id = id;
         this.setMapa(EstadoAventura.mapa_actual);

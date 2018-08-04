@@ -6,14 +6,37 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 public class Pistola {
     
     public int cantidad_balas;
-    public Bala bala;
+    public Bala[] balas;
+    
     
     public Pistola(int cantidad_balas) {
         this.cantidad_balas = cantidad_balas;
+        this.balas = new Bala[cantidad_balas];
+    }
+    
+    public void disparar(int[] vista,Jugador jugador){
+        final int inicioX = jugador.getX(), inicioY = jugador.getY();
+        if (vista[2] == 1) {
+            balas[cantidad_balas] = new Bala(Bala.bala_abajo, "abajo", inicioX, inicioY);
+            //System.out.println(bal);
+            new Thread(new HiloDisparoArma(balas[cantidad_balas], jugador, "abajo")).start();
+        } else if (vista[0] == 1) {
+            balas[cantidad_balas] = new Bala(Bala.bala_arriba, "arriba", inicioX, inicioY);
+            new Thread(new HiloDisparoArma(balas[cantidad_balas], jugador, "arriba")).start();
+        } else if (vista[1] == 1) {
+            balas[cantidad_balas] = new Bala(Bala.bala_derecha, "derecha", inicioX, inicioY);
+            new Thread(new HiloDisparoArma(balas[cantidad_balas], jugador, "derecha")).start();
+        } else if (vista[3] == 1) {
+            balas[cantidad_balas] = new Bala(Bala.bala_izquierda, "izquierda", inicioX, inicioY);
+            new Thread(new HiloDisparoArma(balas[cantidad_balas], jugador, "izquierda")).start();
+        }
     }
 
     public void dibujar(Graphics g, Jugador j) {
-        if(bala != null)
-            bala.dibujar(g, j);
+        for(Bala bala:balas){
+            if(bala!=null)
+                bala.dibujar(g, j);
+        }
+            
     }
 }

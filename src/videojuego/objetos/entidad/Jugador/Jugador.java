@@ -114,7 +114,7 @@ public class Jugador extends Entidad {
             g.drawImage(Animacion.imagen_actual, Animacion.x, Animacion.y, null);
         }
 
-        if (pistola.cantidad_balas > 0) {
+        if (pistola.cantidad_balas >= -1) {
             pistola.dibujar(g, this);
         }
 
@@ -312,7 +312,6 @@ public class Jugador extends Entidad {
         if (lienzo.getTeclado().poder_tiempo) {
 
             if (mana_actual >= mana_maximo) {
-                System.out.println("PODER ACTIVADO");
                 mana_actual -= mana_maximo;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
 
@@ -329,7 +328,7 @@ public class Jugador extends Entidad {
         if (lienzo.getTeclado().poderBola) {
             Teclado.teclas[KeyEvent.VK_1] = false;
 
-            if (mana_actual >= 50 && this.resistencia_actual >=10 && !this.esta_cansado) {
+            if (mana_actual >= 50 && this.resistencia_actual >=10 && !this.esta_cansado && !BolaFuego.esta_activa) {
                 try {
                     mana_actual -= 50;
 
@@ -361,30 +360,18 @@ public class Jugador extends Entidad {
         }
 
         if (lienzo.getTeclado().disparar_arma) {
-            pistola.cantidad_balas--;
+            
             Teclado.teclas[KeyEvent.VK_E] = false;
 
-            if (pistola.cantidad_balas >= 0) {
+            if (pistola.cantidad_balas >= 1) {
+                pistola.cantidad_balas--;
                 try {
                     Thread.sleep(20);
+                    pistola.disparar(vista, this);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                final int inicioX = this.getX(), inicioY = this.getY();
-                if (this.vista[2] == 1) {
-                    pistola.bala = new Bala(Bala.bala_abajo, "abajo", inicioX, inicioY);
-                    //System.out.println(bal);
-                    new Thread(new HiloDisparoArma(pistola.bala, this, "abajo")).start();
-                } else if (this.vista[0] == 1) {
-                    pistola.bala = new Bala(Bala.bala_arriba, "arriba", inicioX, inicioY);
-                    new Thread(new HiloDisparoArma(pistola.bala, this, "arriba")).start();
-                } else if (this.vista[1] == 1) {
-                    pistola.bala = new Bala(Bala.bala_derecha, "derecha", inicioX, inicioY);
-                    new Thread(new HiloDisparoArma(pistola.bala, this, "derecha")).start();
-                } else if (this.vista[3] == 1) {
-                    pistola.bala = new Bala(Bala.bala_izquierda, "izquierda", inicioX, inicioY);
-                    new Thread(new HiloDisparoArma(pistola.bala, this, "izquierda")).start();
-                }
+                
             }
         }
 
