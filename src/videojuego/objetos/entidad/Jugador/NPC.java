@@ -15,10 +15,6 @@ import sprites.HojaSprites;
 import videojuego.objetos.Objeto;
 import videojuego.objetos.entidad.Entidad;
 
-/**
- *
- * @author User
- */
 public class NPC extends Objeto{
 
     Jugador jugador;
@@ -28,6 +24,8 @@ public class NPC extends Objeto{
     public int x,y;
     public int inicialx,inicialy;
     Random random = new Random();
+    
+    
     public NPC(Rectangle rectangle, String id, String tag,HojaSprites hoja,Jugador jugador) {
         super(rectangle, id, tag);
         this.hoja = hoja;

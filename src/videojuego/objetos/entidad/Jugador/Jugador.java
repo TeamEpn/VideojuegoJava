@@ -139,7 +139,9 @@ public class Jugador extends Entidad {
             decision.dibujar(g);
         }
     }
+    
     NPC terra = new NPC(new Rectangle(0,0,20,70), "Terra", Objeto.Tag.NPC, NPC.terra,this);
+    
     @Override
     public void mover(Lienzo lienzo) {
 
