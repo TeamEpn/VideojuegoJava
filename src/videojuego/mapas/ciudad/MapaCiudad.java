@@ -31,7 +31,7 @@ public class MapaCiudad extends Mapa {
     Moneda moneda3 = new Moneda(this, "moneda3");
     Moneda moneda4 = new Moneda(this, "moneda4");
     Moneda moneda5 = new Moneda(this, "moneda5");
-    Object[] col_dir = null;
+    ArrayList<Objeto> col_dir = null;
     Objeto colision = null;
     boolean colisionCurativa = false;
     private final int ANCHO_SPAWNEO = this.ancho - 100;
@@ -187,11 +187,15 @@ public class MapaCiudad extends Mapa {
     }
 
     public void comprobarColisionCurativa(ObjetoCurativo objeto) {
+        String[] direccion = new String[]{"","","",""};
+        col_dir = new ArrayList<>();
         for (int i = 0; i < this.objetos.size(); i++) {
-            col_dir = jugador.verificarColision(this.objetos.get(i));
-            if (col_dir[1] != "") {
-                if (col_dir[1].equals("entorno_arriba") || col_dir[1].equals("entorno_abajo") || col_dir[1].equals("entorno_izquierda") || col_dir[1].equals("entorno_derecha")) {
-                    colision = (Objeto) col_dir[0];
+            
+            jugador.verificarColision(this.objetos.get(i),direccion,col_dir);
+            if (col_dir!=null) {
+                if (direccion[0].equals("entorno_arriba") || direccion[2].equals("entorno_abajo") || direccion[3].equals("entorno_izquierda") || direccion[1].equals("entorno_derecha")) {
+                    
+                    colision = (Objeto) col_dir.get(0);
                     if (colision.getId().equals(objeto.getId())) {
                         objeto.colision = true;
                     }
@@ -201,11 +205,15 @@ public class MapaCiudad extends Mapa {
     }
 
     public void comprobarColisionDinero(Moneda moneda) {
+        String[] direccion = new String[]{"","","",""};
+        col_dir = new ArrayList<>();
         for (int i = 0; i < this.objetos.size(); i++) {
-            col_dir = jugador.verificarColision(this.objetos.get(i));
-            if (col_dir[1] != "") {
-                if (col_dir[1].equals("entorno_arriba") || col_dir[1].equals("entorno_abajo") || col_dir[1].equals("entorno_izquierda") || col_dir[1].equals("entorno_derecha")) {
-                    colision = (Objeto) col_dir[0];
+            
+            jugador.verificarColision(this.objetos.get(i),direccion,col_dir);
+            if (col_dir!=null) {
+                if (direccion[0].equals("entorno_arriba") || direccion[2].equals("entorno_abajo") || direccion[3].equals("entorno_izquierda") || direccion[1].equals("entorno_derecha")) {
+                    
+                    colision = (Objeto) col_dir.get(0);
                     if (colision.getId().equals(moneda.getId())) {
                         moneda.colision = true;
                     }

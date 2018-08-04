@@ -18,20 +18,20 @@ public class GestorPrincipal {
 
     private final Lienzo lienzo;
     private final Ventana ventana;
-    private final Logueo logueo;
+    private Logueo logueo;
     private final GestorEstado ge;
 
     private final Jugador jugador;
 
     public GestorPrincipal() {
-        logueo = new Logueo();
+        /*logueo = new Logueo();
         while (logueo.isAcceso() == false) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GestorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO, ALTO);
         jugador = new Jugador(lienzo);

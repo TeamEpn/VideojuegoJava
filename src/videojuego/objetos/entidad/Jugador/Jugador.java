@@ -25,6 +25,7 @@ import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GESTORJUEGO.estados.inversiones.Cuenta;
 import interfaz.Sonido;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.armas.Espada;
 import videojuego.objetos.entidad.Jugador.Poderes.poderFuego.BolaFuego;
@@ -124,63 +125,59 @@ public class Jugador extends Entidad {
     @Override
     public void mover(Lienzo lienzo) {
 
-        Object[] col_dir = null;
+        ArrayList<Objeto> col_dir = new ArrayList<>();
         Objeto col = null;
-        String direccion = "none";
+        String[] direccion = new String[]{"none","none","none","none"};
 
+        
         if (mapa.objetos != null) {
             for (int i = 0; i < mapa.objetos.size(); i++) {
-                col_dir = this.verificarColision(mapa.objetos.get(i));
-                if (col_dir[1] != "") {
-                    break;
-                }
+                this.verificarColision(mapa.objetos.get(i), direccion,col_dir);
             }
         }
-        if (col_dir != null) {
-            if (EstadoAventura.mapa_actual.enemigos != null && col_dir[1] == "") {
-                for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.length; i++) {
-                    col_dir = this.verificarColision(EstadoAventura.mapa_actual.enemigos[i].objeto_ente);
+        
+        /*for(int i=0;i<4;i++)
+            if (!(direccion[i].compareToIgnoreCase("none") == 0)) {
+                System.out.println(direccion[i]);
+            }*/
 
-                    if (col_dir[1] != "") {
-                        break;
-                    }
-                }
+        if (EstadoAventura.mapa_actual.enemigos != null && col_dir!=null) {
+            for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.length; i++) {
+                this.verificarColision(EstadoAventura.mapa_actual.enemigos[i].objeto_ente, direccion,col_dir);
             }
         }
 
-        if (col_dir != null) {
-            col = (Objeto) col_dir[0];
-            direccion = col_dir[1].toString();
-        }
 
         if (lienzo.getTeclado().arriba) {
-            if (!(direccion.compareToIgnoreCase("entorno_arriba") == 0)) {
+            if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)) {
                 sprite_actual = espalda0;
                 this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY - 10, 32, 25)});
                 y = y - velocidad;
             }
         }
-        if (lienzo.getTeclado().abajo) {
-            if (!(direccion.compareToIgnoreCase("entorno_abajo") == 0)) {
-                sprite_actual = frente0;
-                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY + 70, 32, 25)});
-                y = y + velocidad;
-            }
-        }
-        if (lienzo.getTeclado().izquierda) {
-            if (!(direccion.compareToIgnoreCase("entorno_izquierda") == 0)) {
-                sprite_actual = lado_izquierdo0;
-                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX- 16, GestorPrincipal.CENTROY+10, 25, 32)});
-                x = x - velocidad;
-            }
-        }
         if (lienzo.getTeclado().derecha) {
-            if (!(direccion.compareToIgnoreCase("entorno_derecha") == 0)) {
+            if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)) {
                 sprite_actual = lado_derecho0;
                 this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX+ 30, GestorPrincipal.CENTROY+10, 25, 32)});
                 x = x + velocidad;
             }
-        }
+        }     
+        if (lienzo.getTeclado().abajo) {
+            if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)) {
+                sprite_actual = frente0;
+                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY + 70, 32, 25)});
+                y = y + velocidad;
+            }
+        }   
+        
+        if (lienzo.getTeclado().izquierda) {
+            if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)) {
+                sprite_actual = lado_izquierdo0;
+                this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX- 16, GestorPrincipal.CENTROY+10, 25, 32)});
+                x = x - velocidad;
+            }
+        }   
+        
 
         if (lienzo.getTeclado().correr && this.resistencia_actual > 0 && !esta_cansado) {
 
@@ -220,8 +217,15 @@ public class Jugador extends Entidad {
             lado_izquierdo0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(3, 0).obtenerImagen();
             sprite_actual = frente0;
         }
+        
+        if(col_dir.size() == 1)
+            col = col_dir.get(0);
+        else{
+            for(int i = 0; i<col_dir.size();i++)
+                this.comprobarColisiones(col_dir.get(i));
+        }
 
-        this.comprobarColisiones(col);
+        
 
     }
 
