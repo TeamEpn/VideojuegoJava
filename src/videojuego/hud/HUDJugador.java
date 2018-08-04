@@ -27,10 +27,10 @@ public class HUDJugador {
         g.drawImage(img.getImage(),0, interfaz_alto, null);
 
         int porc = 130;
-        int vid = (jugador.getVida_actual()*porc)/jugador.getVida_maxima();
-        int man = (jugador.getMana_actual()*porc)/jugador.getMana_maximo();
         int res = (jugador.getResistencia_actual()*porc)/jugador.getResistencia_maxima();
-        int exp = (jugador.getExp_actual()*porc)/jugador.getExp_maxima();
+        int vid = (jugador.getVida_actual() * porc) / jugador.getVida_maxima();
+        int man = (jugador.getMana_actual() * porc) / jugador.getMana_maximo();
+        int exp = (jugador.getExp_actual() * porc) / jugador.getExp_maxima();
 
         //NIVEL
         g.setColor(Color.white);
@@ -64,8 +64,8 @@ public class HUDJugador {
         g.drawString("VIDA: ", 10, interfaz_alto + 20);
         g.drawString(jugador.getVida_actual() + "/" + jugador.getVida_maxima(), 90, interfaz_alto + 20);
 
-        //-MANA
         
+        //-MANA        
         g.setColor(Color.blue);
         g.drawRect(50 - 1, interfaz_alto + 32, porc + 1, 10);
         g.setColor(Color.blue);
