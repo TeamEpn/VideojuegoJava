@@ -62,4 +62,8 @@ public class CargadorRecursos {
         return imagen_acelerada;
 
     }
+
+    public static String leerArchivoTexto(String textopruebatxt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -47,6 +47,7 @@ public class Jugador extends Entidad {
     private Pistola pistola;
     private Espada espada;
     private BolaFuego bola;
+    public EstadoAventura estado_aventura;
 
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
