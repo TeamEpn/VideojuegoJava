@@ -26,6 +26,7 @@ public abstract class Entidad {
     protected int vida_actual;
 
     //posiciones_sprites
+    public HojaSprites hoja_completa;
     protected BufferedImage frente0;
     protected BufferedImage espalda0;
     protected BufferedImage lado_derecho0;
@@ -97,6 +98,31 @@ public abstract class Entidad {
         lado_izquierdo0 = new HojaSprites(ruta_imagen, ancho, alto, false).obtenerSprite(lado_izquierdo[0], lado_izquierdo[1]).obtenerImagen();
 
         sprite_actual = frente0;
+
+        generarCollides(centrox, centroy, tag);
+
+        this.vida_maxima = 100;
+        vida_actual = vida_maxima;
+        esta_vivo = true;
+
+    }
+      
+    
+    
+    public Entidad(String ruta_imagen, int ancho, int alto, int centrox, int centroy, String tag) {
+
+        ancho_ente = ancho / 2;
+        alto_ente = alto / 2;
+
+        if (tag.compareToIgnoreCase(Objeto.Tag.JUGADOR) != 0) {
+            this.x = centrox - GestorPrincipal.CENTROX;
+            this.y = centroy - GestorPrincipal.CENTROY;
+        }
+        posx_inicial = (int) x;
+        posy_inicial = (int) y;
+
+        this.hoja_completa = new HojaSprites(ruta_imagen, ancho, alto, false);
+        sprite_actual = hoja_completa.obtenerSprite(0, 1).obtenerImagen();
 
         generarCollides(centrox, centroy, tag);
 
