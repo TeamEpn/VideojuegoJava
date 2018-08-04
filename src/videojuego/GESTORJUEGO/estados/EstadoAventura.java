@@ -32,8 +32,8 @@ public class EstadoAventura implements EstadoJuego {
 
     private void iniciaMapasAventura() {
         mapas = new Mapa[4];
-        mapas[0] = new MapaCiudad("Ciudad", "/imagenes/mapaRafa.png", 800, 600, jugador, GestorPrincipal.CENTROX, -48);
-        mapas[1] = new MapaBosque("Bosque", "/imagenes/mapa1.png", 800, 600, jugador, -290, -100);
+        mapas[0] = new MapaCiudad("Ciudad", "/imagenes/mapaRafa.png", 800, 600, jugador, GestorPrincipal.CENTROX, 1);
+        mapas[1] = new MapaBosque("Bosque", "/imagenes/mapa1.png", 800, 600, jugador, 0, -100);
         mapas[2] = new MapaCasa("Zelda", "/imagenes/mapaCarlos.png", 800, 600, jugador, -246, 0);
         mapas[3] = new MapaCiudadCasaINN("Casa Inversiones", "/imagenes/inn.jpg", 576, 704, jugador, 410, 0);
 
@@ -58,7 +58,7 @@ public class EstadoAventura implements EstadoJuego {
             }
         }
         
-        mapa_actual.actualizar();
+        mapa_actual.actualizar(lienzo);
 
     }
 
