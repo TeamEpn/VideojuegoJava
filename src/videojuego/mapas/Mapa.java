@@ -3,6 +3,7 @@ package videojuego.mapas;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,6 +12,7 @@ import videojuego.objetos.Objeto;
 import sprites.HojaSprites;
 import videojuego.objetos.entidad.Enemigo.Enemigo;
 import static videojuego.objetos.entidad.Enemigo.Enemigo.ZOMBIES_MUERTOS;
+import videojuego.objetos.entidad.Jugador.NPC;
 import videojuego.objetos.recolectables.Moneda;
 import videojuego.objetos.recolectables.Comida;
 
@@ -19,7 +21,7 @@ public abstract class Mapa {
     protected final String nombre;
     protected final BufferedImage sprite;
     protected final int ancho, alto;
-    protected final Jugador jugador;
+    protected Jugador jugador = null;
 
     public ArrayList<Enemigo> enemigos;
     protected final int desfasex,desfasey; //estas indican la posicion inicial del mapa, para no salirnos de tal
@@ -103,6 +105,7 @@ public abstract class Mapa {
     }
     
 
+    
     public void dibujar(Graphics g) {
 
         g.drawImage(this.getSprite(), desfasex - jugador.getX(), desfasey - jugador.getY(), null);
@@ -137,6 +140,8 @@ public abstract class Mapa {
             for(Moneda moneda:monedas){
                 moneda.dibujar(g, desfasex, desfasey, jugador);
             }
+        
+        
         
     }
 

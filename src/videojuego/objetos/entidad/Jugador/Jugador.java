@@ -26,6 +26,7 @@ import videojuego.GESTORJUEGO.estados.inversiones.Cuenta;
 import interfaz.Sonido;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import videojuego.hud.Decision;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.Colision;
 import videojuego.objetos.armas.Espada;
@@ -98,6 +99,9 @@ public class Jugador extends Entidad {
     public void actualizar(Lienzo lienzo) {
         this.mover(lienzo);
         this.acciones(lienzo);
+        if(this.nueva_decision){
+            decision.actualizar(lienzo);
+        }
     }
 
     @Override
@@ -126,8 +130,16 @@ public class Jugador extends Entidad {
         g.setColor(Color.MAGENTA);
         Rectangle esp = this.espada.getRectangle()[0];
         g.drawRect(esp.x, esp.y, esp.width, esp.height);
+        
+        
+        
+        terra.dibujar(g);
+        
+        if(this.nueva_decision){
+            decision.dibujar(g);
+        }
     }
-
+    NPC terra = new NPC(new Rectangle(0,0,20,70), "Terra", Objeto.Tag.NPC, NPC.terra,this);
     @Override
     public void mover(Lienzo lienzo) {
 
@@ -216,11 +228,18 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().cambiarPersonaje) {
 
-            frente0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(0, 0).obtenerImagen();
-            espalda0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(1, 0).obtenerImagen();
-            lado_derecho0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(2, 0).obtenerImagen();
-            lado_izquierdo0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(3, 0).obtenerImagen();
-            sprite_actual = frente0;
+            nueva_decision = true;
+            try {
+                Thread.sleep(200);
+                
+                /*frente0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(0, 0).obtenerImagen();
+                espalda0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(1, 0).obtenerImagen();
+                lado_derecho0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(2, 0).obtenerImagen();
+                lado_izquierdo0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(3, 0).obtenerImagen();
+                sprite_actual = frente0;*/
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
@@ -228,6 +247,9 @@ public class Jugador extends Entidad {
 
     }
 
+    public static boolean nueva_decision = false;
+    Decision decision = new Decision();
+    
     public void acciones(Lienzo lienzo) {
 
         if (lienzo.getTeclado().poder_tiempo) {

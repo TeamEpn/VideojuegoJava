@@ -23,7 +23,9 @@ public class Espada extends Objeto {
                     for (int i = 0; i < 4; i++) {
                         if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(enemigo).objeto_ente.getRectangle()[i])) {
                             EstadoAventura.mapa_actual.enemigos.get(enemigo).quitarVida(jugador.getDamage());
-
+                            if(EstadoAventura.mapa_actual.enemigos.isEmpty())
+                                break;
+                            
                         }
                     }
 
