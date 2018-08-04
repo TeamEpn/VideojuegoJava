@@ -41,10 +41,10 @@ public class BolaFuego {
     }
 
     public boolean comprobarSiInterseca(Rectangle[] bola) {
-        for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.length; i++) {
+        for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.size(); i++) {
             for (int j = 0; j < 4; j++) {
-                if (rectangulo.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos[i].objeto_ente.getRectangle()[j])) {
-                    EstadoAventura.mapa_actual.enemigos[i].quitarVida(2);
+                if (rectangulo.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[j])) {
+                    EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(2);
                     return true;
                 }
             }

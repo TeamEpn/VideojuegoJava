@@ -7,50 +7,30 @@ import videojuego.objetos.Objeto;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-public class Moneda {
+public class Moneda extends Objeto{
 
+    public static ImageIcon imagen = new ImageIcon(ClassLoader.class.getResource("/imagenes/hojasObjetos/moneda.png"));
+    
     String id;
-    ImageIcon imagen;
     int posX, posY;
     Mapa mapa;
-    public boolean colision = false;
-    Objeto rectangulo = null;
-
-    public Moneda(Mapa mapa, String id) {
+    
+    public Moneda(Mapa mapa, String id,int posx,int posy) {
+        super(new Rectangle(0,0, 32, 32), id, Objeto.Tag.MONEDA);
+        
         this.mapa = mapa;
         this.id = id;
-        imagen = new ImageIcon(ClassLoader.class.getResource("/imagenes/hojasObjetos/moneda.png"));
-
+        posX = posx;
+        posY = posy;
     }
 
-    public void dibujar(Graphics g, int posX, int posY, int desfasex, int desfasey, Jugador jugador) {
-        if (colision == false) {
-            rectangulo = new Objeto(new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 15), id, Objeto.Tag.AGREGAR_DINERO);
-            if (comprobarSiContiene(rectangulo.getRectangle()) == false) {
-                g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 15, null);
-                mapa.objetos.add(rectangulo);
-            } else {
-                colision = true;
-            }
-        } else {
-            mapa.objetos.remove(rectangulo);
-        }
-
+    public void dibujar(Graphics g, int desfasex, int desfasey, Jugador jugador) {
+       g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), null);
+       this.setRectangle(new Rectangle[]{new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 15)});
+            
     }
+    
 
-    public boolean comprobarSiContiene(Rectangle[] moneda) {
-        for (int i = 0; i < mapa.objetos.size(); i++) {
-            Rectangle[] lados_objeto = mapa.objetos.get(i).getRectangle();
-            if (lados_objeto[0].contains(moneda[0])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public String getId() {
-        return id;
-    }
 
     public ImageIcon getImagen() {
         return imagen;
@@ -67,11 +47,7 @@ public class Moneda {
     public Mapa getMapa() {
         return mapa;
     }
-
-    public boolean isColision() {
-        return colision;
-    }
-
+    
     public void setPosX(int posX) {
         this.posX = posX;
     }

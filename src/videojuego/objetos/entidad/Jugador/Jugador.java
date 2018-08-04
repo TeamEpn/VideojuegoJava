@@ -27,8 +27,11 @@ import interfaz.Sonido;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import videojuego.mapas.Mapa;
+import videojuego.objetos.Colision;
 import videojuego.objetos.armas.Espada;
 import videojuego.objetos.entidad.Jugador.Poderes.poderFuego.BolaFuego;
+import videojuego.objetos.recolectables.Comida;
+import videojuego.objetos.recolectables.Moneda;
 
 public class Jugador extends Entidad {
 
@@ -50,6 +53,8 @@ public class Jugador extends Entidad {
     private Espada espada;
     private BolaFuego bola;
 
+    public static int mapa_contador = 0;
+    
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
                 new int[]{0, 1}, new int[]{0, 0}, new int[]{0, 3}, new int[]{0, 2});
@@ -125,25 +130,20 @@ public class Jugador extends Entidad {
     @Override
     public void mover(Lienzo lienzo) {
 
-        ArrayList<Objeto> col_dir = new ArrayList<>();
-        Objeto col = null;
+        ArrayList<Objeto> info_objetos_colisionados = new ArrayList<>();
         String[] direccion = new String[]{"none","none","none","none"};
 
         
         if (mapa.objetos != null) {
             for (int i = 0; i < mapa.objetos.size(); i++) {
-                this.verificarColision(mapa.objetos.get(i), direccion,col_dir);
+                Colision.obtenerInfoColisionJugador(this, mapa.objetos.get(i), direccion, info_objetos_colisionados);
             }
         }
         
-        /*for(int i=0;i<4;i++)
-            if (!(direccion[i].compareToIgnoreCase("none") == 0)) {
-                System.out.println(direccion[i]);
-            }*/
-
-        if (EstadoAventura.mapa_actual.enemigos != null && col_dir!=null) {
-            for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.length; i++) {
-                this.verificarColision(EstadoAventura.mapa_actual.enemigos[i].objeto_ente, direccion,col_dir);
+        
+        if (EstadoAventura.mapa_actual.enemigos != null) {
+            for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.size(); i++) {
+                Colision.obtenerInfoColisionJugador(this,EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente, direccion,info_objetos_colisionados);
             }
         }
 
@@ -177,6 +177,10 @@ public class Jugador extends Entidad {
                 x = x - velocidad;
             }
         }   
+        
+        for(int i = 0; i<info_objetos_colisionados.size();i++)
+            this.comprobarColisiones(info_objetos_colisionados.get(i));
+        
         
 
         if (lienzo.getTeclado().correr && this.resistencia_actual > 0 && !esta_cansado) {
@@ -218,14 +222,8 @@ public class Jugador extends Entidad {
             sprite_actual = frente0;
         }
         
-        if(col_dir.size() == 1)
-            col = col_dir.get(0);
-        else{
-            for(int i = 0; i<col_dir.size();i++)
-                this.comprobarColisiones(col_dir.get(i));
-        }
-
         
+       
 
     }
 
@@ -357,10 +355,10 @@ public class Jugador extends Entidad {
 
     public void comprobarColisiones(Objeto col) {
         if (col != null) {
-            if (col.getTag().compareToIgnoreCase("enemigo") == 0) {
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0) {
                 this.quitarVida(1);
             }
-            if (col.getTag().compareToIgnoreCase("absorcion_mana") == 0) {
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.ABSORCION_MANA) == 0) {
 
                 if (this.getMana_actual() >= 2) {
                     this.quitarMana(2);
@@ -370,38 +368,54 @@ public class Jugador extends Entidad {
                 EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
                 this.setMapa(EstadoAventura.mapa_actual);
             }
-            if (col.getTag().compareToIgnoreCase("teleport_ciudad") == 0) {
-                
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
-                EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
-                this.setMapa(EstadoAventura.mapa_actual);
-            }
-            if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT) == 0) {
 
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
+                if(this.mapa == EstadoAventura.mapas[0]){
+                    if(col.getId().compareToIgnoreCase("Casa INN") == 0){
+                        EstadoAventura.mapa_actual = EstadoAventura.mapas[3];
+                    }
+                    else if(col.getId().compareToIgnoreCase("Puerta Zelda") == 0){
+                        EstadoAventura.mapa_actual = EstadoAventura.mapas[2];
+                    }
+                    else if(col.getId().compareToIgnoreCase("Estatua izquierda") == 0){
+                        EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
+                    }
+                }
+                else if(this.mapa == EstadoAventura.mapas[1]){
+                    if(col.getId().compareToIgnoreCase("teleport_ciudad") == 0){
+                        EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
+                    }
+                }
+                else if(this.mapa == EstadoAventura.mapas[2]){
+                    if(col.getId().compareToIgnoreCase("teleport_ciudad") == 0){
+                        EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
+                    }
+                }
+                else if(this.mapa == EstadoAventura.mapas[3]){
+                    EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
+                }
+                
                 EstadoAventura.mapa_actual.musica();
                 EstadoAventura.mapa_actual.iniciarEnemigos(3);
                 this.setMapa(EstadoAventura.mapa_actual);
+                
+                mapa_contador++;
+                if(mapa_contador > 3){
+                    mapa_contador = 0;
+                }
+                
+                
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {
                 
                 this.y += 5;
                 GestorEstado.cambiarEstado(2);
             }
-            if (col.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT_CASAINN) == 0) {
-
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[3];
-                EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
-                this.setMapa(EstadoAventura.mapa_actual);
-            }
-
-            if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.TICTACTOE) == 0) {
                 GestorEstado.cambiarEstado(1);
                 Sonido.cambioMusica(Sonido.MUSICA_MENU);
             }
-            if (col.getTag().compareToIgnoreCase("subida_exp") == 0) {
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.SUBIDA_EXP) == 0) {
                 try {
                     this.ganarExperiencia(this.nivel); //para que suba la exp mas rapido conforme avance
                     Thread.sleep(10);
@@ -409,42 +423,15 @@ public class Jugador extends Entidad {
                     Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            if (col.getTag().compareToIgnoreCase("teleport_ciudad") == 0) {
-
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
-                EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
-                this.setMapa(EstadoAventura.mapa_actual);
+            if(col.getTag().compareToIgnoreCase(Objeto.Tag.MONEDA) == 0) {
+                this.cuenta.agregarDinero(100);
+                this.mapa.monedas.remove((Moneda)col);
             }
-            if (col.getTag().compareToIgnoreCase("teleport_bosque") == 0) {
-
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
-                EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
-                this.setMapa(EstadoAventura.mapa_actual);
+            if(col.getTag().compareToIgnoreCase(Objeto.Tag.COMIDA) == 0) {
+                this.regenerarVida(20);
+                this.mapa.comidas.remove((Comida)col);
             }
-            if (col.getTag().compareToIgnoreCase("teleport_casa") == 0) {
-
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[2];
-                EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(3);
-                this.setMapa(EstadoAventura.mapa_actual);
-            }
-            if (col.getTag().compareToIgnoreCase("agregar_vida") == 0) {
-                if (this.getVida_actual() < this.vida_maxima) {
-                    this.agregarVida(20);
-                } else {
-                    this.vida_actual = vida_maxima;
-                }
-            }
-            if (col.getTag().compareToIgnoreCase("agregar_dinero") == 0) {
-                this.cuenta.agregarDinero(10);
-            }
-            if (col.getTag().compareToIgnoreCase("Tictactoe") == 0) {
-                GestorEstado.cambiarEstado(1);
-                Sonido.cambioMusica(Sonido.MUSICA_MENU);
-            }
+            
         }
     }
 

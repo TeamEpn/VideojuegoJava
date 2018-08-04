@@ -21,8 +21,8 @@ public class GestorEstado {
     private void iniciarEstados(final Jugador jugador) {
         estados = new EstadoJuego[3];
         estados[0] = new EstadoAventura(jugador);
-        estados[1] = new EstadoTicTacToe(jugador);
-        estados[2] = new EstadoInversion(jugador);
+        //estados[1] = new EstadoTicTacToe(jugador);
+        //estados[2] = new EstadoInversion(jugador);
     }
     
     public void actualizar(Lienzo lienzo){

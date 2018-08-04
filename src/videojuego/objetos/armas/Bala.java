@@ -7,14 +7,9 @@ import java.awt.image.BufferedImage;
 import sprites.HojaSprites;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GestorPrincipal;
-import videojuego.mapas.Mapa;
 import videojuego.objetos.Objeto;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-/**
- *
- * @author RAFAEL
- */
 public class Bala extends Objeto{
 
     private final static HojaSprites HOJA_BALA = new HojaSprites("/imagenes/hojasObjetos/hojaBala.png", 32, false);
@@ -30,7 +25,7 @@ public class Bala extends Objeto{
     String direccion;
 
     public Bala(BufferedImage imagen_actual, String direccion, int inicioX, int inicioY) {
-        super(new Rectangle(GestorPrincipal.CENTROX,GestorPrincipal.CENTROY,100,100), "bala", Objeto.Tag.BALASO);
+        super(new Rectangle(GestorPrincipal.CENTROX,GestorPrincipal.CENTROY,100,100), "bala", Objeto.Tag.BALA);
 
         this.imagen_actual = imagen_actual;
         this.posx = GestorPrincipal.CENTROX;
@@ -50,9 +45,9 @@ public class Bala extends Objeto{
             this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY,50,50)});
             
             
-            for(int i=0;i<EstadoAventura.mapa_actual.enemigos.length;i++)
-                if(this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos[i].objeto_ente.getRectangle()[0])){
-                    System.out.println("Golpeó al zombie " +EstadoAventura.mapa_actual.enemigos[i].id  + " en el rectángulo de arriba");
+            for(int i=0;i<EstadoAventura.mapa_actual.enemigos.size();i++)
+                if(this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[0])){
+                    System.out.println("Golpeó al zombie " +EstadoAventura.mapa_actual.enemigos.get(i).id  + " en el rectángulo de arriba");
                 }
             
             g.setColor(Color.red);

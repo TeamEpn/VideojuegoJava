@@ -9,6 +9,7 @@ import interfaz.Lienzo;
 import java.util.ArrayList;
 import videojuego.mapas.Mapa;
 import sprites.HojaSprites;
+import videojuego.GESTORJUEGO.estados.EstadoAventura;
 
 public abstract class Entidad {
 
@@ -105,10 +106,14 @@ public abstract class Entidad {
     }
 
     protected void generarCollides(int centrox, int centroy, String tag) {
+        
+        int aumento = 1;
+        if(tag.compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0)
+            aumento = (alto_ente/2)*3;
         Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
-        Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
-        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2, ancho_ente - sep, 1);
-        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente - sep * 2);
+        Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente + aumento - sep * 2);
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento, ancho_ente - sep, 1);
+        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente + aumento - sep * 2);
 
         this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,
             collide_abajo, collide_izquierda}, this.nombre, tag);
@@ -164,79 +169,6 @@ public abstract class Entidad {
 
     public abstract void dibujar(Graphics g);
 
-    public void verificarColision(Objeto col,String[] direccion, ArrayList<Objeto> obj_colision) {
-
-        //los lados se reciben en sentido horario
-        //en orden de manecillas del reloj: arriba,derecha,abajo,izquierda
-        Rectangle[] lados_ente = objeto_ente.getRectangle();
-        Rectangle[] lados_col = col.getRectangle();
-
-        if (col.getTag().compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0) {
-
-            //System.out.println(lados_ente[0].x + " con " + lados_col[0].x + " tag: " + col.getId());
-            if (lados_ente[0].intersects(lados_col[2])) {
-                //"arriba";
-                obj_colision.add(col);
-                direccion[0] = "enemigo_arriba";
-            }
-            if (lados_ente[1].intersects(lados_col[3])) {
-                //"derecha";
-                obj_colision.add(col);
-                direccion[1] = "enemigo_derecha";
-
-            }
-            if (lados_ente[2].intersects(lados_col[0])) {
-                //"abajo";
-                obj_colision.add(col);
-                direccion[2] = "enemigo_abajo";
-            }
-            if (lados_ente[3].intersects(lados_col[1])) {
-                //"izquierda";
-                obj_colision.add(col);
-                direccion[3] = "enemigo_izquierda";
-            }
-
-        } else if (col.getTag().compareToIgnoreCase(Objeto.Tag.JUGADOR) == 0) {
-            if (lados_ente[0].intersects(lados_col[2])) {
-                //"arriba";
-                obj_colision.add(col);
-                direccion[0] = "jugador_arriba";
-            } else if (lados_ente[1].intersects(lados_col[3])) {
-                //"derecha";
-                obj_colision.add(col);
-                direccion[1] = "jugador_derecha";
-
-            } else if (lados_ente[2].intersects(lados_col[0])) {
-                //"abajo";
-                obj_colision.add(col);
-                direccion[2] = "jugador_abajo";
-            } else if (lados_ente[3].intersects(lados_col[1])) {
-                //"izquierda";
-                obj_colision.add(col);
-                direccion[3] = "jugador_izquierda";
-            }
-        }
-
-        if (lados_ente[0].intersects(lados_col[0])) {
-            //"arriba";
-            obj_colision.add(col);
-            direccion[0] = "entorno_arriba";
-        } else if (lados_ente[1].intersects(lados_col[0])) {
-            //"derecha";
-            obj_colision.add(col);
-            direccion[1] = "entorno_derecha";
-        } else if (lados_ente[2].intersects(lados_col[0])) {
-            //"abajo";
-            obj_colision.add(col);
-            direccion[2] = "entorno_abajo";
-        } else if (lados_ente[3].intersects(lados_col[0])) {
-            //"izquierda";
-            obj_colision.add(col);
-            direccion[3] = "entorno_izquierda";
-        }
-
-    }
-
     public void agregarVida(int cantidad) {
         if (this.vida_actual + cantidad <= this.vida_maxima) {
             this.vida_actual += cantidad;
@@ -250,6 +182,7 @@ public abstract class Entidad {
             this.vida_actual -= cantidad;
         } else {
             this.vida_actual = 0;
+            EstadoAventura.mapa_actual.enemigos.remove(this);
         }
     }
 

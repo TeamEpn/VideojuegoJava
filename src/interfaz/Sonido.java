@@ -88,7 +88,7 @@ public class Sonido implements Runnable {
             System.out.println("Cambio brusco de musica, Null pointer exception controlado");
         }        
         catch (JavaLayerException ex) {
-            Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

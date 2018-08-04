@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import videojuego.objetos.Objeto;
 import videojuego.objetos.entidad.Jugador.Jugador;
+import videojuego.objetos.recolectables.Comida;
+import videojuego.objetos.recolectables.Moneda;
 
 public class MapaCasa extends Mapa{
     
@@ -25,12 +27,13 @@ public class MapaCasa extends Mapa{
         
 
         objetos = new ArrayList<>();
-
+        this.objetos.addAll(monedas);
+        this.objetos.addAll(comidas);
         //CASA
         objetos.add(new Objeto(new Rectangle(282 + desfasex - x, 46 + desfasey - y, 283, 185),"Casa 1 centro",Objeto.Tag.EDIFICIO));
         
         //teleport
-        objetos.add(new Objeto(new Rectangle(760 + desfasex - x, 277 + desfasey - y, 30, 60),"Teleport ciudad",Objeto.Tag.TELEPORT_CIUDAD));
+        objetos.add(new Objeto(new Rectangle(760 + desfasex - x, 277 + desfasey - y, 30, 60),"teleport_ciudad",Objeto.Tag.TELEPORT));
                 
                 
         //Arboles, rocas y acantilados
@@ -53,6 +56,23 @@ public class MapaCasa extends Mapa{
         objetos.add(new Objeto(new Rectangle(611 + desfasex - x, 463 + desfasey - y, 50, 92),"Arbol 1 abajo derecha",Objeto.Tag.NATURALEZA));
         
            
+    }
+    
+    @Override
+    protected void iniciarObjetosRecolectables() {
+        monedas = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            monedas.add(new Moneda(this,"moneda"+i,random.nextInt(ANCHO_SPAWNEO),random.nextInt(ALTO_SPAWNEO)));
+        }
+        
+        comidas = new ArrayList<>();
+        comidas.add(new Comida(Comida.MANZANA_ROJA,"manzana1",this,-50,0));
+        comidas.add(new Comida(Comida.MANZANA_DORADA,"manzana2",this,-50,50));
+        comidas.add(new Comida(Comida.ZANAHORIA,"zanahoria1",this,-50,100));
+        comidas.add(new Comida(Comida.GALLETA,"galleta1",this,-50,150));
+        comidas.add(new Comida(Comida.ORBE_VERDE,"orbe_verde1",this,-50,200));
+        comidas.add(new Comida(Comida.ORBE_DORADO,"orbe_dorado1",this,-50,250));
+        
     }
 
     @Override

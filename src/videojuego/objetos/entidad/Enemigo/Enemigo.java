@@ -9,6 +9,7 @@ import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
 import java.util.ArrayList;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import videojuego.objetos.Colision;
 
 public class Enemigo extends Entidad {
 
@@ -17,7 +18,7 @@ public class Enemigo extends Entidad {
 
     int contador = 0;
 
-    public Enemigo(Jugador jugador) {
+    public Enemigo(Jugador jugador, String id) {
 
         //el centrox para ubicarlo en la esquina superior izquierda
         super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
@@ -25,7 +26,7 @@ public class Enemigo extends Entidad {
 
         this.jugador = jugador;
         this.setMapa(EstadoAventura.mapa_actual);
-
+        this.id = id;
     }
 
     @Override
@@ -38,21 +39,17 @@ public class Enemigo extends Entidad {
     @Override
     public void mover(Lienzo lienzo) {
 
-        ArrayList<Objeto> col_dir = new ArrayList<>();
-        Objeto col = null;
-        String[] direccion = new String[]{"none","none","none","none"};
+        ArrayList<Objeto> info_objetos_colisionados = new ArrayList<>();
+        String[] direccion = new String[]{"none", "none", "none", "none"};
 
         if (mapa.objetos != null) {
             for (int i = 0; i < mapa.objetos.size(); i++) {
-                this.verificarColision(mapa.objetos.get(i),direccion,col_dir);
-                if (col_dir.size()>0) {
-                    break;
-                }
+                Colision.obtenerInfoColisionEnemigo(this, mapa.objetos.get(i), direccion, info_objetos_colisionados);
             }
         }
-        
-        if (col_dir.isEmpty()) {
-            this.verificarColision(jugador.objeto_ente,direccion,col_dir);
+
+        if (EstadoAventura.mapa_actual.enemigos != null) {
+            Colision.obtenerInfoColisionEnemigo(this, jugador.objeto_ente, direccion, info_objetos_colisionados);
         }
 
         if (jugador.getY() > this.y) {
@@ -76,8 +73,8 @@ public class Enemigo extends Entidad {
                 this.x++;
             }
         } else if (jugador.getX() <= this.x) {
-            if (!(direccion[2].compareToIgnoreCase("entorno_izquierda") == 0)
-                    && !(direccion[2].compareToIgnoreCase("jugador_izquierda") == 0)) {
+            if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)
+                    && !(direccion[3].compareToIgnoreCase("jugador_izquierda") == 0)) {
                 this.x--;
             }
         }
@@ -87,32 +84,16 @@ public class Enemigo extends Entidad {
     @Override
     public void dibujar(Graphics g) {
 
-        if (vida_actual != 0) {
-            g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
-            g.setColor(Color.red);
-            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
-            g.setColor(Color.orange);
+        g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
+        g.setColor(Color.red);
+        g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
+        g.setColor(Color.orange);
 
-            this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
-            for (int i = 0; i < 4; i++) {
-                if (i == 0 || i == 2) {
-                    if (i == 0) {
-                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
-                        this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-                    } else {
-                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y + 18,
-                                this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-                    }
-                } else {
-                    g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y - 3,
-                            this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height + 20);
-                }
+        this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
 
-            }
-
-            int porc = 40;
-            int vid = (this.vida_actual * porc) / this.vida_maxima;
-
+        for (int i = 0; i < 4; i++) {
+            g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+                    this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
         }
 
     }

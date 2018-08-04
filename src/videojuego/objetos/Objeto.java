@@ -21,14 +21,12 @@ public class Objeto {
         public static final String SUBIDA_EXP = "subida_exp";
         public static final String INVERSION = "inversion";
         
-        public static final String TELEPORT_CIUDAD = "teleport_ciudad";
-        public static final String TELEPORT_BOSQUE = "teleport_bosque";
-        public static final String TELEPORT_CASA = "teleport_casa";
-        public static final String TELEPORT_CASAINN = "teleport_casa_INN";
+        public static final String TELEPORT = "teleport";
         
-        public static final String AGREGAR_VIDA = "agregar_vida";
-        public static final String AGREGAR_DINERO = "agregar_dinero";
-        public static final String BALASO = "balaso";
+        
+        public static final String BALA = "balaso";
+        public static final String COMIDA = "comida";
+        public static final String MONEDA = "moneda";
     }
 
     
