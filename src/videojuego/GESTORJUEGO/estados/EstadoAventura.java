@@ -37,7 +37,7 @@ public class EstadoAventura implements EstadoJuego {
         mapas[2] = new MapaCasa("Zelda", "/imagenes/mapaCarlos.png", 800, 600, jugador, -246, 0);
         mapas[3] = new MapaCiudadCasaINN("Casa Inversiones", "/imagenes/inn.jpg", 576, 704, jugador, 410, 0);
 
-        mapa_actual = mapas[1];
+        mapa_actual = mapas[0];
         mapa_actual.musica();
         this.jugador.estado_aventura = this;
     }

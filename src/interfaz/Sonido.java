@@ -19,6 +19,8 @@ public class Sonido implements Runnable {
     public static final Sonido MUSICA_MAPA_DANNY = new Sonido("\\recursos\\sonidos\\Pokemon.mp3");
     public static final Sonido EFECTO_VIAJE_TIEMPO = new Sonido("\\recursos\\sonidos\\EkkoTime.mp3");
     public static final Sonido BOLA_DE_FUEGO = new Sonido("\\recursos\\sonidos\\bolaFuego.mp3");
+    public static final Sonido DISPARO = new Sonido("\\recursos\\sonidos\\disparo.mp3");
+    public static final Sonido RECARGAR_ARMA = new Sonido("\\recursos\\sonidos\\recargarArma.mp3");
     
     public Player player;
     private BufferedInputStream bis;

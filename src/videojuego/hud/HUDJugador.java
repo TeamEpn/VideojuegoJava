@@ -98,11 +98,13 @@ public class HUDJugador {
         g.setColor(Color.white);
         g.drawString("BALAS: ", 200, interfaz_alto + 20);
         int espaciadoX = 0;
-
+        
         for (int i = 0; i < jugador.getPistola().cantidad_balas; i++) {
             g.drawImage(Bala.bala_arriba, 250 + espaciadoX, interfaz_alto, null);
             espaciadoX = espaciadoX + 10;
         }
+        
+        g.drawString(jugador.getPistola().cantidad_balas + "/" + jugador.getPistola().balas_totales, 250 + espaciadoX + 30, interfaz_alto + 20);
 
         //DINERO
         g.drawString("DINERO: ", 200, interfaz_alto + 60);

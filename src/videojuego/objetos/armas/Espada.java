@@ -25,7 +25,6 @@ public class Espada extends Objeto {
                             EstadoAventura.mapa_actual.enemigos.get(enemigo).quitarVida(jugador.getDamage());
                             if(EstadoAventura.mapa_actual.enemigos.isEmpty())
                                 break;
-                            
                         }
                     }
 

@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
-import videojuego.objetos.entidad.Enemigo.Enemigo;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class BolaFuego extends Objeto {
