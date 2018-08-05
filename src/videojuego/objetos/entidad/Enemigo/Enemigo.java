@@ -21,7 +21,7 @@ public class Enemigo extends Entidad {
     public boolean esBoss = false;
 
     public Enemigo(Jugador jugador, String id) {
-        
+
         //el centrox para ubicarlo en la esquina superior izquierda
         super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.ENEMIGO,
                 new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
@@ -55,7 +55,7 @@ public class Enemigo extends Entidad {
 
     @Override
     public void mover(Lienzo lienzo) {
-
+        int dEvasionColsiion = 2;
         ArrayList<Objeto> info_objetos_colisionados = new ArrayList<>();
         String[] direccion = new String[]{"none", "none", "none", "none"};
 
@@ -73,7 +73,14 @@ public class Enemigo extends Entidad {
             if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)
                     && !(direccion[2].compareToIgnoreCase("jugador_abajo") == 0)) {
                 this.sprite_actual = this.frente0;
-                this.y += this.velocidad/2;
+                this.y += this.velocidad / 2;
+            } else {
+                if (direccion[2].compareToIgnoreCase("entorno_abajo") == 0) {
+                    if(jugador.getX()>this.x)
+                        this.x = this.x + dEvasionColsiion;
+                    else
+                        this.x = this.x - dEvasionColsiion;
+                }
             }
 
         } else if (jugador.getY() < this.y) {
@@ -81,28 +88,49 @@ public class Enemigo extends Entidad {
             if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)
                     && !(direccion[0].compareToIgnoreCase("jugador_arriba") == 0)) {
                 this.sprite_actual = this.espalda0;
-                this.y -= this.velocidad/2;
+                this.y -= this.velocidad / 2;
+            } else {
+                if (direccion[0].compareToIgnoreCase("entorno_arriba") == 0) {
+                     if(jugador.getX()>this.x)
+                        this.x = this.x + dEvasionColsiion;
+                    else
+                        this.x = this.x - dEvasionColsiion;
+                }
             }
         }
-
         if (jugador.getX() > this.x) {
             if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)
                     && !(direccion[1].compareToIgnoreCase("jugador_derecha") == 0)) {
                 this.sprite_actual = this.lado_izquierdo0;
-                this.x += this.velocidad/2;
+                this.x += this.velocidad / 2;
+            } else {
+                if (direccion[1].compareToIgnoreCase("entorno_derecha") == 0) {
+                    if(jugador.getY()>this.y)
+                    this.y = this.y + dEvasionColsiion;
+                    else
+                    this.y = this.y - dEvasionColsiion;    
+                }
             }
         } else if (jugador.getX() < this.x) {
             if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)
                     && !(direccion[3].compareToIgnoreCase("jugador_izquierda") == 0)) {
                 this.sprite_actual = this.lado_derecho0;
-                this.x -= this.velocidad/2;
+                this.x -= this.velocidad / 2;
+            } else {
+                if (direccion[3].compareToIgnoreCase("entorno_izquierda") == 0) {
+                   if(jugador.getY()>this.y)
+                    this.y = this.y + dEvasionColsiion;
+                    else
+                    this.y = this.y - dEvasionColsiion; 
+                }
             }
         }
 
     }
 
     @Override
-    public void dibujar(Graphics g) {
+    public void dibujar(Graphics g
+    ) {
 
         if (!this.esBoss) {
 
