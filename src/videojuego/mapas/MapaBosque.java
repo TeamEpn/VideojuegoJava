@@ -11,6 +11,7 @@ import videojuego.objetos.recolectables.Comida;
 import videojuego.objetos.Objeto;
 import interfaz.Sonido;
 import java.awt.Graphics2D;
+import javax.swing.JOptionPane;
 import videojuego.hud.Dialogo;
 
 public class MapaBosque extends Mapa{
@@ -43,6 +44,7 @@ public class MapaBosque extends Mapa{
     
     
     
+    
     @Override
     public void dibujar(Graphics2D g){
         super.dibujar(g);
@@ -52,20 +54,23 @@ public class MapaBosque extends Mapa{
         helena.dibujar(g);
         
         if(Dialogo.activado){
-            if(terra.evento_ocurrido){
+            if(terra.evento_ocurrido && once_terra){
+                System.out.println("TERRA");
                 this.dialogo.setDialogo(Dialogo.dialogo_terra);
-                terra.evento_ocurrido = false;
                 ultimo_dialogo = "terra";
+                once_terra = false;
             }
-            else if(rosa.evento_ocurrido){
+            else if(rosa.evento_ocurrido && once_rosa){
+                System.out.println("ROSA");
                 this.dialogo.setDialogo(Dialogo.dialogo_rosa);
-                rosa.evento_ocurrido = false;
                 ultimo_dialogo = "rosa";
+                once_rosa = false;
             }
-            else if(helena.evento_ocurrido){
+            else if(helena.evento_ocurrido && once_helena){
+                System.out.println("HELENA");
                 this.dialogo.setDialogo(Dialogo.dialogo_helena);
-                helena.evento_ocurrido = false;
                 ultimo_dialogo = "helena";
+                once_helena = false;
             }
             this.dialogo.dibujar(g);
         }

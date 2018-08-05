@@ -17,27 +17,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import videojuego.GestorPrincipal;
+import videojuego.mapas.Mapa;
 import videojuego.objetos.entidad.Jugador.Jugador;
-
+import static videojuego.objetos.entidad.Jugador.Jugador.nueva_decision;
+import videojuego.objetos.entidad.Jugador.NPC;
 public class Dialogo {
 
     int dialogo_alto = GestorPrincipal.ALTO - 170;
     public static boolean activado = false;
     public static String[] dialogo;
     public static final String[] dialogo_terra = 
-    {"hola we",
-     "q hay we",
-     "aaaaaaas"};
+    {"Dialogo1 de Terra.",
+     "Dialogo2 de Terra.",
+     "Dialogo3 de Terra."};
     public static final String[] dialogo_rosa = 
-    {"hola we",
-     "q hay we",
-     "aaaaaaas"};
+    {"Dialogo1 de Rosa.",
+     "Dialogo2 de Rosa.",
+     "Dialogo3 de Rosa."};
     public static final String[] dialogo_helena = 
-    {"hola we",
-     "q hay we",
-     "aaaaaaas"};
+    {"Dialogo1 de Helena.",
+     "Dialogo2 de Helena.",
+     "Dialogo3 de Helena."};
     
     Boton boton_continua = new Boton(GestorPrincipal.ANCHO-100, dialogo_alto + 75, "NEXT", 100, 30);
+    
     public int aux = 0;
 
     public Dialogo() {
@@ -55,11 +58,14 @@ public class Dialogo {
             if (boton_continua.esClickeado(mx, my)) {
                 if (aux < dialogo.length-1) {
                     aux++;
+                    
                 }
-                else{
+                else if(activado){
                     activado = false;
+                    nueva_decision = true;
                 }
                     
+                
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException ex) {

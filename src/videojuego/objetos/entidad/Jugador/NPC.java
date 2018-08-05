@@ -33,7 +33,6 @@ public class NPC extends Objeto{
     
     public boolean evento_ocurrido = false;
     
-    
     public NPC(Rectangle rectangle, String id, String tag,HojaSprites hoja,Jugador jugador) {
         super(rectangle, id, tag);
         this.hoja = hoja;

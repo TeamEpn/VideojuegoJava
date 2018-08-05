@@ -66,6 +66,10 @@ public class Jugador extends Entidad {
     boolean[] esperando_hilo = {false, false, false, false}; //cada intercambio de animacion tiene un retraso
     int delay = 400; // este es el retraso de la animacion
 
+    public static int karma_malo = 0;
+    public static int karma_bueno = 0;
+    
+    
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
 
@@ -253,18 +257,6 @@ public class Jugador extends Entidad {
             };
             new Thread(hilo_cansancio).start();
         }
-
-        if (lienzo.getTeclado().cambiarPersonaje) {
-
-            nueva_decision = true;
-            try {
-                Thread.sleep(200);
-
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
     }
 
     int sentido = 1;
@@ -317,8 +309,8 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().poder_tiempo) {
 
-            if (mana_actual >= mana_maximo) {
-                mana_actual -= mana_maximo;
+            if (mana_actual >= 50) {
+                mana_actual -= 50;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
 
                 Sonido.EFECTO_VIAJE_TIEMPO.reproducir();
@@ -331,12 +323,21 @@ public class Jugador extends Entidad {
                 if (this.mapa.ultimo_dialogo.compareToIgnoreCase("terra") == 0) {
                     Mapa.terra.evento_ocurrido = false;
                     this.mapa.dialogo.aux = 0;
+                    Decision.decisiones.remove(Decision.decisiones.size() - 1);
+                    this.mapa.once_terra = true;
+                    System.out.println("Terra REINICIADA");
                 } else if (this.mapa.ultimo_dialogo.compareToIgnoreCase("rosa") == 0) {
                     Mapa.rosa.evento_ocurrido = false;
                     this.mapa.dialogo.aux = 0;
+                    Decision.decisiones.remove(Decision.decisiones.size() - 1);
+                    this.mapa.once_rosa = true;
+                    System.out.println("rosa REINICIADA");
                 } else if (this.mapa.ultimo_dialogo.compareToIgnoreCase("helena") == 0) {
                     Mapa.helena.evento_ocurrido = false;
                     this.mapa.dialogo.aux = 0;
+                    Decision.decisiones.remove(Decision.decisiones.size() - 1);
+                    this.mapa.once_helena = true;
+                    System.out.println("helena REINICIADA");
                 }
             }
 
@@ -547,24 +548,31 @@ public class Jugador extends Entidad {
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.NPC) == 0) {
 
+                boolean bandera = false;
                 if (col.getId().compareToIgnoreCase("terra") == 0) {
                     if (!Mapa.terra.evento_ocurrido) {
 
+                        this.mapa.dialogo.aux = 0;
                         Mapa.terra.evento_ocurrido = true;
-                        Dialogo.activado = true;
+
+                        bandera = !bandera;
                     }
                 } else if (col.getId().compareToIgnoreCase("rosa") == 0) {
                     if (!Mapa.rosa.evento_ocurrido) {
-
+                        this.mapa.dialogo.aux = 0;
                         Mapa.rosa.evento_ocurrido = true;
-                        Dialogo.activado = true;
+                        bandera = !bandera;
                     }
                 } else if (col.getId().compareToIgnoreCase("helena") == 0) {
                     if (!Mapa.helena.evento_ocurrido) {
-
+                        this.mapa.dialogo.aux = 0;
                         Mapa.helena.evento_ocurrido = true;
-                        Dialogo.activado = true;
+                        bandera = !bandera;
                     }
+                }
+
+                if (!Dialogo.activado && bandera) {
+                    Dialogo.activado = true;
                 }
 
             }

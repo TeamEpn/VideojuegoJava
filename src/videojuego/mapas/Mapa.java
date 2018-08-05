@@ -43,6 +43,10 @@ public abstract class Mapa {
     public static NPC rosa;
     public static NPC helena;
     
+    public boolean once_terra =true;
+    public boolean once_rosa =true;
+    public boolean once_helena =true;
+    
     public Dialogo dialogo = new Dialogo();
     public String ultimo_dialogo = "";
     public Mapa(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador) {

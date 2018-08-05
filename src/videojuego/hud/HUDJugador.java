@@ -29,9 +29,13 @@ public class HUDJugador {
         int man = (jugador.getMana_actual() * porc) / jugador.getMana_maximo();
         int exp = (jugador.getExp_actual() * porc) / jugador.getExp_maxima();
 
-        //NIVEL
+        //NIVEL y karma
         g.setColor(Color.white);
         g.drawString("Nivel: " + jugador.getNivel(), 800, interfaz_alto + 20);
+        g.setColor(Color.blue);
+        g.drawString("KarmaB: " + Jugador.karma_bueno, 980, interfaz_alto + 20);
+        g.setColor(Color.red);
+        g.drawString("KarmaM: " + Jugador.karma_malo, 1080, interfaz_alto + 20);
         
         //CONDICION FISICA
         
