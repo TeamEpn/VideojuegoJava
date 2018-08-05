@@ -17,9 +17,9 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class Dialogo {
 
-    int dialogo_alto = GestorPrincipal.ALTO - 140;
+    int dialogo_alto = GestorPrincipal.ALTO - 190;
     public static final String[] dialogo = {"hola we", "q hay we", "assaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas"};
-    Boton boton_continua = new Boton(800, dialogo_alto + 45, "NEXT", 100, 30);
+    Boton boton_continua = new Boton(1400, dialogo_alto + 45, "NEXT", 100, 30);
     int aux = 0;
 
     public Dialogo() {
@@ -44,7 +44,7 @@ public class Dialogo {
 
     public void dibujar(Graphics g) {
         g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, dialogo_alto, 900, 70);
+        g.fillRect(0, dialogo_alto, 1500, 70);
         g.setColor(Color.WHITE);
         g.drawString(dialogo[aux], 10, dialogo_alto + 10);
         boton_continua.dibujarBoton(g);

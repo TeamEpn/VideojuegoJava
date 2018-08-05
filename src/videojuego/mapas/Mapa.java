@@ -35,6 +35,8 @@ public abstract class Mapa {
     public ArrayList<Moneda> monedas;
     protected final int ANCHO_SPAWNEO;
     protected final int ALTO_SPAWNEO;
+    public int posX, posY;
+    public static boolean colisiona = false;
     
     
     public int iniciox,inicioy;
@@ -74,7 +76,6 @@ public abstract class Mapa {
         ANCHO_SPAWNEO = this.ancho - 100;
         ALTO_SPAWNEO = this.alto - 100;
         iniciarObjetosRecolectables();
-
     }
 
     protected abstract void generarObjetosColisionables(Graphics g, final int x, final int y, final Jugador jugador);
@@ -115,6 +116,7 @@ dialogo.actualizar(lienzo);
 
         g.drawImage(this.getSprite(), desfasex - jugador.getX(), desfasey - jugador.getY(), null);
         this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
+        iniciarObjetosRecolectables();
 
         //dibuja solo rectangulos
         for (Objeto r : objetos) {
