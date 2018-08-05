@@ -27,11 +27,10 @@ public class MapaCiudad extends Mapa {
 
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override
-    public void generarObjetosColisionables(Graphics g, final int x, final int y, final Jugador jugador) {
+    public void generarObjetosColisionables(final int x, final int y, final Jugador jugador) {
 
         this.objetos = new ArrayList<>();
-        this.objetos.addAll(monedas);
-        this.objetos.addAll(comidas);
+
         //CASAS
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 8 + desfasey - y, 38, 125), "Casa 1 Izquierda", Objeto.Tag.EDIFICIO));
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 256 + desfasey - y, 38, 94), "Casa 2 Izquierda", Objeto.Tag.EDIFICIO));
@@ -64,29 +63,25 @@ public class MapaCiudad extends Mapa {
         objetos.add(new Objeto(new Rectangle(183 + desfasex - x, 255 + desfasey - y, 23, 40), "Casa INN", Objeto.Tag.TELEPORT));
         objetos.add(new Objeto(new Rectangle(234 + desfasex - x, 571 + desfasey - y, 65, 27), "Puerta Zelda", Objeto.Tag.TELEPORT));
         objetos.add(new Objeto(new Rectangle(252 + desfasex - x, 349 + desfasey - y, 27, 63), "Estatua izquierda", Objeto.Tag.TELEPORT));
+
     }
 
     @Override
     protected void iniciarObjetosRecolectables() {
+        
+        generarObjetosColisionables(posX, posY, jugador);
+
         monedas = new ArrayList<>();
+        Moneda moneda;
         for (int i = 0; i < 10; i++) {
             this.posX = random.nextInt(ANCHO_SPAWNEO);
             this.posY = random.nextInt(ALTO_SPAWNEO);
-            comprobarSIEstaContenido(posX, posY);
-            if (this.colisiona) {
-                while (this.colisiona) {
-                    this.posX = random.nextInt(ANCHO_SPAWNEO);
-                    this.posY = random.nextInt(ALTO_SPAWNEO);
-                    comprobarSIEstaContenido(posX, posY);
-                }
-                monedas.add(new Moneda(this, "moneda" + i, posX, posY));
-                this.colisiona = false;
-            } else {
-                monedas.add(new Moneda(this, "moneda" + i, posX, posY));
-                this.colisiona = false;
-            }
-
+            moneda = new Moneda(this, "moneda" + i, posX, posY);
+            comprobarSIEstaContenido(moneda);
+            monedas.add(moneda);
         }
+
+        this.objetos.addAll(monedas);
 
         comidas = new ArrayList<>();
         comidas.add(new Comida(Comida.MANZANA_ROJA, "manzana1", this, -50, 0));
@@ -96,12 +91,14 @@ public class MapaCiudad extends Mapa {
         comidas.add(new Comida(Comida.ORBE_VERDE, "orbe_verde1", this, -50, 200));
         comidas.add(new Comida(Comida.ORBE_DORADO, "orbe_dorado1", this, -50, 250));
 
+        this.objetos.addAll(comidas);
+
     }
 
-    public void comprobarSIEstaContenido(int posX, int posY) {
+    public void comprobarSIEstaContenido(Moneda moneda) {
         for (int i = 0; i < this.objetos.size(); i++) {
-            if (objetos.get(i).getRectangle()[0].contains(posX, posY)) {
-                this.colisiona = true;
+            if (objetos.get(i).getRectangle()[0].contains(moneda.getRectangle()[0])) {
+                moneda.colisiona = true;
             }
         }
     }

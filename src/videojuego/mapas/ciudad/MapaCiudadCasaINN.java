@@ -18,12 +18,13 @@ public class MapaCiudadCasaINN extends Mapa{
     }
 
     @Override
-    protected void generarObjetosColisionables(Graphics g, int x, int y, Jugador jugador) {
+    protected void generarObjetosColisionables(int x, int y, Jugador jugador) {
         objetos = new ArrayList<>();
         this.objetos.addAll(monedas);
         this.objetos.addAll(comidas);
         //CASAS
         objetos.add(new Objeto(new Rectangle(93 + desfasex - x, 523 + desfasey - y, 36, 29), "Inversion Secreta", Objeto.Tag.INVERSION));
+        objetos.add(new Objeto(new Rectangle(188 + desfasex - x, 478 + desfasey - y, 97, 20), "Inversion Secreta", Objeto.Tag.TIENDA));
         objetos.add(new Objeto(new Rectangle(192 + desfasex - x, 660 + desfasey - y, 30, 20), "Puerta a ciudad", Objeto.Tag.TELEPORT));
         
     }

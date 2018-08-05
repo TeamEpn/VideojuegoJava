@@ -14,7 +14,7 @@ public class GestorPrincipal {
 
     public static boolean esta_funcionando = false;
     public static float escalado = 1f;
-    public static int ANCHO = 1600, ALTO = 900;
+    public static int ANCHO = 1300, ALTO = 700;
     public static final int CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
     
 

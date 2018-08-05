@@ -2,6 +2,7 @@ package interfaz;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 public class Boton {
     private final String contenido;
@@ -45,6 +46,18 @@ public class Boton {
 
         g.setColor(Color.black);
         g.drawString(this.contenido, x + ancho / 3, y + alto /2 + 5);
+
+    }
+    
+        public void dibujarBotonImagen(Graphics g, Image imagen) {
+
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(x, y, imagen.getWidth(null), imagen.getHeight(null));
+
+        g.drawImage(imagen, x, y, null);
+
+        g.setColor(Color.WHITE);
+        g.drawString(this.contenido, x - 30, y + imagen.getHeight(null) + 15);
 
     }
 

@@ -1,24 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="6">
+>>>>>>> origin
         <file>
             <url>src/videojuego/objetos/entidad/Jugador/Jugador.java</url>
+            <bookmark id="3">
+                <name/>
+                <line>108</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>327</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>361</line>
+                <key/>
+            </bookmark>
             <bookmark id="1">
                 <name/>
+<<<<<<< HEAD
                 <line>338</line>
+=======
+                <line>422</line>
+>>>>>>> origin
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/mapas/ciudad/MapaCiudad.java</file>
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/objetos/Colision.java</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/objetos/armas/Espada.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/objetos/entidad/Enemigo/Enemigo.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/objetos/entidad/Jugador/Jugador.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/objetos/entidad/Jugador/Poderes/poderFuego/BolaFuego.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PROYECTO%20FINAL/PoliIsStrange/src/videojuego/objetos/entidad/Entidad.java</file>
+=======
+            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/objetos/entidad/Entidad.java</file>
+>>>>>>> origin
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/objetos/entidad/Jugador/Jugador.java</file>
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/objetos/recolectables/Comida.java</file>
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/mapas/Mapa.java</file>
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/GESTORJUEGO/estados/EstadoAventura.java</file>
             <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/objetos/recolectables/Moneda.java</file>
+<<<<<<< HEAD
+=======
+            <file>file:/C:/Users/RAFAEL/Desktop/Politecnica/Semestre%203/Estructuras%20de%20datos/Proyecto%20Final/Proyecto%20git/VideojuegoJava/src/videojuego/objetos/entidad/Enemigo/Enemigo.java</file>
+>>>>>>> origin/master
+>>>>>>> origin
         </group>
     </open-files>
 </project-private>

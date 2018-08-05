@@ -30,7 +30,7 @@ public class MapaBosque extends Mapa{
     
     // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
     @Override
-    public void generarObjetosColisionables(Graphics g, final int x,final int y,final Jugador jugador) {
+    public void generarObjetosColisionables(final int x,final int y,final Jugador jugador) {
 
         objetos = new ArrayList<>();
         this.objetos.addAll(monedas);

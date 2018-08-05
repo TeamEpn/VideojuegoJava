@@ -331,8 +331,7 @@ public class Jugador extends Entidad {
         if (lienzo.getTeclado().poderBola) {
             Teclado.teclas[KeyEvent.VK_1] = false;
 
-
-            if (mana_actual >= 50 && this.resistencia_actual >=10 && !this.esta_cansado && !BolaFuego.esta_activa) {
+            if (mana_actual >= 50 && this.resistencia_actual >= 10 && !this.esta_cansado && !BolaFuego.esta_activa) {
 
                 try {
                     mana_actual -= 50;
@@ -383,11 +382,10 @@ public class Jugador extends Entidad {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             GestorPrincipal.ANCHO = screenSize.width;
             GestorPrincipal.ALTO = screenSize.height;
-            
+
         }
 
         if (lienzo.getTeclado().disparar_arma) {
-
 
             Teclado.teclas[KeyEvent.VK_E] = false;
 
@@ -401,7 +399,7 @@ public class Jugador extends Entidad {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         }
 
@@ -497,9 +495,12 @@ public class Jugador extends Entidad {
 
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {
-
                 this.y += 5;
                 GestorEstado.cambiarEstado(2);
+            }
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.TIENDA) == 0) {
+                this.y += 5;
+                GestorEstado.cambiarEstado(3);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TICTACTOE) == 0) {
 

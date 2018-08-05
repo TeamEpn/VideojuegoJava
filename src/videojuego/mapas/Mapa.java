@@ -36,11 +36,9 @@ public abstract class Mapa {
     protected final int ANCHO_SPAWNEO;
     protected final int ALTO_SPAWNEO;
     public int posX, posY;
-    public static boolean colisiona = false;
-    
-    
-    public int iniciox,inicioy;
-    
+
+    public int iniciox, inicioy;
+
     Dialogo dialogo = new Dialogo();
 
     public Mapa(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador) {
@@ -70,15 +68,15 @@ public abstract class Mapa {
         this.desfasex = GestorPrincipal.CENTROX;
         this.desfasey = GestorPrincipal.CENTROY;
 
-        this.iniciox = desfasex-GestorPrincipal.CENTROX;
-        this.inicioy = desfasey-GestorPrincipal.CENTROY;
-        
+        this.iniciox = desfasex - GestorPrincipal.CENTROX;
+        this.inicioy = desfasey - GestorPrincipal.CENTROY;
+
         ANCHO_SPAWNEO = this.ancho - 100;
         ALTO_SPAWNEO = this.alto - 100;
         iniciarObjetosRecolectables();
     }
 
-    protected abstract void generarObjetosColisionables(Graphics g, final int x, final int y, final Jugador jugador);
+    protected abstract void generarObjetosColisionables(final int x, final int y, final Jugador jugador);
 
     protected abstract void iniciarObjetosRecolectables();
 
@@ -109,14 +107,13 @@ public abstract class Mapa {
             fase_final = true;
             this.iniciarBossFinal();
         }
-dialogo.actualizar(lienzo);
+        dialogo.actualizar(lienzo);
     }
 
     public void dibujar(Graphics g) {
 
         g.drawImage(this.getSprite(), desfasex - jugador.getX(), desfasey - jugador.getY(), null);
-        this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
-        iniciarObjetosRecolectables();
+        this.generarObjetosColisionables(jugador.getX(), jugador.getY(), jugador);
 
         //dibuja solo rectangulos
         for (Objeto r : objetos) {
