@@ -1,14 +1,10 @@
 package videojuego.hud;
 
-import herramientas.CargadorRecursos;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
 import videojuego.GESTORJUEGO.estados.EstadoInversion;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
-import sprites.HojaSprites;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.armas.Bala;
 import videojuego.objetos.entidad.Enemigo.Enemigo;
@@ -22,7 +18,7 @@ public class HUDJugador {
     }
 
     public void dibujar(Graphics g) {
-        int interfaz_alto = GestorPrincipal.ALTO - 120;
+        int interfaz_alto = GestorPrincipal.ALTO - 70;
 
         ImageIcon img = new ImageIcon(ClassLoader.class.getResource("/imagenes/hud.png"));
         g.drawImage(img.getImage(),0, interfaz_alto, null);
@@ -58,9 +54,9 @@ public class HUDJugador {
         //-VIDA
 
         g.setColor(Color.MAGENTA);
-        g.drawRect(100, interfaz_alto + 12, porc, 10);
+        g.drawRect(120, interfaz_alto + 12, porc, 10);
         g.setColor(Color.red);
-        g.fillRect(100, interfaz_alto + 12, vid, 10);
+        g.fillRect(120, interfaz_alto + 12, vid, 10);
         g.setColor(Color.white);
         g.drawString("VIDA: ", 60, interfaz_alto + 20);
         g.drawString(jugador.getVida_actual() + "/" + jugador.getVida_maxima(), 140, interfaz_alto + 21);
@@ -68,28 +64,28 @@ public class HUDJugador {
         
         //-MANA        
         g.setColor(Color.blue);
-        g.drawRect(99, interfaz_alto + 32, porc + 1, 10);
+        g.drawRect(120, interfaz_alto + 32, porc + 1, 10);
         g.setColor(Color.blue);
-        g.fillRect(100, interfaz_alto + 33, man, 9);
+        g.fillRect(120, interfaz_alto + 33, man, 9);
         g.setColor(Color.white);
         g.drawString("MANA: ", 60, interfaz_alto + 40);
         g.drawString(jugador.getMana_actual() + "/" + jugador.getMana_maximo(), 140, interfaz_alto + 41);
 
         //-Resistencia
         
-        g.setColor(Color.CYAN);
-        g.drawRect(99, interfaz_alto + 52, porc + 1, 10);
-        g.setColor(Color.CYAN);
-        g.fillRect(100, interfaz_alto + 53, res, 9);
+        g.setColor(new Color(0x294d84));
+        g.drawRect(120, interfaz_alto + 52, porc + 1, 10);
+        g.setColor(new Color(0x294d84));
+        g.fillRect(120, interfaz_alto + 53, res, 9);
         g.setColor(Color.white);
         g.drawString("RES: ", 60, interfaz_alto + 60);
         g.drawString(jugador.getResistencia_actual()+"/"+jugador.getResistencia_maxima(), 140, interfaz_alto + 63);
 
         //-EXP
         g.setColor(Color.white);
-        g.drawRect(550, interfaz_alto + 32, porc, 10);
+        g.drawRect(570, interfaz_alto + 32, porc, 10);
         g.setColor(Color.green);
-        g.fillRect(550, interfaz_alto + 33, exp, 9);
+        g.fillRect(570, interfaz_alto + 33, exp, 9);
         g.setColor(Color.white);
         g.drawString("Exp: ", 500, interfaz_alto + 40);
         g.drawString(jugador.getExp_actual() + "/" + jugador.getExp_maxima(), 600, interfaz_alto + 42);
@@ -108,7 +104,7 @@ public class HUDJugador {
 
         //DINERO
         g.drawString("DINERO: ", 500, interfaz_alto + 60);
-        g.drawString("$" + jugador.getCuenta().saldo + "", 560, interfaz_alto + 60);
+        g.drawString("$" + jugador.getCuenta().saldo + "", 580, interfaz_alto + 60);
         
         //DINERO
         g.drawString("ZOMBIES: " + Enemigo.ZOMBIES_MUERTOS, 0, 100);
