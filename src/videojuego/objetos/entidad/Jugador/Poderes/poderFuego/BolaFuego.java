@@ -67,7 +67,8 @@ public class BolaFuego extends Objeto {
         }
         for (int i = 0; i < j.getMapa().objetos.size(); i++) {
             Rectangle[] lados_objeto = j.getMapa().objetos.get(i).getRectangle();
-            if (lados_objeto[0].intersects(bola[0])) {
+            if (lados_objeto[0].intersects(bola[0]) && !j.getMapa().objetos.get(i).getTag().equals(Objeto.Tag.COMIDA)
+                    && !j.getMapa().objetos.get(i).getTag().equals(Objeto.Tag.MONEDA)) {
                 return true;
             }
         }

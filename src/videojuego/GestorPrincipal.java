@@ -4,8 +4,6 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Logueo;
 import interfaz.Ventana;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {
@@ -87,4 +85,5 @@ public class GestorPrincipal {
     private void dibujar() {
         lienzo.dibujar(ge); //el gestor de estado manejara todos los dibujos
     }
+    
 }

@@ -66,9 +66,12 @@ public class Teclado implements KeyListener {
 
         lista.insertar(ke.getKeyCode());
         int[] arr = lista.obtenerNumeros();
-        lista.imprimirArreglo(arr);
+        
         mirarCombinaciones(arr);
         
+        arr = lista.obtenerNumeros();
+        if(arr.length >0)
+            lista.imprimirArreglo(arr);
         //System.out.println(ke.getKeyCode());
     }
 

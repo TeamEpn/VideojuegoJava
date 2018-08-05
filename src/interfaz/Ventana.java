@@ -9,9 +9,9 @@ public class Ventana extends JFrame {
         configurarVentana(lienzo);
     }
 
-    private void configurarVentana(final Lienzo lienzo) {
+    public void configurarVentana(final Lienzo lienzo) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(lienzo, BorderLayout.CENTER);
         this.pack();
@@ -20,7 +20,7 @@ public class Ventana extends JFrame {
     
     public void configurarVentanaPantallaCompleta(final Lienzo lienzo,int ancho,int alto) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(lienzo, BorderLayout.CENTER);
         this.setSize(ancho, alto);
