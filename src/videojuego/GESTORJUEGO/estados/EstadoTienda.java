@@ -46,7 +46,7 @@ public class EstadoTienda implements EstadoJuego {
         vidaAlMaximo = jugador.getVida_actual() == jugador.getVida_maxima();
         manaAlMaximo = jugador.getMana_actual() == jugador.getMana_maximo();
         dialogo = new Dialogo();
-        decision = new Decision("La pistola poderosa", "La pistola chidori");
+        decision = new Decision("La pistola poderosa", "La pistola rapida");
     }
 
     @Override
@@ -63,8 +63,12 @@ public class EstadoTienda implements EstadoJuego {
                     int my = lienzo.getMouse().getPosy();
                     if(decision.opcion1.esClickeado(mx, my)){
                         jugador.setDescicionPistola("potente");
+                        jugador.getPistola().balas_totales = 30;
+                        jugador.getPistola().tamaño_cartucho = 5;
                     }else if(decision.opcion2.esClickeado(mx, my)){
                         jugador.setDescicionPistola("rapida");
+                        jugador.getPistola().balas_totales = 250;
+                        jugador.getPistola().tamaño_cartucho =20;
                     }
                     primeraVez = false;
                 }
@@ -141,12 +145,13 @@ public class EstadoTienda implements EstadoJuego {
         g.drawImage(new ImageIcon(ClassLoader.class.getResource("/imagenes/tienda.png")).getImage(), 0, 0, null);
 
         if (primeraVez) {
+            g.setColor(Color.black);
+            g.fillRect(50, 163, 700, 50);
             if (Dialogo.activado) {
                 dialogo.setDialogo(Dialogo.dialogo_vendedor);
                 dialogo.dibujar(g);
             } else {
                 decision.dibujar(g);
-
             }
 
         } else {

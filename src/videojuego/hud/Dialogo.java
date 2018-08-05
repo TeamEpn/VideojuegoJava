@@ -7,20 +7,13 @@ package videojuego.hud;
 
 import interfaz.Boton;
 import interfaz.Lienzo;
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import videojuego.GestorPrincipal;
-import videojuego.mapas.Mapa;
-import videojuego.objetos.entidad.Jugador.Jugador;
 import static videojuego.objetos.entidad.Jugador.Jugador.nueva_decision;
-import videojuego.objetos.entidad.Jugador.NPC;
+
 public class Dialogo {
 
 
@@ -42,7 +35,7 @@ public class Dialogo {
         public static final String[] dialogo_vendedor = 
     {"Que tal muchachito",
      "Parece que es tu primera vez aqui, dejame regalarte algo",
-     "Puedes elegir entre mi super pistola de balas poderosas pero de lenta recarga o mi pistola rapida que dispara balas comunes pero recarga mas rapido"};
+     "Puedes elegir entre mi pistola de balas poderosas pero de lenta recarga o mi pistola rapida que dispara balas menos potentes pero de rapida recarga ¿Cual eliges?"};
     
     Boton boton_continua = new Boton(GestorPrincipal.ANCHO-100, dialogo_alto + 75, "NEXT", 100, 30);
     

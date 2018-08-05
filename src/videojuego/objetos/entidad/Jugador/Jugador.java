@@ -43,7 +43,7 @@ public class Jugador extends Entidad {
 
     //Estadísticas
     private int nivel;
-    private int damage;
+    private int damage, damagePistola;
     private int mana_maximo, mana_actual;
     private int resistencia_maxima, resistencia_actual;
     private int exp_maxima, exp_actual;
@@ -67,6 +67,7 @@ public class Jugador extends Entidad {
     int[] contadores = {0, 0, 0, 0}; // para mostrar cierto sprite de animacion
     boolean[] esperando_hilo = {false, false, false, false}; //cada intercambio de animacion tiene un retraso
     int delay = 400; // este es el retraso de la animacion
+    int delayPistola = 2;
 
     public static int karma_malo = 0;
     public static int karma_bueno = 0;
@@ -83,6 +84,7 @@ public class Jugador extends Entidad {
         cuenta = new Cuenta(1000);
         interfaz = new HUDJugador(this);
         this.damage = 20;
+        this.damagePistola = 20;
         this.reg_vida = 3;
         this.reg_mana = 2;
         this.reg_resistencia = 20;
@@ -115,6 +117,12 @@ public class Jugador extends Entidad {
     public void actualizar(Lienzo lienzo) {
         this.mover(lienzo);
         this.acciones(lienzo);
+        if (descicionPistola.equals("potente")) {
+            damagePistola = 45;
+        }
+        if (descicionPistola.equals("rapida")) {
+            damagePistola = 7;
+        }
         if (this.nueva_decision) {
             decision.actualizar(lienzo);
         }
@@ -130,7 +138,7 @@ public class Jugador extends Entidad {
         }
 
         if (pistola.cantidad_balas >= -1) {
-            pistola.dibujar(g, this, descicionPistola);
+            pistola.dibujar(g, this);
         }
 
         if (BolaFuego.esta_activa) {
@@ -378,9 +386,20 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().recargar_arma) {
             lienzo.getTeclado().recargar_arma = false;
+            System.out.println(descicionPistola);
 
             if (!esta_recargando) {
-                Sonido.RECARGAR_ARMA.reproducir();
+                if (descicionPistola.equals("normal")) {
+                    delayPistola = 2;
+                    Sonido.RECARGAR_ARMA_NORMAL.reproducir();
+                } else if (descicionPistola.equals("potente")) {
+                    delayPistola = 4;
+                    Sonido.RECARGAR_ARMA_LENTO.reproducir();
+                } else if (descicionPistola.equals("rapida")) {
+                    delayPistola = 1;
+                    Sonido.RECARGAR_ARMA_RAPIDO.reproducir();
+                }
+
                 esta_recargando = true;
 
                 new Thread(new Runnable() {
@@ -388,7 +407,7 @@ public class Jugador extends Entidad {
                     public void run() {
                         try {
 
-                            for (int segundo = 0; segundo < 2; segundo++) {
+                            for (int segundo = 0; segundo < delayPistola; segundo++) {
                                 Thread.sleep(1000);
                             }
                             pistola.recargar();
@@ -421,12 +440,13 @@ public class Jugador extends Entidad {
                     pistola.cantidad_balas--;
                     Sonido.DISPARO.reproducir();
 
-                    try {
-                        Thread.sleep(20);
-                        pistola.disparar(vista, this);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        try {
+                            Thread.sleep(20);
+                            pistola.disparar(vista, this);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
 
                 }
 
@@ -714,6 +734,14 @@ public class Jugador extends Entidad {
 
     public void setDescicionPistola(String descicionPistola) {
         this.descicionPistola = descicionPistola;
+    }
+
+    public int getDamagePistola() {
+        return damagePistola;
+    }
+
+    public void setDamagePistola(int damagePistola) {
+        this.damagePistola = damagePistola;
     }
 
 }
