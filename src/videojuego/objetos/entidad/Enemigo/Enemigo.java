@@ -8,7 +8,6 @@ import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
 import java.util.ArrayList;
-import java.util.Random;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.objetos.Colision;
 
@@ -22,13 +21,14 @@ public class Enemigo extends Entidad {
     public boolean esBoss = false;
 
     public Enemigo(Jugador jugador, String id) {
-
+        
         //el centrox para ubicarlo en la esquina superior izquierda
-        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX + 100 + (int) (Math.random() * 200) + 1, GestorPrincipal.CENTROY + 100, Objeto.Tag.ENEMIGO,
+        super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.ENEMIGO,
                 new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
 
         this.jugador = jugador;
         this.setMapa(EstadoAventura.mapa_actual);
+        this.nombre = "ZOMBIE";
         this.id = id;
     }
 
@@ -70,6 +70,7 @@ public class Enemigo extends Entidad {
         if (jugador.getY() > this.y) {
             if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)
                     && !(direccion[2].compareToIgnoreCase("jugador_abajo") == 0)) {
+                this.sprite_actual = this.frente0;
                 this.y++;
             }
 
@@ -77,6 +78,7 @@ public class Enemigo extends Entidad {
 
             if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)
                     && !(direccion[0].compareToIgnoreCase("jugador_arriba") == 0)) {
+                this.sprite_actual = this.espalda0;
                 this.y--;
             }
         }
@@ -84,12 +86,13 @@ public class Enemigo extends Entidad {
         if (jugador.getX() > this.x) {
             if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)
                     && !(direccion[1].compareToIgnoreCase("jugador_derecha") == 0)) {
-
+                this.sprite_actual = this.lado_izquierdo0;
                 this.x++;
             }
         } else if (jugador.getX() <= this.x) {
             if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)
                     && !(direccion[3].compareToIgnoreCase("jugador_izquierda") == 0)) {
+                this.sprite_actual = this.lado_derecho0;
                 this.x--;
             }
         }

@@ -17,7 +17,6 @@ import videojuego.GestorPrincipal;
 import interfaz.Lienzo;
 import java.awt.event.KeyEvent;
 import sprites.Animacion;
-import sprites.HojaSprites;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import videojuego.GESTORJUEGO.GestorEstado;
@@ -57,9 +56,10 @@ public class Jugador extends Entidad {
 
     public static int mapa_contador = 0;
 
+    int[] vista = {0, 0, 1, 0};
+
     public Jugador(Lienzo lienzo) {
-        super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR,
-                new int[]{0, 1}, new int[]{0, 0}, new int[]{0, 3}, new int[]{0, 2});
+        super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
 
         this.vida_actual = (this.vida_maxima = 200);
 
@@ -76,6 +76,7 @@ public class Jugador extends Entidad {
         pistola = new Pistola(10);
         this.espada = new Espada(new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY + 70, 32, 25), "arma_espada", Objeto.Tag.ARMA_JUGADOR, this);
 
+        this.nombre = "JUGADOR";
         iniciarThreadsPermanentes();
     }
 
@@ -139,6 +140,9 @@ public class Jugador extends Entidad {
     }
 
     NPC terra = new NPC(new Rectangle(0, 0, 20, 70), "Terra", Objeto.Tag.NPC, NPC.terra, this);
+    int[] contadores = {0, 0, 0, 0};
+    boolean[] esperando_hilo = {false, false, false, false};
+    int delay = 400;
 
     @Override
     public void mover(Lienzo lienzo) {
@@ -160,31 +164,54 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().arriba) {
             if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)) {
-                sprite_actual = espalda0;
+
+                sprite_actual = this.hoja_completa.obtenerSprite(contadores[0], 0).obtenerImagen();
+                if (!esperando_hilo[0]) {
+                    animacionCaminarThread(5, delay / this.velocidad - this.velocidad, 0); //cero es arriba, se maneja como manecillas de reloj
+                }
+
                 this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY - 10, 32, 25)});
                 y = y - velocidad;
+
+                vista = new int[]{1, 0, 0, 0};
             }
         }
         if (lienzo.getTeclado().derecha) {
             if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)) {
-                sprite_actual = lado_derecho0;
+
+                sprite_actual = this.hoja_completa.obtenerSprite(contadores[1], 2).obtenerImagen();
+                if (!esperando_hilo[1]) {
+                    animacionCaminarThread(8, delay / this.velocidad - this.velocidad * 10, 1); //cero es arriba, se maneja como manecillas de reloj
+                }
                 this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX + 30, GestorPrincipal.CENTROY + 10, 25, 32)});
+
                 x = x + velocidad;
+                vista = new int[]{0, 1, 0, 0};
             }
         }
         if (lienzo.getTeclado().abajo) {
             if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)) {
-                sprite_actual = frente0;
+                sprite_actual = this.hoja_completa.obtenerSprite(contadores[2], 1).obtenerImagen();
+                if (!esperando_hilo[2]) {
+                    animacionCaminarThread(5, delay / this.velocidad - this.velocidad * 10, 2); //cero es arriba, se maneja como manecillas de reloj
+                }
                 this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX, GestorPrincipal.CENTROY + 70, 32, 25)});
                 y = y + velocidad;
+                vista = new int[]{0, 0, 1, 0};
             }
         }
 
         if (lienzo.getTeclado().izquierda) {
             if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)) {
-                sprite_actual = lado_izquierdo0;
+
+                sprite_actual = this.hoja_completa.obtenerSprite(contadores[3], 3).obtenerImagen();
+                if (!esperando_hilo[3]) {
+                    animacionCaminarThread(8, delay / this.velocidad - this.velocidad * 10, 3); //cero es arriba, se maneja como manecillas de reloj
+                }
                 this.espada.setRectangle(new Rectangle[]{new Rectangle(GestorPrincipal.CENTROX - 16, GestorPrincipal.CENTROY + 10, 25, 32)});
+
                 x = x - velocidad;
+                vista = new int[]{0, 0, 0, 1};
             }
         }
 
@@ -228,15 +255,52 @@ public class Jugador extends Entidad {
             try {
                 Thread.sleep(200);
 
-                /*frente0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(0, 0).obtenerImagen();
-                espalda0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(1, 0).obtenerImagen();
-                lado_derecho0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(2, 0).obtenerImagen();
-                lado_izquierdo0 = new HojaSprites("/imagenes/hojasPersonajes/2.png", 32, true).obtenerSprite(3, 0).obtenerImagen();
-                sprite_actual = frente0;*/
             } catch (InterruptedException ex) {
                 Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+    }
+
+    int sentido = 1;
+
+    public void animacionCaminarThread(int maximo, int delay, int direccion) {
+
+        this.esperando_hilo[direccion] = true;
+        Runnable hilo = new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    if (direccion == 0 || direccion == 2) {
+                        if (contadores[direccion] > 0) {
+                            if (contadores[direccion] >= maximo - 1) {
+                                sentido = -1;
+                            }
+                        } else {
+                            sentido = 1;
+                        }
+
+                        contadores[direccion] += sentido;
+                        Thread.sleep(delay);
+                        esperando_hilo[direccion] = false;
+                    } else {
+                        if (contadores[direccion] >= maximo - 1) {
+                            contadores[direccion] = 0;
+                        } else {
+                            contadores[direccion]++;
+                        }
+                        Thread.sleep(delay);
+                        esperando_hilo[direccion] = false;
+                    }
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        };
+        new Thread(hilo).start();
 
     }
 
@@ -273,13 +337,13 @@ public class Jugador extends Entidad {
                     Thread.sleep(100);
                     bola = new BolaFuego(this, this.x, this.y);
                     Sonido.BOLA_DE_FUEGO.reproducir();
-                    if (sprite_actual == frente0) {
+                    if (this.vista[2] == 1) {
                         new Thread(new HiloBola(this, "abajo", bola)).start();
-                    } else if (sprite_actual == espalda0) {
+                    } else if (this.vista[0] == 1) {
                         new Thread(new HiloBola(this, "arriba", bola)).start();
-                    } else if (sprite_actual == lado_derecho0) {
+                    } else if (this.vista[1] == 1) {
                         new Thread(new HiloBola(this, "derecha", bola)).start();
-                    } else if (sprite_actual == lado_izquierdo0) {
+                    } else if (this.vista[3] == 1) {
                         new Thread(new HiloBola(this, "izquierda", bola)).start();
                     }
                     BolaFuego.esta_activa = true;
@@ -293,12 +357,26 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().recargar_arma) {
             Sonido.RECARGAR_ARMA.reproducir();
-            pistola.recargar();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (!(Sonido.RECARGAR_ARMA.player.isComplete())) {
+                            if (Sonido.RECARGAR_ARMA.player.isComplete()) {
+                                pistola.recargar();
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error en la recarga de pistola");
+                    }
+
+                }
+            }).start();
             interfaz = new HUDJugador(this);
         }
 
         if (lienzo.getTeclado().disparar_arma) {
-            
+
             Teclado.teclas[KeyEvent.VK_E] = false;
 
             if (pistola.cantidad_balas > 0) {
@@ -310,17 +388,17 @@ public class Jugador extends Entidad {
                     Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 final int inicioX = this.getX(), inicioY = this.getY();
-                if (sprite_actual == frente0) {
+                if (this.vista[2] == 1) {
                     pistola.bala = new Bala(Bala.bala_abajo, "abajo", inicioX, inicioY);
                     //System.out.println(bal);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "abajo")).start();
-                } else if (sprite_actual == espalda0) {
+                } else if (this.vista[0] == 1) {
                     pistola.bala = new Bala(Bala.bala_arriba, "arriba", inicioX, inicioY);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "arriba")).start();
-                } else if (sprite_actual == lado_derecho0) {
+                } else if (this.vista[1] == 1) {
                     pistola.bala = new Bala(Bala.bala_derecha, "derecha", inicioX, inicioY);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "derecha")).start();
-                } else if (sprite_actual == lado_izquierdo0) {
+                } else if (this.vista[3] == 1) {
                     pistola.bala = new Bala(Bala.bala_izquierda, "izquierda", inicioX, inicioY);
                     new Thread(new HiloDisparoArma(pistola.bala, this, "izquierda")).start();
                 }
@@ -335,22 +413,29 @@ public class Jugador extends Entidad {
 
                 Animacion.esta_activa = true;
 
-                if (this.sprite_actual == this.frente0) {
+                if (vista[2] == 1) {
+
                     Animacion.imagen_actual = Animacion.animacion_espada_frente.obtenerSprite(0, 0).obtenerImagen();
                     Animacion.x = GestorPrincipal.CENTROX;
                     Animacion.y = GestorPrincipal.CENTROY + 48;
                     Animacion.mostrarAnimacion(Animacion.animacion_espada_frente, 10);
-                } else if (this.sprite_actual == this.espalda0) {
+
+                } else if (vista[0] == 1) {
+
                     Animacion.imagen_actual = Animacion.animacion_espada_espalda.obtenerSprite(0, 0).obtenerImagen();
                     Animacion.x = GestorPrincipal.CENTROX;
                     Animacion.y = GestorPrincipal.CENTROY - 24;
                     Animacion.mostrarAnimacion(Animacion.animacion_espada_espalda, 10);
-                } else if (this.sprite_actual == this.lado_derecho0) {
+
+                } else if (vista[1] == 1) {
+
                     Animacion.imagen_actual = Animacion.animacion_espada_derecha.obtenerSprite(0, 0).obtenerImagen();
                     Animacion.x = GestorPrincipal.CENTROX + 25;
                     Animacion.y = GestorPrincipal.CENTROY;
                     Animacion.mostrarAnimacion(Animacion.animacion_espada_derecha, 10);
-                } else if (this.sprite_actual == this.lado_izquierdo0) {
+
+                } else if (vista[3] == 1) {
+
                     Animacion.imagen_actual = Animacion.animacion_espada_izquierda.obtenerSprite(0, 0).obtenerImagen();
                     Animacion.x = GestorPrincipal.CENTROX - 24;
                     Animacion.y = GestorPrincipal.CENTROY;
@@ -407,10 +492,8 @@ public class Jugador extends Entidad {
                 EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
 
-                mapa_contador++;
-                if (mapa_contador > 3) {
-                    mapa_contador = 0;
-                }
+                this.x = -1 * this.mapa.iniciox;
+                this.y = -1 * this.mapa.inicioy;
 
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {

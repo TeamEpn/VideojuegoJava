@@ -33,7 +33,7 @@ public class MapaCasa extends Mapa{
         objetos.add(new Objeto(new Rectangle(282 + desfasex - x, 46 + desfasey - y, 283, 185),"Casa 1 centro",Objeto.Tag.EDIFICIO));
         
         //teleport
-        objetos.add(new Objeto(new Rectangle(760 + desfasex - x, 277 + desfasey - y, 30, 60),"teleport_ciudad",Objeto.Tag.TELEPORT));
+        objetos.add(new Objeto(new Rectangle(230 + desfasex - x, + desfasey- y, 60, 20),"teleport_ciudad",Objeto.Tag.TELEPORT));
                 
                 
         //Arboles, rocas y acantilados
