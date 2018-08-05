@@ -23,6 +23,7 @@ import static videojuego.objetos.entidad.Jugador.Jugador.nueva_decision;
 import videojuego.objetos.entidad.Jugador.NPC;
 public class Dialogo {
 
+
     int dialogo_alto = GestorPrincipal.ALTO - 170;
     public static boolean activado = false;
     public static String[] dialogo;
@@ -42,6 +43,7 @@ public class Dialogo {
     Boton boton_continua = new Boton(GestorPrincipal.ANCHO-100, dialogo_alto + 75, "NEXT", 100, 30);
     
     public int aux = 0;
+
 
     public Dialogo() {
     }
@@ -75,8 +77,8 @@ public class Dialogo {
         }
     }
 
+
     public void dibujar(Graphics2D g) {
-        
         
         g.setColor(new Color(0x74e1fc));
         g.fillRect(0, dialogo_alto, GestorPrincipal.ANCHO, 100);

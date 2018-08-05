@@ -22,7 +22,7 @@ public abstract class Entidad {
     protected int velocidad = velocidad_original;
 
     protected boolean esta_vivo;
-    protected int vida_maxima;
+    public int vida_maxima;
     protected int vida_actual;
 
     //posiciones_sprites
@@ -206,6 +206,10 @@ public abstract class Entidad {
 
     public void setMapa(Mapa mapa) {
         this.mapa = mapa;
+    }
+
+    public void setVida_maxima(int vida_maxima) {
+        this.vida_maxima = vida_maxima;
     }
 
     public abstract void mover(Lienzo lienzo);

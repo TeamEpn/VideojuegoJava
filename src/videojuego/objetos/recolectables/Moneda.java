@@ -7,17 +7,18 @@ import videojuego.objetos.Objeto;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
-public class Moneda extends Objeto{
+public class Moneda extends Objeto {
 
     public static ImageIcon imagen = new ImageIcon(ClassLoader.class.getResource("/imagenes/hojasObjetos/moneda.png"));
-    
+
     String id;
     int posX, posY;
     Mapa mapa;
-    
-    public Moneda(Mapa mapa, String id,int posx,int posy) {
-        super(new Rectangle(0,0, 32, 32), id, Objeto.Tag.MONEDA);
-        
+    public boolean colisiona = false;
+
+    public Moneda(Mapa mapa, String id, int posx, int posy) {
+        super(new Rectangle(0, 0, 32, 32), id, Objeto.Tag.MONEDA);
+
         this.mapa = mapa;
         this.id = id;
         posX = posx;
@@ -25,12 +26,9 @@ public class Moneda extends Objeto{
     }
 
     public void dibujar(Graphics g, int desfasex, int desfasey, Jugador jugador) {
-       g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), null);
-       this.setRectangle(new Rectangle[]{new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 15)});
-            
+        g.drawImage(imagen.getImage(), posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), null);
+        this.setRectangle(new Rectangle[]{new Rectangle(posX + desfasex - jugador.getX(), posY + desfasey - jugador.getY(), 15, 15)});
     }
-    
-
 
     public ImageIcon getImagen() {
         return imagen;
@@ -47,7 +45,7 @@ public class Moneda extends Objeto{
     public Mapa getMapa() {
         return mapa;
     }
-    
+
     public void setPosX(int posX) {
         this.posX = posX;
     }

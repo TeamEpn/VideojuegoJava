@@ -426,6 +426,7 @@ public class Jugador extends Entidad {
                     }
 
                 }
+
             }
         }
 
@@ -521,9 +522,12 @@ public class Jugador extends Entidad {
 
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.INVERSION) == 0) {
-
                 this.y += 5;
                 GestorEstado.cambiarEstado(2);
+            }
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.TIENDA) == 0) {
+                this.y += 5;
+                GestorEstado.cambiarEstado(3);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TICTACTOE) == 0) {
 

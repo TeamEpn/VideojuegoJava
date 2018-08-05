@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import java.awt.Graphics2D;
+import videojuego.GESTORJUEGO.estados.EstadoTienda;
 
 public class GestorEstado {
     
@@ -19,10 +20,11 @@ public class GestorEstado {
     }
 
     private void iniciarEstados(final Jugador jugador) {
-        estados = new EstadoJuego[3];
+        estados = new EstadoJuego[4];
         estados[0] = new EstadoAventura(jugador);
         estados[1] = new EstadoTicTacToe(jugador);
         estados[2] = new EstadoInversion(jugador);
+        estados[3] = new EstadoTienda(jugador);
     }
     
     public void actualizar(Lienzo lienzo){

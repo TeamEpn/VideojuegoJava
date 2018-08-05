@@ -36,7 +36,8 @@ public abstract class Mapa {
     public ArrayList<Moneda> monedas;
     protected final int ANCHO_SPAWNEO;
     protected final int ALTO_SPAWNEO;
-    public int iniciox,inicioy;
+
+    public int iniciox,inicioy, posX, posY;
     
     
     public static NPC terra;
@@ -49,6 +50,7 @@ public abstract class Mapa {
     
     public Dialogo dialogo = new Dialogo();
     public String ultimo_dialogo = "";
+
     public Mapa(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador) {
         this.nombre = nombre;
         this.ancho = ancho;
@@ -77,12 +79,13 @@ public abstract class Mapa {
         this.desfasex = GestorPrincipal.CENTROX;
         this.desfasey = GestorPrincipal.CENTROY;
 
-        this.iniciox = desfasex-GestorPrincipal.CENTROX;
-        this.inicioy = desfasey-GestorPrincipal.CENTROY;
-        
+        this.iniciox = desfasex - GestorPrincipal.CENTROX;
+        this.inicioy = desfasey - GestorPrincipal.CENTROY;
+
         ANCHO_SPAWNEO = this.ancho - 100;
         ALTO_SPAWNEO = this.alto - 100;
         iniciarObjetosRecolectables();
+
         iniciarNPCs(jugador);
         
      }
@@ -91,10 +94,11 @@ public abstract class Mapa {
         rosa = new NPC(new Rectangle(0, 0, 20, 70), "rosa", Objeto.Tag.NPC, NPC.rosa, jugador);
         helena = new NPC(new Rectangle(0, 0, 20, 70), "helena", Objeto.Tag.NPC, NPC.elena, jugador);
 
+
     }
    
 
-    protected abstract void generarObjetosColisionables(Graphics g, final int x, final int y, final Jugador jugador);
+    protected abstract void generarObjetosColisionables(final int x, final int y, final Jugador jugador);
 
     protected abstract void iniciarObjetosRecolectables();
 
@@ -125,13 +129,13 @@ public abstract class Mapa {
             fase_final = true;
             this.iniciarBossFinal();
         }
-        
+
     }
 
     public void dibujar(Graphics2D g) {
 
         g.drawImage(this.getSprite(), desfasex - jugador.getX(), desfasey - jugador.getY(), null);
-        this.generarObjetosColisionables(g, jugador.getX(), jugador.getY(), jugador);
+        this.generarObjetosColisionables(jugador.getX(), jugador.getY(), jugador);
 
         //dibuja solo rectangulos
         for (Objeto r : objetos) {
