@@ -20,6 +20,7 @@ public class Teclado implements KeyListener {
     public boolean recargar_arma;
     public boolean poderBola;
     public boolean ataque_espada;
+    public boolean pantalla_completa;
 
     //Temporales
     public boolean cambiarPersonaje;
@@ -40,6 +41,7 @@ public class Teclado implements KeyListener {
         disparar_arma = teclas[KeyEvent.VK_E];
         recargar_arma = teclas[KeyEvent.VK_R];
         ataque_espada = teclas[KeyEvent.VK_2];
+        pantalla_completa = teclas[KeyEvent.VK_F4];
     }
 
     @Override

@@ -14,7 +14,8 @@ public class GestorPrincipal {
 
     public static boolean esta_funcionando = false;
     public static float escalado = 1f;
-    public static final int ANCHO = 900, ALTO = 650, CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
+    public static int ANCHO = 900, ALTO = 650;
+    public static final int CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
 
     private final Lienzo lienzo;
     private final Ventana ventana;

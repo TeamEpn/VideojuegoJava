@@ -23,7 +23,10 @@ import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.GESTORJUEGO.estados.inversiones.Cuenta;
 import interfaz.Sonido;
+import interfaz.Ventana;
+import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import videojuego.hud.Decision;
 import videojuego.mapas.Mapa;
@@ -373,6 +376,13 @@ public class Jugador extends Entidad {
                 }
             }).start();
             interfaz = new HUDJugador(this);
+        }
+
+        if (lienzo.getTeclado().pantalla_completa) {
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            GestorPrincipal.ANCHO = screenSize.width;
+            GestorPrincipal.ALTO = screenSize.height;
+            
         }
 
         if (lienzo.getTeclado().disparar_arma) {
