@@ -4,6 +4,8 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Logueo;
 import interfaz.Ventana;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {
@@ -12,8 +14,9 @@ public class GestorPrincipal {
 
     public static boolean esta_funcionando = false;
     public static float escalado = 1f;
-    public static int ANCHO = 900, ALTO = 650;
+    public static int ANCHO = 1600, ALTO = 900;
     public static final int CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
+    
 
     private final Lienzo lienzo;
     private final Ventana ventana;
@@ -34,7 +37,7 @@ public class GestorPrincipal {
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO, ALTO);
         jugador = new Jugador(lienzo);
-        ventana = new Ventana(lienzo);
+        ventana = new Ventana(lienzo, ANCHO, ALTO);
         ge = new GestorEstado(jugador);
     }
 
