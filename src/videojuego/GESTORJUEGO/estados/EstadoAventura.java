@@ -27,7 +27,7 @@ public class EstadoAventura implements EstadoJuego {
         this.jugador = jugador;
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
-        EstadoAventura.mapa_actual.iniciarEnemigos(5);
+        EstadoAventura.mapa_actual.iniciarEnemigos(3);
     }
 
     private void iniciaMapasAventura() {
@@ -36,6 +36,7 @@ public class EstadoAventura implements EstadoJuego {
         mapas[1] = new MapaBosque("Bosque", "/imagenes/mapa1.png", 800, 600, jugador, GestorPrincipal.CENTROX-683, GestorPrincipal.CENTROY-500);
         mapas[2] = new MapaCasa("Zelda", "/imagenes/mapaCarlos.png", 800, 600, jugador, GestorPrincipal.CENTROX-248, GestorPrincipal.CENTROY-20);
         mapas[3] = new MapaCiudadCasaINN("Casa Inversiones", "/imagenes/inn.jpg", 576, 704, jugador, GestorPrincipal.CENTROX-211, GestorPrincipal.CENTROY-519);
+
 
         mapa_actual = mapas[3];
 

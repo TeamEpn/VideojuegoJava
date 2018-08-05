@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
-import java.util.ArrayList;
 import java.util.Random;
 import videojuego.mapas.Mapa;
 import sprites.HojaSprites;
@@ -136,13 +135,15 @@ public abstract class Entidad {
     
     protected void generarCollides(int centrox, int centroy, String tag) {
 
-        int aumento = 1;
+        int aumento_zombie = 1,aumento_jugador = 0;
         if(tag.compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0)
-            aumento = (alto_ente/2)*3;
-        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente, ancho_ente - sep, 1);
-        Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2, 1, alto_ente + aumento - sep * 2);
-        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento, ancho_ente - sep, 1);
-        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2, 1, alto_ente + aumento - sep * 2);
+            aumento_zombie = (alto_ente/2)*3;
+        else
+            aumento_jugador = 10;
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente+aumento_jugador, ancho_ente - sep, 1);
+        Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2 +aumento_jugador, 1, alto_ente - aumento_jugador + aumento_zombie - sep * 2);
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento_zombie, ancho_ente - sep, 1);
+        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2+aumento_jugador, 1, alto_ente - aumento_jugador + aumento_zombie - sep * 2);
 
 
         this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,

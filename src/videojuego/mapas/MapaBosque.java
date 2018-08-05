@@ -1,48 +1,101 @@
 package videojuego.mapas;
 
-import videojuego.mapas.ciudad.MapaCiudad;
+import interfaz.Lienzo;
 import java.awt.Graphics;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import sprites.HojaSprites;
 import videojuego.objetos.recolectables.Moneda;
 import videojuego.objetos.recolectables.Comida;
 import videojuego.objetos.Objeto;
 import interfaz.Sonido;
+import java.awt.Graphics2D;
+import javax.swing.JOptionPane;
+import videojuego.hud.Dialogo;
 
 public class MapaBosque extends Mapa{
     
-    HojaSprites hoja = new HojaSprites("/imagenes/hojasObjetos/1.png", 32, 32, false);
-     
+    
+    
     public MapaBosque(final String nombre,final String ruta,final int ancho,final int alto,final Jugador jugador) {
         super(nombre,ruta,ancho,alto,jugador);
     }
 
     public MapaBosque(String nombre, String ruta, int ancho, int alto, Jugador jugador, int desfasex, int desfasey) {
         super(nombre, ruta, ancho, alto, jugador, desfasex, desfasey);
+        
+    }
+    
+    @Override
+    public void actualizar(Lienzo lienzo){
+        super.actualizar(lienzo);
+        terra.setXY(desfasex-jugador.getX(), desfasey+100-jugador.getY());
+        rosa.setXY(desfasex-jugador.getX()+200, desfasey+0-jugador.getY());
+        helena.setXY(desfasex-jugador.getX(), desfasey+500-jugador.getY());
+        
+        terra.actualizar(lienzo);
+        rosa.actualizar(lienzo);
+        helena.actualizar(lienzo);
+        
+        if(Dialogo.activado)
+            this.dialogo.actualizar(lienzo);
     }
     
     
     
-    // EN VEZ DE ARRAYLIST USAR LISTAS ENCADENADAS
+    
+    @Override
+    public void dibujar(Graphics2D g){
+        super.dibujar(g);
+        
+        terra.dibujar(g);
+        rosa.dibujar(g);
+        helena.dibujar(g);
+        
+        if(Dialogo.activado){
+            if(terra.evento_ocurrido && once_terra){
+                System.out.println("TERRA");
+                this.dialogo.setDialogo(Dialogo.dialogo_terra);
+                ultimo_dialogo = "terra";
+                once_terra = false;
+            }
+            else if(rosa.evento_ocurrido && once_rosa){
+                System.out.println("ROSA");
+                this.dialogo.setDialogo(Dialogo.dialogo_rosa);
+                ultimo_dialogo = "rosa";
+                once_rosa = false;
+            }
+            else if(helena.evento_ocurrido && once_helena){
+                System.out.println("HELENA");
+                this.dialogo.setDialogo(Dialogo.dialogo_helena);
+                ultimo_dialogo = "helena";
+                once_helena = false;
+            }
+            this.dialogo.dibujar(g);
+        }
+        
+        
+    }
+    
+    
     @Override
     public void generarObjetosColisionables(final int x,final int y,final Jugador jugador) {
 
         objetos = new ArrayList<>();
         this.objetos.addAll(monedas);
         this.objetos.addAll(comidas);
+        this.objetos.add(terra);
+        this.objetos.add(rosa);
+        this.objetos.add(helena);
         //BOSQUE
         final int cuadrado_arbol = 100;
         objetos.add(new Objeto(new Rectangle(329 + desfasex - x, 273 + desfasey - y, cuadrado_arbol, cuadrado_arbol),"Arbol1",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(26 + desfasex - x, 354 + desfasey - y, 80, 100),"Arbol2",Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(78 + desfasex - x, 381 + desfasey - y, cuadrado_arbol, cuadrado_arbol),"Arbol3",Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(216 + desfasex - x, 426 + desfasey - y, 101, 100),"Arbol4",Objeto.Tag.NATURALEZA));
+        objetos.add(new Objeto(new Rectangle(78 + desfasex - x, 381 + desfasey - y, 95, 84),"Arbol3",Objeto.Tag.NATURALEZA));
+        objetos.add(new Objeto(new Rectangle(216 + desfasex - x, 426 + desfasey - y, 95, 84),"Arbol4",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(177 + desfasex - x, 487 + desfasey - y, 81, 94),"Arbol5",Objeto.Tag.NATURALEZA));
-        objetos.add(new Objeto(new Rectangle(272 + desfasex - x, 503 + desfasey - y, 100, 94),"Arbol6",Objeto.Tag.NATURALEZA));
+        objetos.add(new Objeto(new Rectangle(272 + desfasex - x, 503 + desfasey - y, 90, 94),"Arbol6",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(274 + desfasex - x, 3 + desfasey - y,100 ,73 ),"Arbol7",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(356 + desfasex - x,29  + desfasey - y,101 ,75 ),"Arbol8",Objeto.Tag.NATURALEZA));
         objetos.add(new Objeto(new Rectangle(469 + desfasex - x,1  + desfasey - y,93 ,45 ),"Arbol9",Objeto.Tag.NATURALEZA));

@@ -4,6 +4,7 @@ import interfaz.Lienzo;
 import videojuego.objetos.entidad.Jugador.Jugador;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -35,11 +36,20 @@ public abstract class Mapa {
     public ArrayList<Moneda> monedas;
     protected final int ANCHO_SPAWNEO;
     protected final int ALTO_SPAWNEO;
-    public int posX, posY;
 
-    public int iniciox, inicioy;
-
-    Dialogo dialogo = new Dialogo();
+    public int iniciox,inicioy, posX, posY;
+    
+    
+    public static NPC terra;
+    public static NPC rosa;
+    public static NPC helena;
+    
+    public boolean once_terra =true;
+    public boolean once_rosa =true;
+    public boolean once_helena =true;
+    
+    public Dialogo dialogo = new Dialogo();
+    public String ultimo_dialogo = "";
 
     public Mapa(final String nombre, final String ruta, final int ancho, final int alto, final Jugador jugador) {
         this.nombre = nombre;
@@ -55,6 +65,7 @@ public abstract class Mapa {
         ANCHO_SPAWNEO = this.ancho - 100;
         ALTO_SPAWNEO = this.alto - 100;
         iniciarObjetosRecolectables();
+        iniciarNPCs(jugador);
 
     }
 
@@ -74,7 +85,18 @@ public abstract class Mapa {
         ANCHO_SPAWNEO = this.ancho - 100;
         ALTO_SPAWNEO = this.alto - 100;
         iniciarObjetosRecolectables();
+
+        iniciarNPCs(jugador);
+        
+     }
+    private void iniciarNPCs(Jugador jugador){
+        terra = new NPC(new Rectangle(0, 0, 20, 70), "terra", Objeto.Tag.NPC, NPC.terra, jugador);
+        rosa = new NPC(new Rectangle(0, 0, 20, 70), "rosa", Objeto.Tag.NPC, NPC.rosa, jugador);
+        helena = new NPC(new Rectangle(0, 0, 20, 70), "helena", Objeto.Tag.NPC, NPC.elena, jugador);
+
+
     }
+   
 
     protected abstract void generarObjetosColisionables(final int x, final int y, final Jugador jugador);
 
@@ -107,10 +129,10 @@ public abstract class Mapa {
             fase_final = true;
             this.iniciarBossFinal();
         }
-        dialogo.actualizar(lienzo);
+
     }
 
-    public void dibujar(Graphics g) {
+    public void dibujar(Graphics2D g) {
 
         g.drawImage(this.getSprite(), desfasex - jugador.getX(), desfasey - jugador.getY(), null);
         this.generarObjetosColisionables(jugador.getX(), jugador.getY(), jugador);
@@ -145,7 +167,9 @@ public abstract class Mapa {
                 moneda.dibujar(g, desfasex, desfasey, jugador);
             }
         }
-        dialogo.dibujar(g);
+        
+        
+           
 
     }
 

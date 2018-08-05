@@ -57,7 +57,7 @@ public class Boton {
         g.drawImage(imagen, x, y, null);
 
         g.setColor(Color.WHITE);
-        g.drawString(this.contenido, x - 30, y + imagen.getHeight(null) + 15);
+        g.drawString(this.contenido, x - 50, y + imagen.getHeight(null) + 15);
 
     }
 

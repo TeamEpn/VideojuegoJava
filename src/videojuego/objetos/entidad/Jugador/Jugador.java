@@ -29,6 +29,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import videojuego.hud.Decision;
+import videojuego.hud.Dialogo;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.Colision;
 import videojuego.objetos.armas.Espada;
@@ -61,13 +62,21 @@ public class Jugador extends Entidad {
 
     int[] vista = {0, 0, 1, 0};
 
+    int[] contadores = {0, 0, 0, 0}; // para mostrar cierto sprite de animacion
+    boolean[] esperando_hilo = {false, false, false, false}; //cada intercambio de animacion tiene un retraso
+    int delay = 400; // este es el retraso de la animacion
+
+    public static int karma_malo = 0;
+    public static int karma_bueno = 0;
+    
+    
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
 
         this.vida_actual = (this.vida_maxima = 200);
 
         this.exp_maxima = 100;
-        mana_actual = (mana_maximo = 100);
+        mana_actual = (mana_maximo = 300);
         cuenta = new Cuenta(1000);
         interfaz = new HUDJugador(this);
         this.damage = 20;
@@ -135,17 +144,10 @@ public class Jugador extends Entidad {
         Rectangle esp = this.espada.getRectangle()[0];
         g.drawRect(esp.x, esp.y, esp.width, esp.height);
 
-        terra.dibujar(g);
-
         if (this.nueva_decision) {
             decision.dibujar(g);
         }
     }
-
-    NPC terra = new NPC(new Rectangle(0, 0, 20, 70), "Terra", Objeto.Tag.NPC, NPC.terra, this);
-    int[] contadores = {0, 0, 0, 0};
-    boolean[] esperando_hilo = {false, false, false, false};
-    int delay = 400;
 
     @Override
     public void mover(Lienzo lienzo) {
@@ -166,7 +168,8 @@ public class Jugador extends Entidad {
         }
 
         if (lienzo.getTeclado().arriba) {
-            if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)) {
+            if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)
+                    && !(direccion[0].compareToIgnoreCase("npc_arriba") == 0)) {
 
                 sprite_actual = this.hoja_completa.obtenerSprite(contadores[0], 0).obtenerImagen();
                 if (!esperando_hilo[0]) {
@@ -180,7 +183,8 @@ public class Jugador extends Entidad {
             }
         }
         if (lienzo.getTeclado().derecha) {
-            if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)) {
+            if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)
+                    && !(direccion[0].compareToIgnoreCase("npc_derecha") == 0)) {
 
                 sprite_actual = this.hoja_completa.obtenerSprite(contadores[1], 2).obtenerImagen();
                 if (!esperando_hilo[1]) {
@@ -193,7 +197,8 @@ public class Jugador extends Entidad {
             }
         }
         if (lienzo.getTeclado().abajo) {
-            if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)) {
+            if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)
+                    && !(direccion[0].compareToIgnoreCase("npc_abajo") == 0)) {
                 sprite_actual = this.hoja_completa.obtenerSprite(contadores[2], 1).obtenerImagen();
                 if (!esperando_hilo[2]) {
                     animacionCaminarThread(5, delay / this.velocidad - this.velocidad * 10, 2); //cero es arriba, se maneja como manecillas de reloj
@@ -205,7 +210,8 @@ public class Jugador extends Entidad {
         }
 
         if (lienzo.getTeclado().izquierda) {
-            if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)) {
+            if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)
+                    && !(direccion[0].compareToIgnoreCase("npc_izquierda") == 0)) {
 
                 sprite_actual = this.hoja_completa.obtenerSprite(contadores[3], 3).obtenerImagen();
                 if (!esperando_hilo[3]) {
@@ -251,18 +257,6 @@ public class Jugador extends Entidad {
             };
             new Thread(hilo_cansancio).start();
         }
-
-        if (lienzo.getTeclado().cambiarPersonaje) {
-
-            nueva_decision = true;
-            try {
-                Thread.sleep(200);
-
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
     }
 
     int sentido = 1;
@@ -309,13 +303,14 @@ public class Jugador extends Entidad {
 
     public static boolean nueva_decision = false;
     Decision decision = new Decision();
+    private boolean esta_recargando = false;
 
     public void acciones(Lienzo lienzo) {
 
         if (lienzo.getTeclado().poder_tiempo) {
 
-            if (mana_actual >= mana_maximo) {
-                mana_actual -= mana_maximo;
+            if (mana_actual >= 50) {
+                mana_actual -= 50;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
 
                 Sonido.EFECTO_VIAJE_TIEMPO.reproducir();
@@ -324,6 +319,26 @@ public class Jugador extends Entidad {
                 Animacion.imagen_actual = Animacion.animacion_tiempo.obtenerSprite(0, 0).obtenerImagen();
                 Animacion.x = GestorPrincipal.CENTROX;
                 Animacion.y = GestorPrincipal.CENTROY;
+
+                if (this.mapa.ultimo_dialogo.compareToIgnoreCase("terra") == 0) {
+                    Mapa.terra.evento_ocurrido = false;
+                    this.mapa.dialogo.aux = 0;
+                    Decision.decisiones.remove(Decision.decisiones.size() - 1);
+                    this.mapa.once_terra = true;
+                    System.out.println("Terra REINICIADA");
+                } else if (this.mapa.ultimo_dialogo.compareToIgnoreCase("rosa") == 0) {
+                    Mapa.rosa.evento_ocurrido = false;
+                    this.mapa.dialogo.aux = 0;
+                    Decision.decisiones.remove(Decision.decisiones.size() - 1);
+                    this.mapa.once_rosa = true;
+                    System.out.println("rosa REINICIADA");
+                } else if (this.mapa.ultimo_dialogo.compareToIgnoreCase("helena") == 0) {
+                    Mapa.helena.evento_ocurrido = false;
+                    this.mapa.dialogo.aux = 0;
+                    Decision.decisiones.remove(Decision.decisiones.size() - 1);
+                    this.mapa.once_helena = true;
+                    System.out.println("helena REINICIADA");
+                }
             }
 
         }
@@ -359,23 +374,32 @@ public class Jugador extends Entidad {
         }
 
         if (lienzo.getTeclado().recargar_arma) {
-            Sonido.RECARGAR_ARMA.reproducir();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        while (!(Sonido.RECARGAR_ARMA.player.isComplete())) {
-                            if (Sonido.RECARGAR_ARMA.player.isComplete()) {
-                                pistola.recargar();
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error en la recarga de pistola");
-                    }
+            lienzo.getTeclado().recargar_arma = false;
 
-                }
-            }).start();
-            interfaz = new HUDJugador(this);
+            if (!esta_recargando) {
+                Sonido.RECARGAR_ARMA.reproducir();
+                esta_recargando = true;
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            for (int segundo = 0; segundo < 2; segundo++) {
+                                Thread.sleep(1000);
+                            }
+                            pistola.recargar();
+                            esta_recargando = false;
+
+                        } catch (Exception e) {
+                            System.out.println("Error en la recarga de pistola");
+                        }
+
+                    }
+                }).start();
+                interfaz = new HUDJugador(this);
+            }
+
         }
 
         if (lienzo.getTeclado().pantalla_completa) {
@@ -389,15 +413,18 @@ public class Jugador extends Entidad {
 
             Teclado.teclas[KeyEvent.VK_E] = false;
 
-            if (pistola.cantidad_balas > 0) {
-                pistola.cantidad_balas--;
-                Sonido.DISPARO.reproducir();
+            if (!esta_recargando) {
+                if (pistola.cantidad_balas > 0) {
+                    pistola.cantidad_balas--;
+                    Sonido.DISPARO.reproducir();
 
-                try {
-                    Thread.sleep(20);
-                    pistola.disparar(vista, this);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+                        Thread.sleep(20);
+                        pistola.disparar(vista, this);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
 
             }
@@ -522,6 +549,36 @@ public class Jugador extends Entidad {
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.COMIDA) == 0) {
                 this.regenerarVida(20);
                 this.mapa.comidas.remove((Comida) col);
+            }
+            if (col.getTag().compareToIgnoreCase(Objeto.Tag.NPC) == 0) {
+
+                boolean bandera = false;
+                if (col.getId().compareToIgnoreCase("terra") == 0) {
+                    if (!Mapa.terra.evento_ocurrido) {
+
+                        this.mapa.dialogo.aux = 0;
+                        Mapa.terra.evento_ocurrido = true;
+
+                        bandera = !bandera;
+                    }
+                } else if (col.getId().compareToIgnoreCase("rosa") == 0) {
+                    if (!Mapa.rosa.evento_ocurrido) {
+                        this.mapa.dialogo.aux = 0;
+                        Mapa.rosa.evento_ocurrido = true;
+                        bandera = !bandera;
+                    }
+                } else if (col.getId().compareToIgnoreCase("helena") == 0) {
+                    if (!Mapa.helena.evento_ocurrido) {
+                        this.mapa.dialogo.aux = 0;
+                        Mapa.helena.evento_ocurrido = true;
+                        bandera = !bandera;
+                    }
+                }
+
+                if (!Dialogo.activado && bandera) {
+                    Dialogo.activado = true;
+                }
+
             }
 
         }

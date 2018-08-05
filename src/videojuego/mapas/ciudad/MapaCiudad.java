@@ -68,8 +68,6 @@ public class MapaCiudad extends Mapa {
 
     @Override
     protected void iniciarObjetosRecolectables() {
-        
-        generarObjetosColisionables(posX, posY, jugador);
 
         monedas = new ArrayList<>();
         Moneda moneda;

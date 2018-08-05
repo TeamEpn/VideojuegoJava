@@ -41,7 +41,9 @@ public class Enemigo extends Entidad {
         this.jugador = jugador;
         this.id = id;
         this.setMapa(EstadoAventura.mapa_actual);
+        this.vida_actual = (this.vida_maxima = 1000);
         esBoss = boss;
+        this.velocidad = this.velocidad_original * 2;
     }
 
     @Override
@@ -71,15 +73,15 @@ public class Enemigo extends Entidad {
             if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)
                     && !(direccion[2].compareToIgnoreCase("jugador_abajo") == 0)) {
                 this.sprite_actual = this.frente0;
-                this.y++;
+                this.y += this.velocidad/2;
             }
 
-        } else if (jugador.getY() <= this.y) {
+        } else if (jugador.getY() < this.y) {
 
             if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)
                     && !(direccion[0].compareToIgnoreCase("jugador_arriba") == 0)) {
                 this.sprite_actual = this.espalda0;
-                this.y--;
+                this.y -= this.velocidad/2;
             }
         }
 
@@ -87,13 +89,13 @@ public class Enemigo extends Entidad {
             if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)
                     && !(direccion[1].compareToIgnoreCase("jugador_derecha") == 0)) {
                 this.sprite_actual = this.lado_izquierdo0;
-                this.x++;
+                this.x += this.velocidad/2;
             }
-        } else if (jugador.getX() <= this.x) {
+        } else if (jugador.getX() < this.x) {
             if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)
                     && !(direccion[3].compareToIgnoreCase("jugador_izquierda") == 0)) {
                 this.sprite_actual = this.lado_derecho0;
-                this.x--;
+                this.x -= this.velocidad/2;
             }
         }
 
@@ -126,7 +128,7 @@ public class Enemigo extends Entidad {
 
             g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
             g.setColor(Color.red);
-            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 3, 3);
+            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 20, 6);
             g.setColor(Color.orange);
 
             this.vida_maxima = 900;
@@ -147,15 +149,6 @@ public class Enemigo extends Entidad {
                 }
 
             }
-
-            this.generarCollides(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
-
-            for (int i = 0; i < 4; i++) {
-                g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
-                        this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-
-            }
-
         }
     }
 }

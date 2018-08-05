@@ -9,6 +9,7 @@ import interfaz.Boton;
 import interfaz.Lienzo;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,9 +27,8 @@ public class Decision {
     
     Boton opcion1 = new Boton(5, HUD_alto-10, "Opcion 1", HUD_ancho, 30);
     Boton opcion2 = new Boton(5+HUD_ancho, HUD_alto-10, "Opcion 2", HUD_ancho, 30);
-    Boton opcion3 = new Boton(5, HUD_alto+20, "Opcion 3", HUD_ancho, 30);
-    Boton opcion4 = new Boton(5+HUD_ancho, HUD_alto+20, "Opcion 4", HUD_ancho, 30);
     
+    public static ArrayList<String> decisiones = new ArrayList<>();
     
     public void actualizar(Lienzo lienzo){
         
@@ -37,21 +37,16 @@ public class Decision {
             int my = lienzo.getMouse().getPosy();
             
             if(opcion1.esClickeado(mx, my)){
-                JOptionPane.showMessageDialog(null, "UNO");
+                decisiones.add(opcion1.getContenido());
+                Jugador.karma_malo +=100;
                 Jugador.nueva_decision = false;
             }
             else if(opcion2.esClickeado(mx, my)){
-                JOptionPane.showMessageDialog(null, "DOS");
+                decisiones.add(opcion1.getContenido());
+                Jugador.karma_bueno +=100;
                 Jugador.nueva_decision = false;
             }
-            else if(opcion3.esClickeado(mx, my)){
-                JOptionPane.showMessageDialog(null, "TRES");
-                Jugador.nueva_decision = false;
-            }
-            else if(opcion4.esClickeado(mx, my)){
-                JOptionPane.showMessageDialog(null, "CUATRO");
-                Jugador.nueva_decision = false;
-            }
+            decisiones.get(0);
             try {
                 Thread.sleep(150);
             } catch (InterruptedException ex) {
@@ -68,8 +63,6 @@ public class Decision {
         g.fillRect(0, HUD_alto-50, GestorPrincipal.ANCHO, 200);
         opcion1.dibujarBoton(g);
         opcion2.dibujarBoton(g);
-        opcion3.dibujarBoton(g);
-        opcion4.dibujarBoton(g);
         
     }
     

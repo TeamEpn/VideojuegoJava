@@ -6,6 +6,7 @@
 package videojuego.objetos.entidad.Jugador;
 
 import interfaz.Lienzo;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
@@ -13,12 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprites.HojaSprites;
 import videojuego.objetos.Objeto;
-import videojuego.objetos.entidad.Entidad;
 
 public class NPC extends Objeto{
 
     Jugador jugador;
     public static HojaSprites terra = new HojaSprites("/imagenes/hojasPersonajes/terra1.png", 38, 59, false);
+    public static HojaSprites rosa = new HojaSprites("/imagenes/hojasPersonajes/rosa.png", 50, 87, false);
+    public static HojaSprites elena = new HojaSprites("/imagenes/hojasPersonajes/1.png", 32, 32, false);
     
     public HojaSprites hoja;
     public int x,y;
@@ -26,13 +28,18 @@ public class NPC extends Objeto{
     Random random = new Random();
     
     
+    public int posx,posy;
+    
+    
+    public boolean evento_ocurrido = false;
+    
     public NPC(Rectangle rectangle, String id, String tag,HojaSprites hoja,Jugador jugador) {
         super(rectangle, id, tag);
         this.hoja = hoja;
         this.inicialx = jugador.getX();
         this.inicialy = jugador.getY();
         this.jugador = jugador;
-        Runnable hilo = new Runnable(){
+        /*Runnable hilo = new Runnable(){
             @Override
             public void run() {
                 while(true){
@@ -49,16 +56,25 @@ public class NPC extends Objeto{
             
         };
         
-        new Thread(hilo).start();
+        new Thread(hilo).start();*/
         
+    }
+    
+    public void setXY(int posx,int posy){
+        this.posx = posx;
+        this.posy = posy;
     }
 
     public void actualizar(Lienzo lienzo) {
         
+        this.setRectangle(new Rectangle[]{new Rectangle(this.posx,this.posy,this.hoja.getAncho_sprites_pixeles(),this.hoja.getAlto_sprites_pixeles())});
     }
 
     public void dibujar(Graphics g) {
-        g.drawImage(terra.obtenerSprite(x, y).obtenerImagen(), 10-jugador.getX()+inicialx, 70-jugador.getY()+inicialy, null);
+        
+        g.drawImage(hoja.obtenerSprite(0, 0).obtenerImagen(), posx, posy, null);
+        g.setColor(Color.yellow);
+        g.drawRect(this.posx,this.posy,this.hoja.getAncho_sprites_pixeles(),this.hoja.getAlto_sprites_pixeles());
     }
     
 }

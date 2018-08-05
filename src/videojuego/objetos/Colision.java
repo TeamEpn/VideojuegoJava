@@ -59,7 +59,36 @@ public class Colision {
                 direccion[3] = "enemigo_izquierda";
             }
 
-        } 
+        }
+        
+        if (col.getTag().compareToIgnoreCase(Objeto.Tag.NPC) == 0) {
+
+            //System.out.println(lados_ente[0].x + " con " + lados_col[0].x + " tag: " + col.getId());
+            if (lados_ente[0].intersects(lados_col[0])) {
+                //"arriba";
+                obj_colision.add(col);
+                direccion[0] = "npc_arriba";
+            }
+            //else
+            //    System.out.println(lados_ente[0].y + " con " + lados_col[2].y + " tag: " + col.getId());
+            if (lados_ente[1].intersects(lados_col[0])) {
+                //"derecha";
+                obj_colision.add(col);
+                direccion[1] = "npc_derecha";
+
+            }
+            if (lados_ente[2].intersects(lados_col[0])) {
+                //"abajo";
+                obj_colision.add(col);
+                direccion[2] = "npc_abajo";
+            }
+            if (lados_ente[3].intersects(lados_col[0])) {
+                //"izquierda";
+                obj_colision.add(col);
+                direccion[3] = "npc_izquierda";
+            }
+
+        }
 
         if (lados_ente[0].intersects(lados_col[0])) {
             //"arriba";

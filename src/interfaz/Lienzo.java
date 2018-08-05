@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import input.Teclado;
 import java.awt.BasicStroke;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import videojuego.GESTORJUEGO.GestorEstado;
 import videojuego.GestorPrincipal;
@@ -44,6 +45,7 @@ public class Lienzo extends Canvas {
         
         Graphics2D g = (Graphics2D)buffer.getDrawGraphics(); //pintamos dentro de una imagen(en la memoria)
         
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 18));
         g.setColor(Color.black);
         g.fillRect(0, 0, ancho, alto);
         //g.setStroke(new BasicStroke(3.0f));
