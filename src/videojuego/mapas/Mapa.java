@@ -12,6 +12,7 @@ import java.util.Random;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import sprites.HojaSprites;
+import videojuego.GESTORJUEGO.estados.EstadoAventura;
 import videojuego.hud.Dialogo;
 import videojuego.objetos.entidad.Enemigo.Enemigo;
 import static videojuego.objetos.entidad.Enemigo.Enemigo.ZOMBIES_MUERTOS;
@@ -37,17 +38,16 @@ public abstract class Mapa {
     protected final int ANCHO_SPAWNEO;
     protected final int ALTO_SPAWNEO;
 
-    public int iniciox,inicioy, posX, posY;
-    
-    
+    public int iniciox, inicioy, posX, posY;
+
     public static NPC terra;
     public static NPC rosa;
     public static NPC helena;
-    
-    public boolean once_terra =true;
-    public boolean once_rosa =true;
-    public boolean once_helena =true;
-    
+
+    public boolean once_terra = true;
+    public boolean once_rosa = true;
+    public boolean once_helena = true;
+
     public Dialogo dialogo = new Dialogo();
     public String ultimo_dialogo = "";
 
@@ -87,16 +87,15 @@ public abstract class Mapa {
         iniciarObjetosRecolectables();
 
         iniciarNPCs(jugador);
-        
-     }
-    private void iniciarNPCs(Jugador jugador){
+
+    }
+
+    private void iniciarNPCs(Jugador jugador) {
         terra = new NPC(new Rectangle(0, 0, 20, 70), "terra", Objeto.Tag.NPC, NPC.terra, jugador);
         rosa = new NPC(new Rectangle(0, 0, 20, 70), "rosa", Objeto.Tag.NPC, NPC.rosa, jugador);
         helena = new NPC(new Rectangle(0, 0, 20, 70), "helena", Objeto.Tag.NPC, NPC.elena, jugador);
 
-
     }
-   
 
     protected abstract void generarObjetosColisionables(final int x, final int y, final Jugador jugador);
 
@@ -106,9 +105,11 @@ public abstract class Mapa {
 
     public void iniciarEnemigos(int cantidad) {
         enemigos = new ArrayList<>();
-        for (int i = 0; i < cantidad; i++) {
-            enemigos.add(new Enemigo(jugador, "zombie " + i));
-
+        if (!EstadoAventura.mapa_actual.getNombre().equals("Casa Inversiones")) {
+            enemigos = new ArrayList<>();
+            for (int i = 0; i < cantidad; i++) {
+                enemigos.add(new Enemigo(jugador, "zombie " + i));
+            }
         }
     }
 
@@ -121,15 +122,17 @@ public abstract class Mapa {
 
     public void actualizar(Lienzo lienzo) {
 
-        if (ZOMBIES_MUERTOS < maximo_zombies - 3 && this.enemigos.size() <= 3) { // esto permite generar maximo 10 zombies
-            this.enemigos.add(new Enemigo(jugador, "ZOMBIES_EXTRA: " + ZOMBIES_MUERTOS));
-        }
+        if (enemigos != null) {
 
-        if (ZOMBIES_MUERTOS == maximo_zombies && !fase_final) {
-            fase_final = true;
-            this.iniciarBossFinal();
-        }
+            if (ZOMBIES_MUERTOS < maximo_zombies - 3 && this.enemigos.size() <= 3) { // esto permite generar maximo 10 zombies
+                this.enemigos.add(new Enemigo(jugador, "ZOMBIES_EXTRA: " + ZOMBIES_MUERTOS));
+            }
 
+            if (ZOMBIES_MUERTOS == maximo_zombies && !fase_final) {
+                fase_final = true;
+                this.iniciarBossFinal();
+            }
+        }
     }
 
     public void dibujar(Graphics2D g) {
@@ -167,9 +170,6 @@ public abstract class Mapa {
                 moneda.dibujar(g, desfasex, desfasey, jugador);
             }
         }
-        
-        
-           
 
     }
 

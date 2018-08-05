@@ -33,6 +33,7 @@ import videojuego.hud.Dialogo;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.Colision;
 import videojuego.objetos.armas.Espada;
+import videojuego.objetos.entidad.Enemigo.Enemigo;
 import videojuego.objetos.entidad.Jugador.Poderes.poderFuego.BolaFuego;
 import videojuego.objetos.recolectables.Comida;
 import videojuego.objetos.recolectables.Moneda;
