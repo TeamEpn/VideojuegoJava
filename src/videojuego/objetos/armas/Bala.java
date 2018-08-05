@@ -49,7 +49,10 @@ public class Bala extends Objeto {
                 this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY, 20, 30)});
 
                 for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.size(); i++) {
-                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
+                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[0]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
                         EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
                         colisiono = true;
                         break;
@@ -69,7 +72,10 @@ public class Bala extends Objeto {
                 this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY, 20, 30)});
 
                 for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.size(); i++) {
-                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[0])) {
+                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[0]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
                         EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
                         colisiono = true;
                         break;
@@ -89,7 +95,10 @@ public class Bala extends Objeto {
                 this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY, 30, 20)});
 
                 for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.size(); i++) {
-                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1])) {
+                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[0]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
                         EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
                         colisiono = true;
                         break;
@@ -107,7 +116,10 @@ public class Bala extends Objeto {
                 this.setRectangle(new Rectangle[]{new Rectangle(posx - j.getX() + inicioX, posy - j.getY() + inicioY, 30, 20)});
 
                 for (int i = 0; i < EstadoAventura.mapa_actual.enemigos.size(); i++) {
-                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1])) {
+                    if (this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[0]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
+                            this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
                         EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
                         colisiono = true;
                         break;

@@ -31,6 +31,7 @@ public class Espada extends Objeto {
                             }
                         }catch(IndexOutOfBoundsException index){
                             System.out.println("Se borro un enemigo mientras se realizaba una lectura");
+
                         }
                         
                     }

@@ -4,8 +4,8 @@ import videojuego.objetos.entidad.Jugador.Jugador;
 import interfaz.Lienzo;
 import interfaz.Logueo;
 import interfaz.Ventana;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {
@@ -14,7 +14,9 @@ public class GestorPrincipal {
 
     public static boolean esta_funcionando = false;
     public static float escalado = 1f;
-    public static final int ANCHO = 900, ALTO = 650, CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
+    public static int ANCHO = 1300, ALTO = 700;
+    public static final int CENTROX = ANCHO / 2, CENTROY = ALTO / 2;
+    
 
     private final Lienzo lienzo;
     private final Ventana ventana;
@@ -35,7 +37,7 @@ public class GestorPrincipal {
         esta_funcionando = true;
         lienzo = new Lienzo(ANCHO, ALTO);
         jugador = new Jugador(lienzo);
-        ventana = new Ventana(lienzo);
+        ventana = new Ventana(lienzo, ANCHO, ALTO);
         ge = new GestorEstado(jugador);
     }
 
@@ -86,4 +88,5 @@ public class GestorPrincipal {
     private void dibujar() {
         lienzo.dibujar(ge); //el gestor de estado manejara todos los dibujos
     }
+    
 }
