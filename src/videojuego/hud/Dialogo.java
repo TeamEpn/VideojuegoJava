@@ -39,6 +39,10 @@ public class Dialogo {
     {"Dialogo1 de Helena.",
      "Dialogo2 de Helena.",
      "Dialogo3 de Helena."};
+        public static final String[] dialogo_vendedor = 
+    {"Que tal muchachito",
+     "Parece que es tu primera vez aqui, dejame regalarte algo",
+     "Puedes elegir entre mi super pistola de balas poderosas pero de lenta recarga o mi pistola rapida que dispara balas comunes pero recarga mas rapido"};
     
     Boton boton_continua = new Boton(GestorPrincipal.ANCHO-100, dialogo_alto + 75, "NEXT", 100, 30);
     
@@ -80,10 +84,10 @@ public class Dialogo {
 
     public void dibujar(Graphics2D g) {
         
-        g.setColor(new Color(0x74e1fc));
+        g.setColor(Color.LIGHT_GRAY);
         g.fillRect(0, dialogo_alto, GestorPrincipal.ANCHO, 100);
         g.setColor(Color.black);
-        g.drawString(dialogo[aux], 10, dialogo_alto + 10);
+        g.drawString(dialogo[aux], 10, dialogo_alto + 30);
         boton_continua.dibujarBoton(g);
         
     }

@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import videojuego.GESTORJUEGO.estados.EstadoTienda;
 import videojuego.hud.Decision;
 import videojuego.hud.Dialogo;
 import videojuego.mapas.Mapa;
@@ -69,8 +70,9 @@ public class Jugador extends Entidad {
 
     public static int karma_malo = 0;
     public static int karma_bueno = 0;
-    
-    
+
+    private String descicionPistola = "normal";
+
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
 
@@ -128,7 +130,7 @@ public class Jugador extends Entidad {
         }
 
         if (pistola.cantidad_balas >= -1) {
-            pistola.dibujar(g, this);
+            pistola.dibujar(g, this, descicionPistola);
         }
 
         if (BolaFuego.esta_activa) {
@@ -303,7 +305,7 @@ public class Jugador extends Entidad {
     }
 
     public static boolean nueva_decision = false;
-    Decision decision = new Decision();
+    Decision decision = new Decision("opcion1", "opcion2");
     private boolean esta_recargando = false;
 
     public void acciones(Lienzo lienzo) {
@@ -527,6 +529,9 @@ public class Jugador extends Entidad {
                 GestorEstado.cambiarEstado(2);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TIENDA) == 0) {
+                if (EstadoTienda.primeraVez) {
+                    Dialogo.activado = true;
+                }
                 this.y += 5;
                 GestorEstado.cambiarEstado(3);
             }
@@ -701,6 +706,14 @@ public class Jugador extends Entidad {
 
     public Mapa getMapa() {
         return mapa;
+    }
+
+    public String getDescicionPistola() {
+        return descicionPistola;
+    }
+
+    public void setDescicionPistola(String descicionPistola) {
+        this.descicionPistola = descicionPistola;
     }
 
 }
