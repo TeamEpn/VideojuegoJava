@@ -6,6 +6,8 @@ import interfaz.Logueo;
 import interfaz.Ventana;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import videojuego.GESTORJUEGO.GestorEstado;
 
 public class GestorPrincipal {

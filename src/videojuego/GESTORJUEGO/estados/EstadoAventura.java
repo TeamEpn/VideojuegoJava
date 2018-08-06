@@ -27,10 +27,13 @@ public class EstadoAventura implements EstadoJuego {
         this.jugador = jugador;
         iniciaMapasAventura();
         this.jugador.setMapa(mapa_actual);
+
         this.jugador.setX(-1*mapa_actual.iniciox);
         this.jugador.setY(-1*mapa_actual.inicioy);
-        EstadoAventura.mapa_actual.iniciarEnemigos(3);
-            
+        
+        if (!EstadoAventura.mapa_actual.getNombre().equals("Casa Inversiones")) {
+            EstadoAventura.mapa_actual.iniciarEnemigos(3);
+        }
     }
 
     private void iniciaMapasAventura() {
@@ -62,7 +65,7 @@ public class EstadoAventura implements EstadoJuego {
                 enemigo.actualizar(lienzo);
             }
         }
-        
+
         mapa_actual.actualizar(lienzo);
 
     }

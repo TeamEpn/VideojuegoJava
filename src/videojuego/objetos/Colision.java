@@ -22,7 +22,7 @@ public class Colision {
 
         
         if (col.getTag().compareToIgnoreCase(Objeto.Tag.COMIDA) == 0 || col.getTag().compareToIgnoreCase(Objeto.Tag.MONEDA) == 0) {
-            System.out.println("COMIDA");
+            //System.out.println("COMIDA");
             for(int i=0;i<4;i++)
                 if (lados_ente[i].intersects(lados_col[0])) {
                     obj_colision.add(col);

@@ -53,7 +53,7 @@ public class Bala extends Objeto {
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
-                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
+                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamagePistola() * 2);
                         colisiono = true;
                         break;
                     }
@@ -76,7 +76,7 @@ public class Bala extends Objeto {
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
-                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
+                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamagePistola()* 2);
                         colisiono = true;
                         break;
                     }
@@ -99,7 +99,7 @@ public class Bala extends Objeto {
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
-                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
+                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamagePistola()* 2);
                         colisiono = true;
                         break;
                     }
@@ -120,7 +120,7 @@ public class Bala extends Objeto {
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[1]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[2]) ||
                             this.getRectangle()[0].intersects(EstadoAventura.mapa_actual.enemigos.get(i).objeto_ente.getRectangle()[3])) {
-                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamage() * 2);
+                        EstadoAventura.mapa_actual.enemigos.get(i).quitarVida(j.getDamagePistola()* 2);
                         colisiono = true;
                         break;
                     }

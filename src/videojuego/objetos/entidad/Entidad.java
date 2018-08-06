@@ -144,9 +144,9 @@ public abstract class Entidad {
             aumento_zombie = (alto_ente/2)*3;
         else
             aumento_jugador = 10;
-        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente+aumento_jugador, ancho_ente - sep, 1);
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente+ aumento_jugador, ancho_ente - sep, 1);
         Rectangle collide_derecha = new Rectangle(centrox + 26, centroy + alto_ente + sep + 2 +aumento_jugador, 1, alto_ente - aumento_jugador + aumento_zombie - sep * 2);
-        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento_zombie, ancho_ente - sep, 1);
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento_zombie + 4, ancho_ente - sep + 4, 1);
         Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2+aumento_jugador, 1, alto_ente - aumento_jugador + aumento_zombie - sep * 2);
 
 

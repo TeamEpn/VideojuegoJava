@@ -28,11 +28,13 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import videojuego.GESTORJUEGO.estados.EstadoTienda;
 import videojuego.hud.Decision;
 import videojuego.hud.Dialogo;
 import videojuego.mapas.Mapa;
 import videojuego.objetos.Colision;
 import videojuego.objetos.armas.Espada;
+import videojuego.objetos.entidad.Enemigo.Enemigo;
 import videojuego.objetos.entidad.Jugador.Poderes.poderFuego.BolaFuego;
 import videojuego.objetos.recolectables.Comida;
 import videojuego.objetos.recolectables.Moneda;
@@ -41,7 +43,7 @@ public class Jugador extends Entidad {
 
     //Estadísticas
     private int nivel;
-    private int damage;
+    private int damage, damagePistola;
     private int mana_maximo, mana_actual;
     private int resistencia_maxima, resistencia_actual;
     private int exp_maxima, exp_actual;
@@ -65,11 +67,13 @@ public class Jugador extends Entidad {
     int[] contadores = {0, 0, 0, 0}; // para mostrar cierto sprite de animacion
     boolean[] esperando_hilo = {false, false, false, false}; //cada intercambio de animacion tiene un retraso
     int delay = 400; // este es el retraso de la animacion
+    int delayPistola = 2;
 
     public static int karma_malo = 0;
     public static int karma_bueno = 0;
-    
-    
+
+    private String descicionPistola = "normal";
+
     public Jugador(Lienzo lienzo) {
         super("/imagenes/hojasPersonajes/aventurero.png", 32, 64, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.JUGADOR);
 
@@ -80,6 +84,7 @@ public class Jugador extends Entidad {
         cuenta = new Cuenta(1000);
         interfaz = new HUDJugador(this);
         this.damage = 20;
+        this.damagePistola = 20;
         this.reg_vida = 3;
         this.reg_mana = 2;
         this.reg_resistencia = 20;
@@ -114,6 +119,12 @@ public class Jugador extends Entidad {
     public void actualizar(Lienzo lienzo) {
         this.mover(lienzo);
         this.acciones(lienzo);
+        if (descicionPistola.equals("potente")) {
+            damagePistola = 45;
+        }
+        if (descicionPistola.equals("rapida")) {
+            damagePistola = 7;
+        }
         if (this.nueva_decision) {
             decision.actualizar(lienzo);
         }
@@ -304,7 +315,7 @@ public class Jugador extends Entidad {
     }
 
     public static boolean nueva_decision = false;
-    Decision decision = new Decision();
+    Decision decision = new Decision("opcion1", "opcion2");
     private boolean esta_recargando = false;
 
     public void acciones(Lienzo lienzo) {
@@ -312,6 +323,14 @@ public class Jugador extends Entidad {
         if (lienzo.getTeclado().poder_tiempo) {
             Teclado.teclas[KeyEvent.VK_T] = false;
             if (mana_actual >= 50) {
+                
+                if(EstadoAventura.mapa_actual.getNombre().equals("Casa Inversiones") && EstadoTienda.salioDelINN == false){
+                    EstadoTienda.primeraVez = true;
+                    descicionPistola = "normal";
+                    pistola.tamaño_cartucho = 10;
+                    damagePistola = 20;
+                }
+                
                 mana_actual -= 50;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
                 
@@ -380,7 +399,17 @@ public class Jugador extends Entidad {
             lienzo.getTeclado().recargar_arma = false;
 
             if (!esta_recargando) {
-                Sonido.RECARGAR_ARMA.reproducir();
+                if (descicionPistola.equals("normal")) {
+                    delayPistola = 2;
+                    Sonido.RECARGAR_ARMA_NORMAL.reproducir();
+                } else if (descicionPistola.equals("potente")) {
+                    delayPistola = 4;
+                    Sonido.RECARGAR_ARMA_LENTO.reproducir();
+                } else if (descicionPistola.equals("rapida")) {
+                    delayPistola = 1;
+                    Sonido.RECARGAR_ARMA_RAPIDO.reproducir();
+                }
+
                 esta_recargando = true;
 
                 new Thread(new Runnable() {
@@ -388,7 +417,7 @@ public class Jugador extends Entidad {
                     public void run() {
                         try {
 
-                            for (int segundo = 0; segundo < 2; segundo++) {
+                            for (int segundo = 0; segundo < delayPistola; segundo++) {
                                 Thread.sleep(1000);
                             }
                             pistola.recargar();
@@ -421,12 +450,13 @@ public class Jugador extends Entidad {
                     pistola.cantidad_balas--;
                     Sonido.DISPARO.reproducir();
 
-                    try {
-                        Thread.sleep(20);
-                        pistola.disparar(vista, this);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        try {
+                            Thread.sleep(20);
+                            pistola.disparar(vista, this);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
 
                 }
 
@@ -509,6 +539,7 @@ public class Jugador extends Entidad {
                         EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                     }
                 } else if (this.mapa == EstadoAventura.mapas[3]) {
+                    EstadoTienda.salioDelINN = true;
                     EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 }
 
@@ -526,6 +557,9 @@ public class Jugador extends Entidad {
                 GestorEstado.cambiarEstado(2);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TIENDA) == 0) {
+                if (EstadoTienda.primeraVez) {
+                    Dialogo.activado = true;
+                }
                 this.y += 5;
                 GestorEstado.cambiarEstado(3);
             }
@@ -700,6 +734,22 @@ public class Jugador extends Entidad {
 
     public Mapa getMapa() {
         return mapa;
+    }
+
+    public String getDescicionPistola() {
+        return descicionPistola;
+    }
+
+    public void setDescicionPistola(String descicionPistola) {
+        this.descicionPistola = descicionPistola;
+    }
+
+    public int getDamagePistola() {
+        return damagePistola;
+    }
+
+    public void setDamagePistola(int damagePistola) {
+        this.damagePistola = damagePistola;
     }
 
 }

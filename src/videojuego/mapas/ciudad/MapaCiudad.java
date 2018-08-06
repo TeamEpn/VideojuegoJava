@@ -32,6 +32,7 @@ public class MapaCiudad extends Mapa {
         this.objetos = new ArrayList<>();
         this.objetos.addAll(monedas);
         this.objetos.addAll(comidas);
+
         //CASAS
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 8 + desfasey - y, 38, 125), "Casa 1 Izquierda", Objeto.Tag.EDIFICIO));
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 256 + desfasey - y, 38, 94), "Casa 2 Izquierda", Objeto.Tag.EDIFICIO));
@@ -76,11 +77,8 @@ public class MapaCiudad extends Mapa {
             this.posX = random.nextInt(ANCHO_SPAWNEO);
             this.posY = random.nextInt(ALTO_SPAWNEO);
             moneda = new Moneda(this, "moneda" + i, posX, posY);
-            comprobarSIEstaContenido(moneda);
             monedas.add(moneda);
         }
-
-        this.objetos.addAll(monedas);
 
         comidas = new ArrayList<>();
         comidas.add(new Comida(Comida.MANZANA_ROJA, "manzana1", this, -50, 0));
@@ -89,8 +87,6 @@ public class MapaCiudad extends Mapa {
         comidas.add(new Comida(Comida.GALLETA, "galleta1", this, -50, 150));
         comidas.add(new Comida(Comida.ORBE_VERDE, "orbe_verde1", this, -50, 200));
         comidas.add(new Comida(Comida.ORBE_DORADO, "orbe_dorado1", this, -50, 250));
-
-        this.objetos.addAll(comidas);
 
     }
 
