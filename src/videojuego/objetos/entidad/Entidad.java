@@ -6,10 +6,12 @@ import java.awt.image.BufferedImage;
 import videojuego.GestorPrincipal;
 import videojuego.objetos.Objeto;
 import interfaz.Lienzo;
+import java.util.ArrayList;
 import java.util.Random;
 import videojuego.mapas.Mapa;
 import sprites.HojaSprites;
 import videojuego.GESTORJUEGO.estados.EstadoAventura;
+import videojuego.objetos.Colision;
 import static videojuego.objetos.entidad.Enemigo.Enemigo.ZOMBIES_MUERTOS;
 
 public abstract class Entidad {
@@ -60,8 +62,8 @@ public abstract class Entidad {
         alto_ente = lado / 2;
 
         if (tag.compareToIgnoreCase(Objeto.Tag.JUGADOR) != 0) {
-            this.x = centrox + this.random.nextInt(GestorPrincipal.ANCHO) - GestorPrincipal.CENTROX;
-            this.y = centroy + this.random.nextInt(GestorPrincipal.ALTO) - GestorPrincipal.CENTROY;
+            this.x = centrox + this.random.nextInt(800) - GestorPrincipal.CENTROX;
+            this.y = centroy + this.random.nextInt(600) - GestorPrincipal.CENTROY;
         }
         posx_inicial = (int) x;
         posy_inicial = (int) y;
@@ -74,7 +76,9 @@ public abstract class Entidad {
         sprite_actual = frente0;
 
         generarCollides(centrox, centroy, tag);
-
+        
+        
+            
         this.vida_maxima = 100;
         vida_actual = vida_maxima;
         esta_vivo = true;

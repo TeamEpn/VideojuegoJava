@@ -30,7 +30,8 @@ public class MapaCiudad extends Mapa {
     public void generarObjetosColisionables(final int x, final int y, final Jugador jugador) {
 
         this.objetos = new ArrayList<>();
-
+        this.objetos.addAll(monedas);
+        this.objetos.addAll(comidas);
         //CASAS
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 8 + desfasey - y, 38, 125), "Casa 1 Izquierda", Objeto.Tag.EDIFICIO));
         objetos.add(new Objeto(new Rectangle(0 + desfasex - x, 256 + desfasey - y, 38, 94), "Casa 2 Izquierda", Objeto.Tag.EDIFICIO));

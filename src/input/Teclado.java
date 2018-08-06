@@ -51,14 +51,14 @@ public class Teclado implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if ((ke.getKeyCode() != KeyEvent.VK_E) && (ke.getKeyCode() != KeyEvent.VK_1) && (ke.getKeyCode() != KeyEvent.VK_2)) {
+        if ((ke.getKeyCode() != KeyEvent.VK_E) && (ke.getKeyCode() != KeyEvent.VK_1) && (ke.getKeyCode() != KeyEvent.VK_2)&& (ke.getKeyCode() != KeyEvent.VK_T)) {
             teclas[ke.getKeyCode()] = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        if ((ke.getKeyCode() != KeyEvent.VK_1) && (ke.getKeyCode() != KeyEvent.VK_E) && (ke.getKeyCode() != KeyEvent.VK_2)) {
+        if ((ke.getKeyCode() != KeyEvent.VK_1) && (ke.getKeyCode() != KeyEvent.VK_E) && (ke.getKeyCode() != KeyEvent.VK_2) && (ke.getKeyCode() != KeyEvent.VK_T)) {
             teclas[ke.getKeyCode()] = false;
         } else {
             teclas[ke.getKeyCode()] = true;

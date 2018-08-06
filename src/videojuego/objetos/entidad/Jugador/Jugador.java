@@ -90,6 +90,8 @@ public class Jugador extends Entidad {
 
         this.nombre = "JUGADOR";
         iniciarThreadsPermanentes();
+        
+        
     }
 
     public Jugador(int x, int y, int vida_actual, BufferedImage sprite_actual) {
@@ -308,11 +310,12 @@ public class Jugador extends Entidad {
     public void acciones(Lienzo lienzo) {
 
         if (lienzo.getTeclado().poder_tiempo) {
-
+            Teclado.teclas[KeyEvent.VK_T] = false;
             if (mana_actual >= 50) {
                 mana_actual -= 50;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
-
+                
+                
                 Sonido.EFECTO_VIAJE_TIEMPO.reproducir();
                 new Thread(new HiloAnimacionTiempo(this, estados)).start();
                 Animacion.esta_activa = true;
@@ -486,10 +489,6 @@ public class Jugador extends Entidad {
                 if (this.getMana_actual() >= 2) {
                     this.quitarMana(2);
                 }
-
-                GestorEstado.cambiarEstado(0);
-                EstadoAventura.mapa_actual = EstadoAventura.mapas[1];
-                this.setMapa(EstadoAventura.mapa_actual);
             }
             if (col.getTag().compareToIgnoreCase(Objeto.Tag.TELEPORT) == 0) {
 
@@ -513,9 +512,10 @@ public class Jugador extends Entidad {
                     EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 }
 
-                EstadoAventura.mapa_actual.musica();
-                EstadoAventura.mapa_actual.iniciarEnemigos(5);
                 this.setMapa(EstadoAventura.mapa_actual);
+                EstadoAventura.mapa_actual.musica();
+                EstadoAventura.mapa_actual.iniciarEnemigos(3);
+                
 
                 this.x = -1 * this.mapa.iniciox;
                 this.y = -1 * this.mapa.inicioy;

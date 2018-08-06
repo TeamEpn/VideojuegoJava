@@ -21,13 +21,40 @@ public class Enemigo extends Entidad {
     public boolean esBoss = false;
 
     public Enemigo(Jugador jugador, String id) {
-        
+
         //el centrox para ubicarlo en la esquina superior izquierda
         super("/imagenes/hojasEnemigos/1.png", 32, GestorPrincipal.CENTROX, GestorPrincipal.CENTROY, Objeto.Tag.ENEMIGO,
                 new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}, new int[]{3, 0});
 
-        this.jugador = jugador;
         this.setMapa(EstadoAventura.mapa_actual);
+        boolean buen_spawn = false;
+        for (int a = 0; a < 1000; a++) {
+            String[] direccion = {"", "", "", ""};
+            ArrayList<Objeto> info_objetos_colisionados = new ArrayList<>();
+
+            if (mapa.objetos != null) {
+                for (int i = 0; i < mapa.objetos.size(); i++) {
+                    Colision.obtenerInfoColisionEnemigo(this, mapa.objetos.get(i), direccion, info_objetos_colisionados);
+                }
+
+                if (info_objetos_colisionados.isEmpty()) {
+                    buen_spawn = true;
+                    break;
+                } else {
+                    this.x = this.random.nextInt(800) - jugador.getX();
+                    this.y = this.random.nextInt(600) - jugador.getY();
+                }
+            }
+
+        }
+        if (!buen_spawn) {
+            System.out.println("DIRECTO");
+            this.x = 730 - jugador.getX();
+            this.y = 170 - jugador.getY();
+        }
+
+        this.jugador = jugador;
+
         this.nombre = "ZOMBIE";
         this.id = id;
     }
@@ -73,7 +100,7 @@ public class Enemigo extends Entidad {
             if (!(direccion[2].compareToIgnoreCase("entorno_abajo") == 0)
                     && !(direccion[2].compareToIgnoreCase("jugador_abajo") == 0)) {
                 this.sprite_actual = this.frente0;
-                this.y += this.velocidad/2;
+                this.y += this.velocidad / 2;
             }
 
         } else if (jugador.getY() < this.y) {
@@ -81,7 +108,7 @@ public class Enemigo extends Entidad {
             if (!(direccion[0].compareToIgnoreCase("entorno_arriba") == 0)
                     && !(direccion[0].compareToIgnoreCase("jugador_arriba") == 0)) {
                 this.sprite_actual = this.espalda0;
-                this.y -= this.velocidad/2;
+                this.y -= this.velocidad / 2;
             }
         }
 
@@ -89,13 +116,13 @@ public class Enemigo extends Entidad {
             if (!(direccion[1].compareToIgnoreCase("entorno_derecha") == 0)
                     && !(direccion[1].compareToIgnoreCase("jugador_derecha") == 0)) {
                 this.sprite_actual = this.lado_izquierdo0;
-                this.x += this.velocidad/2;
+                this.x += this.velocidad / 2;
             }
         } else if (jugador.getX() < this.x) {
             if (!(direccion[3].compareToIgnoreCase("entorno_izquierda") == 0)
                     && !(direccion[3].compareToIgnoreCase("jugador_izquierda") == 0)) {
                 this.sprite_actual = this.lado_derecho0;
-                this.x -= this.velocidad/2;
+                this.x -= this.velocidad / 2;
             }
         }
 

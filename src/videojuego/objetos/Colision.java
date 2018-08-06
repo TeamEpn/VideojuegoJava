@@ -22,7 +22,7 @@ public class Colision {
 
         
         if (col.getTag().compareToIgnoreCase(Objeto.Tag.COMIDA) == 0 || col.getTag().compareToIgnoreCase(Objeto.Tag.MONEDA) == 0) {
-            
+            System.out.println("COMIDA");
             for(int i=0;i<4;i++)
                 if (lados_ente[i].intersects(lados_col[0])) {
                     obj_colision.add(col);
@@ -163,6 +163,22 @@ public class Colision {
             //"izquierda";
             obj_colision.add(col);
             direccion[3] = "entorno_izquierda";
+        }
+    }
+    
+    
+    public static void obtenerInfoColisionGeneral(Objeto obj, Objeto col,String[] direccion, ArrayList<Objeto> obj_colision) {
+        
+        //los lados se reciben en sentido horario
+        //en orden de manecillas del reloj: arriba,derecha,abajo,izquierda
+        Rectangle[] lados_ente = obj.getRectangle();
+        Rectangle[] lados_col = col.getRectangle();
+
+        
+        if (lados_ente[0].intersects(lados_col[0])) {
+            //"arriba";
+            obj_colision.add(col);
+            direccion[0] = "topo";
         }
     }
 }

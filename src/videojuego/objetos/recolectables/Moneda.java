@@ -2,9 +2,12 @@ package videojuego.objetos.recolectables;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import videojuego.objetos.Objeto;
 import videojuego.mapas.Mapa;
+import videojuego.objetos.Colision;
 import videojuego.objetos.entidad.Jugador.Jugador;
 
 public class Moneda extends Objeto {
@@ -15,14 +18,16 @@ public class Moneda extends Objeto {
     int posX, posY;
     Mapa mapa;
     public boolean colisiona = false;
+    Random random = new Random();
 
     public Moneda(Mapa mapa, String id, int posx, int posy) {
-        super(new Rectangle(0, 0, 32, 32), id, Objeto.Tag.MONEDA);
+        super(new Rectangle(posx, posy, 32, 32), id, Objeto.Tag.MONEDA);
 
         this.mapa = mapa;
         this.id = id;
-        posX = posx;
-        posY = posy;
+        this.posX = posx;
+        this.posY = posy;
+
     }
 
     public void dibujar(Graphics g, int desfasex, int desfasey, Jugador jugador) {
