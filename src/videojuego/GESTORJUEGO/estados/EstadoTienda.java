@@ -35,7 +35,7 @@ public class EstadoTienda implements EstadoJuego {
     Boton boton_vida = new Boton(350, 250, "30 de Vida por $400", 32, 58);
     Boton boton_mana = new Boton(550, 250, "30 de Mana por $400", 32, 58);
     boolean dineroSuficiente = true, vidaAlMaximo, manaAlMaximo;
-    public static boolean primeraVez = true;
+    public static boolean primeraVez = true, salioDelINN = false;
     Dialogo dialogo;
     Decision decision;
 
@@ -53,27 +53,30 @@ public class EstadoTienda implements EstadoJuego {
     public void actualizar(Lienzo lienzo) {
 
         if (primeraVez) {
-            if (Dialogo.activado) {
-                this.dialogo.actualizar(lienzo);
-            } else {
-                this.decision.actualizar(lienzo);
-                if (lienzo.getMouse().isClick_izquierdo()) {
-                    //VERIFICACION DE BOTONES
-                    int mx = lienzo.getMouse().getPosx();
-                    int my = lienzo.getMouse().getPosy();
-                    if(decision.opcion1.esClickeado(mx, my)){
-                        jugador.setDescicionPistola("potente");
-                        jugador.getPistola().balas_totales = 30;
-                        jugador.getPistola().tamaño_cartucho = 5;
-                    }else if(decision.opcion2.esClickeado(mx, my)){
-                        jugador.setDescicionPistola("rapida");
-                        jugador.getPistola().balas_totales = 250;
-                        jugador.getPistola().tamaño_cartucho =20;
+            if (salioDelINN == false) {
+                if (Dialogo.activado) {
+                    this.dialogo.actualizar(lienzo);
+                } else {
+                    this.decision.actualizar(lienzo);
+                    if (lienzo.getMouse().isClick_izquierdo()) {
+                        //VERIFICACION DE BOTONES
+                        int mx = lienzo.getMouse().getPosx();
+                        int my = lienzo.getMouse().getPosy();
+                        if (decision.opcion1.esClickeado(mx, my)) {
+                            jugador.setDescicionPistola("potente");
+                            jugador.getPistola().balas_totales = 30;
+                            jugador.getPistola().tamaño_cartucho = 5;
+                        } else if (decision.opcion2.esClickeado(mx, my)) {
+                            jugador.setDescicionPistola("rapida");
+                            jugador.getPistola().balas_totales = 250;
+                            jugador.getPistola().tamaño_cartucho = 15;
+                        }
+                        primeraVez = false;
                     }
-                    primeraVez = false;
-                }
 
+                }
             }
+
         } else {
             vidaAlMaximo = jugador.getVida_actual() == jugador.getVida_maxima();
             manaAlMaximo = jugador.getMana_actual() == jugador.getMana_maximo();

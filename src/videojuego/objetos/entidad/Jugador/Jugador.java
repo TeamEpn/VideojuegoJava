@@ -321,6 +321,14 @@ public class Jugador extends Entidad {
         if (lienzo.getTeclado().poder_tiempo) {
 
             if (mana_actual >= 50) {
+                
+                if(EstadoAventura.mapa_actual.getNombre().equals("Casa Inversiones") && EstadoTienda.salioDelINN == false){
+                    EstadoTienda.primeraVez = true;
+                    descicionPistola = "normal";
+                    pistola.tamaño_cartucho = 10;
+                    damagePistola = 20;
+                }
+                
                 mana_actual -= 50;
                 Jugador[] estados = HiloPosicionesTiempo.cola.obtenerEstadosJugador();
 
@@ -386,7 +394,6 @@ public class Jugador extends Entidad {
 
         if (lienzo.getTeclado().recargar_arma) {
             lienzo.getTeclado().recargar_arma = false;
-            System.out.println(descicionPistola);
 
             if (!esta_recargando) {
                 if (descicionPistola.equals("normal")) {
@@ -533,6 +540,7 @@ public class Jugador extends Entidad {
                         EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                     }
                 } else if (this.mapa == EstadoAventura.mapas[3]) {
+                    EstadoTienda.salioDelINN = true;
                     EstadoAventura.mapa_actual = EstadoAventura.mapas[0];
                 }
 
