@@ -315,7 +315,7 @@ public class Jugador extends Entidad {
     }
 
     public static boolean nueva_decision = false;
-    Decision decision = new Decision("opcion1", "opcion2");
+    Decision decision = new Decision("Ignorar", "Salvar");
     private boolean esta_recargando = false;
 
     public void acciones(Lienzo lienzo) {

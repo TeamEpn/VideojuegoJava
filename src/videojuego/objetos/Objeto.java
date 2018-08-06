@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 public class Objeto {
 
     private Rectangle[] rectangle;
-    private final String id, tag;
+    protected final String id, tag;
 
     public class Tag {
 

@@ -178,7 +178,10 @@ public class Colision {
         if (lados_ente[0].intersects(lados_col[0])) {
             //"arriba";
             obj_colision.add(col);
-            direccion[0] = "topo";
+            direccion[0] = "jugador_arriba";
+            direccion[1] = "jugador_derecha";
+            direccion[2] = "jugador_abajo";
+            direccion[3] = "jugador_izquierda";
         }
     }
 }

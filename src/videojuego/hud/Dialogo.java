@@ -21,9 +21,9 @@ public class Dialogo {
     public static boolean activado = false;
     public static String[] dialogo;
     public static final String[] dialogo_terra = 
-    {"Dialogo1 de Terra.",
-     "Dialogo2 de Terra.",
-     "Dialogo3 de Terra."};
+    {"La vida es tan cruel, ya no lo resisto más.",
+     "Todos siguen suicidandose por haber visto 'eso'.",
+     "No esperaré más mi turno, acabaré con mi vida ahora mismo."};
     public static final String[] dialogo_rosa = 
     {"Dialogo1 de Rosa.",
      "Dialogo2 de Rosa.",

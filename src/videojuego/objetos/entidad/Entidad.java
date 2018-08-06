@@ -155,10 +155,16 @@ public abstract class Entidad {
     }
     
     protected void generarCollidesBoss(int centrox, int centroy, String tag) {
-        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente - 20 + sep, centroy + alto_ente - 7, ancho_ente - sep + 8, 1);
-        Rectangle collide_derecha = new Rectangle(centrox + 38, centroy + alto_ente + sep - 5, 1, alto_ente - sep * 2 + 8);
-        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep - 4, centroy + alto_ente * 2 , ancho_ente - sep + 5, 1);
-        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente - 16, centroy + alto_ente + sep - 4, 1, alto_ente - sep * 2 + 8);
+        int aumento_zombie = 1,aumento_jugador = 0;
+        if(tag.compareToIgnoreCase(Objeto.Tag.ENEMIGO) == 0)
+            aumento_zombie = (alto_ente/2)*3;
+        else
+            aumento_jugador = 10;
+        Rectangle collide_arriba = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente+ aumento_jugador, ancho_ente - sep, 1);
+        Rectangle collide_derecha = new Rectangle(centrox + 32, centroy + alto_ente + sep + 2 +aumento_jugador, 1, alto_ente - aumento_jugador + aumento_zombie - sep * 2);
+        Rectangle collide_abajo = new Rectangle(centrox + ancho_ente / 2 + sep, centroy + alto_ente * 2 + aumento_zombie + 4, ancho_ente - sep + 4, 1);
+        Rectangle collide_izquierda = new Rectangle(centrox + ancho_ente / 2, centroy + alto_ente + sep + 2+aumento_jugador, 1, alto_ente - aumento_jugador + aumento_zombie - sep * 2);
+
 
         this.objeto_ente = new Objeto(new Rectangle[]{collide_arriba, collide_derecha,
             collide_abajo, collide_izquierda}, this.nombre, tag);

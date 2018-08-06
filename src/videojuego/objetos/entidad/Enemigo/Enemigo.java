@@ -68,9 +68,9 @@ public class Enemigo extends Entidad {
         this.jugador = jugador;
         this.id = id;
         this.setMapa(EstadoAventura.mapa_actual);
-        this.vida_actual = (this.vida_maxima = 1000);
+        this.vida_actual = (this.vida_maxima = 500);
         esBoss = boss;
-        this.velocidad = this.velocidad_original * 2;
+        //this.velocidad = this.velocidad_original * 2;
     }
 
     @Override
@@ -187,25 +187,15 @@ public class Enemigo extends Entidad {
 
             g.drawImage(this.sprite_actual, this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY(), null);
             g.setColor(Color.red);
-            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 20, 6);
+            g.fillRect(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 5, vida_actual / 10, 6);
             g.setColor(Color.orange);
 
-            this.vida_maxima = 900;
+            this.vida_maxima = 500;
             this.generarCollidesBoss(this.x + GestorPrincipal.CENTROX - jugador.getX(), this.y + GestorPrincipal.CENTROY - jugador.getY() - 18, Objeto.Tag.ENEMIGO);
 
             for (int i = 0; i < 4; i++) {
-                if (i == 0 || i == 2) {
-                    if (i == 0) {
-                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
-                                this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-                    } else {
-                        g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y + 18,
-                                this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
-                    }
-                } else {
-                    g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y - 3,
-                            this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height + 20);
-                }
+                g.drawRect(this.objeto_ente.getRectangle()[i].x, this.objeto_ente.getRectangle()[i].y,
+                        this.objeto_ente.getRectangle()[i].width, this.objeto_ente.getRectangle()[i].height);
 
             }
         }
