@@ -1,0 +1,24 @@
+INSTALACIÓN
+NOTA: El archivo .jar no se genero con exito debido a  un error al
+agregar los recursos al ejecutable ya que estos no se añaden correctamente
+por lo tanto se debera abrir en el IDE netbeans para poder ejecutarlo.
+
+1.- Abrir el IDE netbeans.
+2.- Abrir la pestaña file y seleccionar "Open Project".
+3.- Buscar nuestro proyecto (el archivo zip) en el directorio.
+4.- Clic en open project una vez que lo hayamos seleccionado.
+5.- El proyecto esta listo para ejecutarse, dando al boton en la parte superior
+o presionando F6.
+
+
+arriba = W
+abajo = S
+izquierda = A
+derecha = D
+salir = ESCAPE
+correr = SHIFT
+poderBola de fuego = 1
+poder_tiempo = T
+disparar_arma = E
+recargar_arma = R
+ataque_espada = 2
